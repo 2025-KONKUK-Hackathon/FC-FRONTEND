@@ -1,11 +1,17 @@
 export const ROUTES = {
-  LOGIN: "/login",
-  SIGNUP: "/signup",
-  GATHERING_CREATE: "/gather/create",
-  GATHERING_DETAIL: "/gather/detail/:id",
-  GATHERING_LIST: "/gather/list",
-  GATHERING_MEMBERS: "/gather/members",
-  POSTS_CREATE: "/posts/create",
-  POSTS_DETAIL: "/posts/detail/:id",
-  POSTS_LIST: "/posts/list",
-};
+  AUTH: {
+    LOGIN: "/login",
+    SIGNUP: "/signup",
+  },
+  GATHERING: {
+    CREATE: "/gather/create",
+    DETAIL: "/gather/detail/:id",
+    LIST: "/gather/list",
+    MEMBERS: "/gather/members",
+  },
+  POSTS: {
+    CREATE: "/posts/create",
+    DETAIL: "/posts/detail/:id",
+    LIST: "/posts/list",
+  },
+} as const;

@@ -20,39 +20,39 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: ROUTES.LOGIN,
+        path: ROUTES.AUTH.LOGIN,
         element: <Login />,
       },
       {
-        path: ROUTES.SIGNUP,
+        path: ROUTES.AUTH.SIGNUP,
         element: <SignUp />,
       },
       {
-        path: ROUTES.GATHERING_LIST,
+        path: ROUTES.GATHERING.LIST,
         element: <GatheringList />,
       },
       {
-        path: ROUTES.GATHERING_CREATE,
+        path: ROUTES.GATHERING.CREATE,
         element: <GatheringCreate />,
       },
       {
-        path: ROUTES.GATHERING_DETAIL,
+        path: ROUTES.GATHERING.DETAIL,
         element: <GatheringDetail />,
       },
       {
-        path: ROUTES.GATHERING_MEMBERS,
+        path: ROUTES.GATHERING.MEMBERS,
         element: <GatheringMembers />,
       },
       {
-        path: ROUTES.POSTS_LIST,
+        path: ROUTES.POSTS.LIST,
         element: <PostsList />,
       },
       {
-        path: ROUTES.POSTS_CREATE,
+        path: ROUTES.POSTS.CREATE,
         element: <PostsCreate />,
       },
       {
-        path: ROUTES.POSTS_DETAIL,
+        path: ROUTES.POSTS.DETAIL,
         element: <PostsDetail />,
       },
     ],
