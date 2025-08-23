@@ -34,16 +34,12 @@ const router = createBrowserRouter([
 
       // 메인 화면
       {
-        path: "/",
+        path: ROUTES.HOME,
         element: <MainLayout />,
         children: [
           {
             index: true,
             element: <PostList />
-          },
-          {
-            path: ROUTES.POSTS.LIST,
-            element: <PostList />,
           },
           {
             path: ROUTES.GATHERING.LIST,
