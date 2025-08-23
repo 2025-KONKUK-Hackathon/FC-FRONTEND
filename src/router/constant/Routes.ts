@@ -1,18 +1,18 @@
 export const ROUTES = {
-  HOME: "/",
+  HOME: '/',
   AUTH: {
-    LOGIN: "/login",
-    SIGNUP: "/signup",
+    LOGIN: '/login',
+    SIGNUP: '/signup',
   },
   GATHERING: {
-    CREATE: "/gather/create",
-    DETAIL: "/gather/detail/:id",
-    LIST: "/gather/list",
-    MEMBERS: "/gather/members",
+    CREATE: '/gather/create',
+    DETAIL: '/gather/detail/:id',
+    LIST: '/gather/list',
+    MEMBERS: '/gather/members',
   },
   POSTS: {
-    CREATE: "/posts/create",
-    DETAIL: "/posts/detail/:id",
+    CREATE: '/posts/create',
+    DETAIL: '/posts/detail/:id',
   },
   USER: {
     DETAIL: "/user/:id",
