@@ -24,7 +24,6 @@ globalStyle("#root", {
 
 globalStyle("main", {
   //TODO: header, footer 추가 후 minHeight 및 paddingTop 수정
-  minHeight: "100vh",
+  minHeight: "calc(100vh - 12rem)",
   flexGrow: 1,
-  paddingTop: "17.16rem",
 });

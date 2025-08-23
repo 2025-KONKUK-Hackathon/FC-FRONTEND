@@ -3,7 +3,6 @@ import { vars } from "@styles/theme.css";
 
 export const main = style({
     display: 'flex',
-    marginTop: '6rem',
-    marginBottom: '6rem',
-    
+    paddingTop: '6rem',
+    paddingBottom: '6rem',
 })
