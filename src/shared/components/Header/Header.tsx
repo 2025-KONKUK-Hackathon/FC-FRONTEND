@@ -4,7 +4,7 @@ interface HeaderProps {
   onBackClick?: () => void;
 }
 
-export const Header = ({ onBackClick }: HeaderProps) => {
+const Header = ({ onBackClick }: HeaderProps) => {
   const handleBackClick = () => {
     if (onBackClick) {
       onBackClick();
@@ -26,3 +26,5 @@ export const Header = ({ onBackClick }: HeaderProps) => {
     </header>
   );
 };
+
+export default Header;

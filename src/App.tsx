@@ -1,9 +1,12 @@
-import Footer from "@shared/components/Footer/Footer";
-import { Header } from "@shared/components/Header/Header";
+import MainLayout from "@pages/mainLayout/MainLayout";
 import "@styles/global.css.ts";
 
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <MainLayout />
+    </div>
+  );
 }
 
 export default App;

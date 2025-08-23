@@ -5,11 +5,12 @@ export const container = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  position: 'relative',
+  position: 'fixed',
+  top: 0,
   width: '100%',
   height: '6rem',
-  backgroundColor: vars.color.grey200,
-  borderBottom: `1px solid ${vars.color.grey200}`,
+  backgroundColor: vars.color.grey100,
+  borderBottom: `1px solid ${vars.color.grey100}`,
   padding: '0 1.6rem',
 });
 

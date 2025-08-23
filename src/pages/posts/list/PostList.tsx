@@ -1,5 +1,9 @@
-export default function PostList() {
+const PostList = () => {
   return (
-    <div>PostList</div>
+    <div>
+      
+    </div>
   )
 }
+
+export default PostList
