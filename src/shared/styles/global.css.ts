@@ -1,6 +1,7 @@
 import { globalStyle } from "@vanilla-extract/css";
 import "@styles/layers.css.ts";
 import "@styles/reset.css.ts";
+import { vars } from "@styles/theme.css.ts";
 
 globalStyle("html", {
   fontSize: "62.5%",
@@ -18,6 +19,7 @@ globalStyle("#root", {
   display: "flex",
   flexDirection: "column",
   flexGrow: 1,
+  background: vars.color.Black,
 });
 
 globalStyle("main", {
