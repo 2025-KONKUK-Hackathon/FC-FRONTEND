@@ -1,5 +1,3 @@
 export default function GatheringList() {
-  return (
-    <div>GatheringList</div>
-  )
+  return <div>GatheringList</div>;
 }
