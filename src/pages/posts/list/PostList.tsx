@@ -1,7 +1,9 @@
+import * as styles from './PostList.css'
+
 const PostList = () => {
   return (
-    <div>
-      
+    <div className={styles.test}>
+      안녕
     </div>
   )
 }

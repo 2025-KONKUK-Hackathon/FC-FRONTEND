@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
-import { ROUTES } from '@/router/constant/Routes';
-import Layout from '@/router/Layout';
+import { ROUTES } from '@router/constant/Routes';
+import Layout from '@router/Layout';
 import MainLayout from '@pages/mainLayout/MainLayout';
 
 const Login = lazy(() => import('@pages/auth/login/Login'));
@@ -34,6 +34,7 @@ const router = createBrowserRouter([
 
       // 메인 화면
       {
+        path: "/",
         element: <MainLayout />,
         children: [
           {
