@@ -1,21 +1,24 @@
-import * as styles from './Header.css';
+import * as styles from "./Header.css";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   onBackClick?: () => void;
 }
 
 const Header = ({ onBackClick }: HeaderProps) => {
+  const navigate = useNavigate();
+
   const handleBackClick = () => {
     if (onBackClick) {
       onBackClick();
     } else {
-      window.history.back();
+      navigate(-1);
     }
   };
 
   return (
     <header className={styles.container}>
-      <button 
+      <button
         className={styles.backButton}
         onClick={handleBackClick}
         aria-label="뒤로가기"
