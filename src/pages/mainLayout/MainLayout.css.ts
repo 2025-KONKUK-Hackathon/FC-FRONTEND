@@ -1,8 +1,16 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "@styles/theme.css";
+
+export const layout = style({
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  paddingTop: "6rem",
+  paddingBottom: "6rem",
+});
 
 export const main = style({
-    display: 'flex',
-    paddingTop: '6rem',
-    paddingBottom: '6rem',
-})
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  minHeight: "calc(100vh - 12rem)",
+});

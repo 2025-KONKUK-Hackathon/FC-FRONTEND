@@ -5,9 +5,9 @@ import * as styles from './MainLayout.css'
 
 const MainLayout = () => {
   return (
-    <div className={styles.main}>
+    <div className={styles.layout}>
       <Header />
-      <main>
+      <main className={styles.main}>
         <Outlet />
       </main>
       <Footer />

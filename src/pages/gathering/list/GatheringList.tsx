@@ -1,5 +1,11 @@
-export default function GatheringList() {
+import * as styles from './GatheringList.css'
+
+const GatheringList = () => {
   return (
-    <div>GatheringList</div>
+    <div className={styles.test}>
+      GatheringList
+    </div>
   )
 }
+
+export default GatheringList
