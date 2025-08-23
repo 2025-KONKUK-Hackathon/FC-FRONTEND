@@ -1,17 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClipboard, faUsers } from "@fortawesome/free-solid-svg-icons";
-import { container, navItem, navText } from "./Footer.css";
+import * as styles from "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className={container}>
-      <button type="button" className={navItem}>
+    <div className={styles.container}>
+      <button type="button" className={styles.navItem}>
         <FontAwesomeIcon icon={faClipboard} />
-        <span className={navText}>게시판</span>
+        <span className={styles.navText}>게시판</span>
       </button>
-      <button type="button" className={navItem}>
+      <button type="button" className={styles.navItem}>
         <FontAwesomeIcon icon={faUsers} />
-        <span className={navText}>모임</span>
+        <span className={styles.navText}>모임</span>
       </button>
     </div>
   );

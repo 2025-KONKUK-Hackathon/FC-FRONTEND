@@ -1,4 +1,4 @@
-import { container, title, backButton } from './Header.css';
+import * as styles from './Header.css';
 
 interface HeaderProps {
   onBackClick?: () => void;
@@ -14,15 +14,15 @@ export const Header = ({ onBackClick }: HeaderProps) => {
   };
 
   return (
-    <header className={container}>
+    <header className={styles.container}>
       <button 
-        className={backButton}
+        className={styles.backButton}
         onClick={handleBackClick}
         aria-label="뒤로가기"
       >
         ←
       </button>
-      <h1 className={title}>feat/connect</h1>
+      <h1 className={styles.title}>feat/connect</h1>
     </header>
   );
 };
