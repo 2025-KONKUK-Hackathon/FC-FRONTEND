@@ -42,11 +42,11 @@ const router = createBrowserRouter([
             element: <PostList />
           },
           {
-            path: ROUTES.HOME, // "/posts" 또는 홈 경로
+            path: ROUTES.POSTS.LIST,
             element: <PostList />,
           },
           {
-            path: ROUTES.GATHERING.LIST, // "/gatherings"
+            path: ROUTES.GATHERING.LIST,
             element: <GatheringList />,
           },
         ]
