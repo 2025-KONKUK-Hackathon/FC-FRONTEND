@@ -1,4 +1,5 @@
 export const ROUTES = {
+  HOME: "/",
   AUTH: {
     LOGIN: "/login",
     SIGNUP: "/signup",
@@ -12,6 +13,5 @@ export const ROUTES = {
   POSTS: {
     CREATE: "/posts/create",
     DETAIL: "/posts/detail/:id",
-    LIST: "/posts/list",
   },
 } as const;

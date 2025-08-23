@@ -15,10 +15,16 @@ const PostsCreate = lazy(() => import('@pages/posts/create/CreatePost'));
 const PostsDetail = lazy(() => import('@pages/posts/detail/PostDetail'));
 const PostsList   = lazy(() => import('@pages/posts/list/PostList'));
 
+const NonFound = lazy(() => import('@shared/components/nonFound/NonFound'));
+
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
+      {
+        path: ROUTES.HOME,
+        element: <PostsList />,
+      },
       {
         path: ROUTES.AUTH.LOGIN,
         element: <Login />,
@@ -44,10 +50,6 @@ const router = createBrowserRouter([
         element: <GatheringMembers />,
       },
       {
-        path: ROUTES.POSTS.LIST,
-        element: <PostsList />,
-      },
-      {
         path: ROUTES.POSTS.CREATE,
         element: <PostsCreate />,
       },
@@ -55,6 +57,10 @@ const router = createBrowserRouter([
         path: ROUTES.POSTS.DETAIL,
         element: <PostsDetail />,
       },
+      {
+        path: '*',
+        element: <NonFound />,
+      }
     ],
   },
 ]);
