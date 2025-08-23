@@ -1,21 +1,29 @@
-import { createBrowserRouter } from 'react-router-dom';
-import { lazy } from 'react';
-import { ROUTES } from '@/router/constant/Routes';
-import Layout from '@/router/Layout';
+import { createBrowserRouter } from "react-router-dom";
+import { lazy } from "react";
+import { ROUTES } from "@/router/constant/Routes";
+import Layout from "@/router/Layout";
 
-const Login = lazy(() => import('@/pages/auth/login/Login'));
-const SignUp = lazy(() => import('@/pages/auth/signup/Signup'));
+const Login = lazy(() => import("@/pages/auth/login/Login"));
+const SignUp = lazy(() => import("@/pages/auth/signup/Signup"));
 
-const GatheringCreate = lazy(() => import('@/pages/gathering/create/CreateGathering'));
-const GatheringDetail = lazy(() => import('@/pages/gathering/detail/GatheringDetail'));
-const GatheringList = lazy(() => import('@/pages/gathering/list/GatheringList'));
-const GatheringMembers = lazy(() => import('@/pages/gathering/members/ApplicantList'));
+const GatheringCreate = lazy(
+  () => import("@/pages/gathering/create/CreateGathering")
+);
+const GatheringDetail = lazy(
+  () => import("@/pages/gathering/detail/GatheringDetail")
+);
+const GatheringList = lazy(
+  () => import("@/pages/gathering/list/GatheringList")
+);
+const GatheringMembers = lazy(
+  () => import("@/pages/gathering/members/ApplicantList")
+);
 
-const PostsCreate = lazy(() => import('@/pages/posts/create/CreatePost'));
-const PostsDetail = lazy(() => import('@/pages/posts/detail/PostDetail'));
-const PostsList = lazy(() => import('@/pages/posts/list/PostList'));
+const PostsCreate = lazy(() => import("@/pages/posts/create/CreatePost"));
+const PostsDetail = lazy(() => import("@/pages/posts/detail/PostDetail"));
+const PostsList = lazy(() => import("@/pages/posts/list/PostList"));
 
-const NonFound = lazy(() => import('@/shared/components/nonFound/NonFound'));
+const NotFound = lazy(() => import("@shared/components/notFound/NotFound"));
 
 const router = createBrowserRouter([
   {
@@ -58,8 +66,8 @@ const router = createBrowserRouter([
         element: <PostsDetail />,
       },
       {
-        path: '*',
-        element: <NonFound />,
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
