@@ -77,7 +77,7 @@ export const buttonStyle = recipe({
     { variants: { variant: 'fill', bgColor: 'grey800' }, style: { backgroundColor: vars.color.grey800 } },
     { variants: { variant: 'fill', bgColor: 'grey900' }, style: { backgroundColor: vars.color.grey900 } },
     { variants: { variant: 'fill', bgColor: 'KU_Darkgreen' }, style: { backgroundColor: vars.color.KU_Darkgreen } },
-    { variants: { variant: 'fill', bgColor: 'White' }, style: { backgroundColor: vars.color.White } },
+    { variants: { variant: 'fill', bgColor: 'White' }, style: { backgroundColor: vars.color.White, color: vars.color.Black } },
     { variants: { variant: 'fill', bgColor: 'Black' }, style: { backgroundColor: vars.color.Black } },
     { variants: { variant: 'fill', bgColor: 'grey100' }, style: { backgroundColor: vars.color.grey100 } },
     { variants: { variant: 'fill', bgColor: 'Red' }, style: { backgroundColor: vars.color.Red } },
