@@ -5,7 +5,6 @@ export const buttonStyle = recipe({
   base: {
     display: 'flex',
     justifyContent: 'center',
-    borderRadius: '16px',
     cursor: 'pointer',
     ':disabled': {
       opacity: 0.7,
@@ -24,13 +23,19 @@ export const buttonStyle = recipe({
     },
     size: {
       small: {
-        width: '50%',
-        padding: '1.4rem 0',
+        padding: '0.8rem 1.6rem',
+        borderRadius: '8px',
         fontSize: '1.4rem',
+      },
+      medium: {
+        padding: '1.2rem 2.4rem',
+        borderRadius: '12px',
+        fontSize: '1.6rem',
       },
       large: {
         width: '100%',
         padding: '2rem 0',
+        borderRadius: '16px',
         fontSize: '1.6rem',
       }
     },
