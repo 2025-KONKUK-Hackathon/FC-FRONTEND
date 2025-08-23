@@ -1,4 +1,4 @@
-import * as styles from "./Input.css";
+import * as styles from "@shared/components/input/Input.css";
 import { Ic_eye, Ic_eye_close } from "@svg/index";
 import { useState } from "react";
 
