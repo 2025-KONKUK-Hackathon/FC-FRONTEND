@@ -17,11 +17,20 @@ export const vars = createGlobalTheme(":root", {
     grey800: "#212126",
     grey900: "#131316",
 
-    Sub0: "#00A8A1",
-    Sub1: "#F03939",
-    Sub2: "#E16E05",
-    Sub3: "#02B540",
-
-    Login: "#0E5F39",
+    Red: "#F03939",
+    // Category colors
+    Pink: "#FF0066",
+    Blue: "#0046FF",
+    Green: "#B4E50D",
+    Orange: "#FF6D28",
+    Purple: "#9400FF",
+    Coral: "#FF9E9E",
+    Ocean: "#00F5FF",
+    Mint: "#00FF99",
+    Lime: "#B4E50D",
+    Yellow: "#FFEB00",
+    Charcoal: "#007965",
   },
 });
+
+export type Color = keyof typeof vars.color;
