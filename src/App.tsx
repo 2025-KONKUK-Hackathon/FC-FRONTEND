@@ -1,9 +1,8 @@
-import router from "@router/Router";
+import PostList from "@pages/posts/list/PostList";
 import "@styles/global.css.ts";
-import { RouterProvider } from "react-router-dom";
 
 function App() {
-  return <RouterProvider router={router} />;
+  return <PostList />;
 }
 
 export default App;
