@@ -15,9 +15,9 @@ export const studentCouncilSection = style({
 });
 
 export const sectionTitle = style({
-  fontSize: "1.5rem",
+  fontSize: "1.9rem",
   fontWeight: "bold",
-  color: vars.color.grey100,
+  color: vars.color.KU_Lightgreen,
   margin: "0 1.6rem",
 });
 

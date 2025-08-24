@@ -3,6 +3,19 @@ import { createGlobalTheme } from '@vanilla-extract/css';
 export const vars = createGlobalTheme(':root', {
   color: {
     KU_Darkgreen: '#036B3F',
+    KU_Lightgreen: '#B8F329',
+    KU_Green: '#21B431',
+    KU_Magenta: '#E9708C',
+    KU_Yellow: '#F6DB00',
+    KU_Violet: '#C283C6',
+    KU_Orange: '#F0A704',
+    KU_DarkGray: '#656F76',
+    KU_Blue: '#61A7DD',
+    KU_CoolGray: '#B1B3B4',
+    KU_WarmGray: '#B0CDA6',
+    KU_LightGray: '#ECEBE3',
+    KU_Beige: '#F0F4DA',
+    KU_Black: '#000000',
     White: '#FFFFFF',
     Black: '#000000',
 
