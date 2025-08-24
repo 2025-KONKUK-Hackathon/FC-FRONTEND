@@ -53,12 +53,15 @@ const rainAnimation = keyframes({
 
 export const notFound = style({
   width: "100%",
+  height: "100vh",
   padding: "1rem",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   gap: "1rem",
+  boxSizing: "border-box",
+  overflow: "hidden",
 
   color: vars.color.White,
 });
@@ -141,7 +144,7 @@ export const notFound404 = style({
 });
 
 export const notFoundText = style({
-  fontSize: "1.8rem",
+  fontSize: "1rem",
   textAlign: "center",
   lineHeight: "1.5",
 });

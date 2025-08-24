@@ -7,7 +7,7 @@ export default function NotFound() {
   useEffect(() => {
     setTimeout(() => {
       navigate("/");
-    }, 500000);
+    }, 300000);
   }, []);
   return (
     <div className={styles.notFound}>

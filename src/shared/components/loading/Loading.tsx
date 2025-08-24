@@ -1,5 +1,6 @@
 import { vars } from "@shared/styles/theme.css";
 import { useEffect, useState } from "react";
+import * as styles from "./Loading.css";
 
 interface DotProps {
   position: number; // 1, 2, 3번째 점
@@ -48,7 +49,7 @@ function Dot({ position, isJumping }: DotProps) {
       cy={getY()}
       r={dotRadius}
       fill={vars.color.KU_Darkgreen}
-      className="transition-all duration-150 ease-linear"
+      className={styles.dotTransition}
     />
   );
 }
@@ -65,7 +66,7 @@ function Airplane({ isJumping }: { isJumping: boolean }) {
     <path
       d="M144.847 45.3083C144.239 42.8686 140.129 41.2171 137.92 40.6135C134.552 39.6927 131.669 40.3037 128.289 40.4408C125.449 40.5563 122.598 40.573 119.765 40.751L106.933 25.0587C105.983 24.1944 104.855 23.5634 103.55 23.4094C102.443 23.2789 99.3217 23.1957 98.2866 23.3724C96.7674 23.6313 96.8999 25.0262 97.4284 26.1642L103.489 41.5845L88.0833 42.3596C87.8962 42.3576 87.8012 42.2145 87.6761 42.131C86.3495 41.2421 84.4087 38.6327 83.1321 37.4251C82.5814 36.9041 81.7975 36.1604 81.0397 36.062C79.4702 35.8584 77.5008 35.7962 75.9904 36.2861C74.8552 36.6539 75.1484 37.7146 75.5154 38.696C76.9643 42.5689 78.7732 46.3483 80.2438 50.2182C80.9776 51.5742 82.8564 51.0822 84.1623 51.1853C99.989 52.4325 116.215 52.7793 132.046 52.1473C136.014 51.9886 146.404 51.5583 144.847 45.3083Z"
       fill={vars.color.Lime}
-      className="transition-all duration-150 ease-linear"
+      className={styles.airplaneTransition}
       style={{
         transform: `translate(${isJumping ? 4 : 0}px, ${
           getAirplaneY() - 45.3083
@@ -93,7 +94,7 @@ export default function LoadingSvg() {
   }, [currentView]);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className={styles.loadingContainer}>
       <svg
         width="170"
         height="73"
