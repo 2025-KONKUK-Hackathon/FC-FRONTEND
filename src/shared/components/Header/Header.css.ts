@@ -24,10 +24,19 @@ export const title = style({
 export const backButton = style({
   position: 'absolute',
   left: '1.6rem',
-  marginTop: '0.1rem',
   background: 'none',
   border: 'none',
   fontSize: '1.8rem',
   color: vars.color.grey400,
-  borderRadius: '4px',
+  cursor: 'pointer',
+});
+
+export const menuButton = style({
+  position: 'absolute',
+  right: '1.6rem',
+  background: 'none',
+  border: 'none',
+  fontSize: '1.8rem',
+  color: vars.color.grey400,
+  cursor: 'pointer',
 });
