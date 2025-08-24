@@ -1,11 +1,14 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import * as styles from "./Header.css";
 import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
+  showBackButton?: boolean;
   onBackClick?: () => void;
 }
 
-const Header = ({ onBackClick }: HeaderProps) => {
+const Header = ({ onBackClick, showBackButton = false }: HeaderProps) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -18,13 +21,15 @@ const Header = ({ onBackClick }: HeaderProps) => {
 
   return (
     <header className={styles.container}>
-      <button
-        className={styles.backButton}
-        onClick={handleBackClick}
-        aria-label="뒤로가기"
-      >
-        ←
-      </button>
+      {showBackButton && (
+        <button
+          className={styles.backButton}
+          onClick={handleBackClick}
+          aria-label="뒤로가기"
+        >
+            <FontAwesomeIcon icon={faChevronLeft}/>
+        </button>
+      )}
       <h1 className={styles.title}>feat/connect</h1>
     </header>
   );

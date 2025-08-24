@@ -6,12 +6,11 @@ export const container = style({
   display: "flex",
   width: "100%",
   height: "6rem",
-  backgroundColor: vars.color.grey100,
+  backgroundColor: vars.color.White,
   position: "fixed",
   bottom: 0,
   left: 0,
   zIndex: 1000,
-  //   boxShadow: "0 -2px 12px rgba(0, 0, 0, 0.08)",
 });
 
 export const navItem = recipe({

@@ -4,7 +4,7 @@ export const layout = style({
   display: "flex",
   flexDirection: "column",
   width: "100%",
-  paddingTop: "6rem",
+  paddingTop: "4.5rem",
   paddingBottom: "6rem",
 });
 

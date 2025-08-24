@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClipboard, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faSignsPost, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import * as styles from "./Footer.css";
 import { ROUTES } from "@router/constant/Routes";
@@ -15,7 +15,7 @@ const Footer = () => {
           isActive: location.pathname === ROUTES.HOME,
         })}
       >
-        <FontAwesomeIcon icon={faClipboard} />
+        <FontAwesomeIcon icon={faSignsPost} />
         <span className={styles.navText({ isActive: location.pathname === ROUTES.HOME })}>게시판</span>
       </Link>
       <Link
