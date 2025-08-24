@@ -56,6 +56,7 @@ export default function PostListItem({
               text={category.text}
               icon={category.icon}
               color={category.color}
+              size="medium"
             />
           ))}
         </div>
