@@ -11,7 +11,6 @@ export default function ImageBtn({ onClick, images }: ImageBtnProps) {
    <div className={styles.container}>
     <button className={styles.imageBtn} onClick={onClick}>
         <Ic_camera className={styles.image} />
-        <div className={styles.text}>사진 업로드</div>
     </button>
     {images && images.length > 0 && (
         images.map((image) => (
