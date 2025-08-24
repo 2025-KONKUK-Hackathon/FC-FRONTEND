@@ -23,14 +23,14 @@ export const generalPostsDummy: PostData[] = [
       '다음 주부터 중앙도서관 이용 시간이 변경됩니다. 평일 오전 8시부터 오후 10시까지 운영되며, 주말은 오전 9시부터 오후 6시까지입니다.',
     imageUrl: 'https://picsum.photos/seed/library/300/300',
     categories: [
-      { text: '공지사항', icon: '📢', color: 'Blue' },
-      { text: '도서관', icon: '📚', color: 'Green' },
-      { text: '공지사항', icon: '📢', color: 'Blue' },
-      { text: '도서관', icon: '📚', color: 'Green' },
-      { text: '공지사항', icon: '📢', color: 'Blue' },
-      { text: '도서관', icon: '📚', color: 'Green' },
-      { text: '공지사항', icon: '📢', color: 'Blue' },
-      { text: '도서관', icon: '📚', color: 'Green' },
+      { text: '공지사항', icon: '📢', color: 'KU_Magenta' },
+      { text: '도서관', icon: '📚', color: 'KU_Lightgreen' },
+      { text: '동아리', icon: '👥', color: 'KU_Violet' },
+      { text: '모집', icon: '🔍', color: 'KU_Orange' },
+      { text: '질문', icon: '❓', color: 'KU_Yellow' },
+      { text: '학식', icon: '🍽️', color: 'KU_Magenta' },
+      { text: '스터디', icon: '📖', color: 'KU_Lightgreen' },
+      { text: '중간고사', icon: '📝', color: 'Red' },
     ],
     createdAt: '2시간 전',
     commentCount: 12,
@@ -42,8 +42,8 @@ export const generalPostsDummy: PostData[] = [
     content:
       '프로그래밍 동아리에서 새로운 멤버를 모집합니다. 함께 토이 프로젝트를 만들고 기술 스택을 쌓아가실 분들을 기다립니다.',
     categories: [
-      { text: '동아리', icon: '👥', color: 'Purple' },
-      { text: '모집', icon: '🔍', color: 'Orange' },
+      { text: '동아리', icon: '👥', color: 'KU_Violet' },
+      { text: '모집', icon: '🔍', color: 'KU_Orange' },
     ],
     createdAt: '4시간 전',
     commentCount: 8,
@@ -56,8 +56,8 @@ export const generalPostsDummy: PostData[] = [
       '요즘 학식이 맛있어졌다고 하는데, 어떤 메뉴가 제일 맛있나요? 추천해주시면 내일 당장 먹으러 갈게요 ㅎㅎ',
     imageUrl: 'https://picsum.photos/seed/food/300/300',
     categories: [
-      { text: '질문', icon: '❓', color: 'Yellow' },
-      { text: '학식', icon: '🍽️', color: 'Coral' },
+      { text: '질문', icon: '❓', color: 'KU_Yellow' },
+      { text: '학식', icon: '🍽️', color: 'KU_Magenta' },
     ],
     createdAt: '6시간 전',
     commentCount: 23,
@@ -69,7 +69,7 @@ export const generalPostsDummy: PostData[] = [
     content:
       '자료구조와 알고리즘 과목 중간고사 준비 스터디 그룹을 만들려고 합니다. 함께 공부하실 분들 댓글로 연락주세요!',
     categories: [
-      { text: '스터디', icon: '📖', color: 'Mint' },
+      { text: '스터디', icon: '📖', color: 'KU_Lightgreen' },
       { text: '중간고사', icon: '📝', color: 'Red' },
     ],
     createdAt: '8시간 전',
@@ -83,7 +83,7 @@ export const generalPostsDummy: PostData[] = [
       '학교 근처 숨은 맛집들을 정리해서 지도로 만들어봤습니다. 혹시 빠진 곳이 있다면 댓글로 알려주세요!',
     imageUrl: 'https://picsum.photos/seed/map/300/300',
     categories: [
-      { text: '정보', icon: 'ℹ️', color: 'Ocean' },
+      { text: '정보', icon: 'ℹ️', color: 'KU_Blue' },
       { text: '맛집', icon: '🍕', color: 'Orange' },
     ],
     createdAt: '10시간 전',
@@ -96,8 +96,8 @@ export const generalPostsDummy: PostData[] = [
     content:
       '기말고사 준비로 밤새 공부할 곳을 찾고 있어요. 학교 근처에 24시간 운영하는 카페나 스터디카페 있나요?',
     categories: [
-      { text: '질문', icon: '❓', color: 'Yellow' },
-      { text: '카페', icon: '☕', color: 'Charcoal' },
+      { text: '질문', icon: '❓', color: 'KU_Yellow' },
+      { text: '카페', icon: '☕', color: 'KU_DarkGray' },
     ],
     createdAt: '12시간 전',
     commentCount: 18,
@@ -110,9 +110,9 @@ export const generalPostsDummy: PostData[] = [
       '다음 달 학교 축제 준비를 위한 봉사자를 모집합니다. 함께 즐거운 축제를 만들어갈 분들의 많은 참여 바랍니다.',
     imageUrl: 'https://picsum.photos/seed/festival/300/300',
     categories: [
-      { text: '축제', icon: '🎊', color: 'Pink' },
-      { text: '봉사', icon: '🤝', color: 'Green' },
-      { text: '모집', icon: '🔍', color: 'Orange' },
+      { text: '축제', icon: '🎊', color: 'KU_Magenta' },
+      { text: '봉사', icon: '🤝', color: 'KU_Green' },
+      { text: '모집', icon: '🔍', color: 'KU_Orange' },
     ],
     createdAt: '14시간 전',
     commentCount: 7,
@@ -124,8 +124,8 @@ export const generalPostsDummy: PostData[] = [
     content:
       '프로그래밍 수업용으로 사용할 노트북을 찾고 있습니다. 예산은 100만원 정도이고, 개발 환경 구축에 좋은 모델 추천해주세요.',
     categories: [
-      { text: '질문', icon: '❓', color: 'Yellow' },
-      { text: '노트북', icon: '💻', color: 'Blue' },
+      { text: '질문', icon: '❓', color: 'KU_Yellow' },
+      { text: '노트북', icon: '💻', color: 'KU_Blue' },
     ],
     createdAt: '16시간 전',
     commentCount: 25,
@@ -138,8 +138,8 @@ export const generalPostsDummy: PostData[] = [
       '다음 학기 미국 교환학생을 준비하고 있어요. 준비 과정에서 알게 된 유용한 팁들을 공유하니까 참고하세요!',
     imageUrl: 'https://picsum.photos/seed/exchange/300/300',
     categories: [
-      { text: '정보', icon: 'ℹ️', color: 'Ocean' },
-      { text: '교환학생', icon: '✈️', color: 'Purple' },
+      { text: '정보', icon: 'ℹ️', color: 'KU_Blue' },
+      { text: '교환학생', icon: '✈️', color: 'KU_Violet' },
     ],
     createdAt: '18시간 전',
     commentCount: 11,
@@ -151,8 +151,8 @@ export const generalPostsDummy: PostData[] = [
     content:
       '웹 개발 졸업작품을 함께 만들 팀원 2명을 구하고 있습니다. React, Node.js 경험이 있으신 분이면 좋겠어요.',
     categories: [
-      { text: '팀원모집', icon: '👨‍💻', color: 'Lime' },
-      { text: '졸업작품', icon: '🎓', color: 'Purple' },
+      { text: '팀원모집', icon: '👨‍💻', color: 'KU_Lightgreen' },
+      { text: '졸업작품', icon: '🎓', color: 'KU_Violet' },
     ],
     createdAt: '20시간 전',
     commentCount: 9,
