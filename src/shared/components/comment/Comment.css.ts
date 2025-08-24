@@ -1,30 +1,17 @@
-import { recipe } from '@vanilla-extract/recipes';
 import { style } from '@vanilla-extract/css';
 import { vars } from '@styles/theme.css';
 
-export const commentWrapper = recipe({
-  base: {
-    display: 'flex',
-    flexDirection: 'column',
-    position: 'relative',
-    gap: '1rem',
-    padding: '1.6rem',
-    borderRadius: '12px',
-    border: `2px solid ${vars.color.Charcoal}`,
-    backgroundColor: vars.color.grey800,
-    color: vars.color.White,
-  },
-  variants: {
-    variant: {
-      default: {
-        marginBottom: '1.6rem',
-      },
-      reply: {
-        margin: '0 0 1.2rem 2.2rem',
-        backgroundColor: vars.color.grey700,
-      }
-    },
-  }
+export const commentWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  gap: '1rem',
+  marginBottom: '1.6rem',
+  padding: '1.6rem',
+  borderRadius: '12px',
+  border: `2px solid ${vars.color.Charcoal}`,
+  backgroundColor: vars.color.grey800,
+  color: vars.color.White,
 });
 
 export const commentHeader = style({
@@ -88,53 +75,4 @@ export const commentContent = style({
 export const commentFooter = style({
   display: 'flex',
   gap: '1.2rem',
-});
-
-export const likeButton = recipe({
-  base: {
-    padding: '0.4rem',
-    fontSize: '1.2rem',
-    cursor: 'pointer',
-  },
-  variants: {
-    isLiked: {
-      true: {
-        color: vars.color.Red,
-      },
-      false: {
-        color: vars.color.White,
-      }
-    }
-  }
-});
-
-export const replyFormWrapper = style({
-  marginTop: '1.2rem',
-  padding: '1.2rem',
-  border: `1px solid ${vars.color.grey200}`,
-  borderRadius: '8px',
-  backgroundColor: vars.color.grey700,
-});
-
-export const replyInput = style({
-  width: '100%',
-  height: '8rem',
-  padding: '1.2rem',
-  border: `1px solid ${vars.color.grey300}`,
-  borderRadius: '8px',
-  fontSize: '1.4rem',
-  ':focus': {
-    borderColor: vars.color.Mint,
-  }
-});
-
-export const replyFooter = style({
-  display: 'flex',
-  justifyContent: 'flex-end',
-  gap: '0.8rem',
-  marginTop: '0.8rem',
-});
-
-export const repliesContainer = style({
-  marginTop: '1.2rem',
 });
