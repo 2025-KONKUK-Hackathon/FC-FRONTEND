@@ -3,7 +3,7 @@ import type { PostData } from './GeneralPostsDummy';
 export const studentCouncilPostsDummy: PostData[] = [
   {
     id: 'sc1',
-    title: '2024-2학기 학생회비 사용 내역 공개',
+    title: '2025-2학기 학생회비 사용 내역 공개',
     content:
       '2학기 학생회비 사용 내역을 투명하게 공개합니다. 학생 복지를 위한 다양한 사업에 사용되었으니 확인해보세요.',
     imageUrl: 'https://picsum.photos/seed/council1/300/300',
@@ -17,7 +17,7 @@ export const studentCouncilPostsDummy: PostData[] = [
     ],
     createdAt: '1시간 전',
     commentCount: 45,
-    authorName: '총학생회',
+    authorName: 'LINK',
   },
   {
     id: 'sc2',
@@ -30,7 +30,7 @@ export const studentCouncilPostsDummy: PostData[] = [
     ],
     createdAt: '3시간 전',
     commentCount: 28,
-    authorName: '총학생회',
+    authorName: 'LINK',
   },
   {
     id: 'sc3',
@@ -44,7 +44,7 @@ export const studentCouncilPostsDummy: PostData[] = [
     ],
     createdAt: '5시간 전',
     commentCount: 67,
-    authorName: '총학생회',
+    authorName: 'LINK',
   },
   {
     id: 'sc4',
@@ -57,7 +57,7 @@ export const studentCouncilPostsDummy: PostData[] = [
     ],
     createdAt: '7시간 전',
     commentCount: 34,
-    authorName: '총학생회',
+    authorName: 'LINK',
   },
   {
     id: 'sc5',
@@ -72,6 +72,6 @@ export const studentCouncilPostsDummy: PostData[] = [
     ],
     createdAt: '10시간 전',
     commentCount: 19,
-    authorName: '총학생회',
+    authorName: 'LINK',
   },
 ];

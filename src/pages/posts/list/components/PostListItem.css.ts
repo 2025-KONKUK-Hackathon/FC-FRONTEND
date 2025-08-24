@@ -82,6 +82,7 @@ export const metaInfo = style({
   color: vars.color.grey400,
 });
 
+// todo: 필요하면 추가하기
 export const createdAt = style({});
 
 export const commentCount = style({});

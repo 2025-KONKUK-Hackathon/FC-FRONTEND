@@ -37,6 +37,7 @@ export default function PostListItem({
     <div className={styles.container} onClick={handleClick}>
       <div className={styles.topSection}>
         <div className={styles.textSection}>
+          {/* todo: 제목 앞에 '학생회'나 'LINK' 칩 추가하기 */}
           <h3 className={styles.title}>{title}</h3>
           <p className={styles.content}>{content}</p>
         </div>
