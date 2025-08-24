@@ -78,13 +78,15 @@ export const dropdownOption = recipe({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    border: 'none',
+    border: `1px solid ${vars.color.grey700}`,
+    backgroundColor: vars.color.grey900,
     color: vars.color.Charcoal,
     textAlign: 'left',
     cursor: 'pointer',
     transition: 'background-color 0.2s ease',
     ':hover': {
-      backgroundColor: vars.color.grey300,
+      backgroundColor: vars.color.KU_Darkgreen,
+      color: vars.color.White,
     },
     ':focus': {
       backgroundColor: vars.color.Charcoal,
