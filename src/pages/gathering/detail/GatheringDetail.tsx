@@ -1,5 +1,3 @@
 export default function GatheringDetail() {
-  return (
-    <div>GatheringDetail</div>
-  )
+  return <div>GatheringDetail</div>;
 }
