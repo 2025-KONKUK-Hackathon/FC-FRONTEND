@@ -5,7 +5,7 @@ export const container = style({
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
-  padding: "1rem 0",
+  padding: "1rem 0 1rem 1.6rem",
 });
 
 export const studentCouncilSection = style({
@@ -17,15 +17,13 @@ export const studentCouncilSection = style({
 export const sectionTitle = style({
   fontSize: "1.9rem",
   fontWeight: "bold",
-  color: vars.color.KU_Lightgreen,
-  margin: "0 1.6rem",
+  color: vars.color.KU_Green,
 });
 
 export const studentCouncilContainer = style({
   display: "flex",
   gap: "1rem",
   overflowX: "auto",
-  padding: "0 1.6rem",
   scrollbarWidth: "none",
   msOverflowStyle: "none",
   
@@ -37,5 +35,4 @@ export const studentCouncilContainer = style({
 export const generalPostsSection = style({
   display: "flex",
   flexDirection: "column",
-  gap: "0.5rem",
 });

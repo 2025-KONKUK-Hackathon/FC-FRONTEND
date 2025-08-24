@@ -3,7 +3,7 @@ import { vars } from '@styles/theme.css';
 
 export const container = style({
   width: '100%',
-  padding: '1.2rem 1.6rem',
+  padding: '1.2rem 1.6rem 1.2rem 0',
   display: 'flex',
   flexDirection: 'column',
   gap: '1.2rem',
