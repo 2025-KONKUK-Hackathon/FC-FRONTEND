@@ -22,6 +22,7 @@ const PostCreate = lazy(() => import("@pages/posts/create/CreatePost"));
 const PostDetail = lazy(() => import("@pages/posts/detail/PostDetail"));
 const PostList = lazy(() => import("@pages/posts/list/PostList"));
 
+const User = lazy(() => import("@pages/user/User"));
 const NotFound = lazy(() => import("@shared/components/notFound/NotFound"));
 
 const router = createBrowserRouter([
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
           {
             path: ROUTES.GATHERING.LIST,
             element: <GatheringList />,
+          },
+          // 유저 페이지
+          {
+            path: ROUTES.USER.DETAIL,
+            element: <User />,
           },
         ],
       },
