@@ -51,7 +51,7 @@ export default function GatheringCard({
       </div>
       <div className={styles.row}>
         <div className={styles.footer}>{leaderName}</div>
-        <div className={styles.footer}>{`${time} 전`}</div>
+        <div className={styles.footer}>{time}</div>
         <div className={styles.footer}>{`댓글 ${comments.length}개`}</div>
       </div>
     </div>
