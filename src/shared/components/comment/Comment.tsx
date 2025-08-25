@@ -1,7 +1,7 @@
 import * as styles from "./Comment.css";
 import type { CommentData } from './types/comment';
 import { getRelativeTime } from './utils/dateUtils';
-import Ic_User_Solid from '@svg/ic_user_solid.svg';
+import { Ic_user_solid } from '@svg/index';
 
 interface CommentProps {
   currentUserId?: number;
@@ -27,7 +27,7 @@ export default function Comment({
       <div className={styles.commentHeader}>
         <div className={styles.authorInfo}>
           <div className={styles.authorAvatar}>
-            <img src={Ic_User_Solid} alt='user icon' width={26} />
+            <img src={Ic_user_solid} alt='user icon' width={26} />
           </div>
           <div className={styles.authorDetails}>
             <div className={styles.authorName}>
