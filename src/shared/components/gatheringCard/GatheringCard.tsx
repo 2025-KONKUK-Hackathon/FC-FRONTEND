@@ -31,7 +31,7 @@ export default function GatheringCard({
   comments,
   createdAt,
 }: GatheringCardProps) {
-  const imageUrl = mediaUrl?.[0] ?? CLASS_CATEGORY[type].image;
+  const imageUrl = mediaUrl?.[0];
   const time = getRelativeTime(createdAt);
   return(
   <div className={styles.container}>
