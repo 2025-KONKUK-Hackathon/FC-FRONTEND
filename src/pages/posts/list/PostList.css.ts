@@ -26,7 +26,7 @@ export const studentCouncilContainer = style({
   overflowX: "auto",
   scrollbarWidth: "none",
   msOverflowStyle: "none",
-  
+
   "::-webkit-scrollbar": {
     display: "none",
   },

@@ -1,8 +1,8 @@
-import PostListItem from './components/PostListItem';
-import StudentCouncilListItem from './components/StudentCouncilListItem';
-import { generalPostsDummy } from './constant/GeneralPostsDummy';
-import { studentCouncilPostsDummy } from './constant/StudentCouncilPostsDummy';
-import * as styles from './PostList.css';
+import PostListItem from "./components/PostListItem";
+import StudentCouncilListItem from "./components/StudentCouncilListItem";
+import { generalPostsDummy } from "./constant/GeneralPostsDummy";
+import { studentCouncilPostsDummy } from "./constant/StudentCouncilPostsDummy";
+import * as styles from "./PostList.css";
 
 export default function PostList() {
   return (
@@ -10,7 +10,7 @@ export default function PostList() {
       <div className={styles.studentCouncilSection}>
         <h2 className={styles.sectionTitle}>학생회 소식</h2>
         <div className={styles.studentCouncilContainer}>
-          {studentCouncilPostsDummy.map(post => (
+          {studentCouncilPostsDummy.map((post) => (
             <StudentCouncilListItem
               key={post.id}
               id={post.id}
@@ -21,7 +21,9 @@ export default function PostList() {
               createdAt={post.createdAt}
               commentCount={post.commentCount}
               authorName={post.authorName}
-              onClick={id => console.log(`Student Council Post ${id} clicked`)}
+              onClick={(id) =>
+                console.log(`Student Council Post ${id} clicked`)
+              }
             />
           ))}
         </div>
@@ -29,7 +31,7 @@ export default function PostList() {
 
       <div className={styles.generalPostsSection}>
         <h2 className={styles.sectionTitle}>전체 게시글</h2>
-        {generalPostsDummy.map(post => (
+        {generalPostsDummy.map((post) => (
           <PostListItem
             key={post.id}
             id={post.id}
@@ -40,10 +42,12 @@ export default function PostList() {
             createdAt={post.createdAt}
             commentCount={post.commentCount}
             authorName={post.authorName}
-            onClick={id => console.log(`Post ${id} clicked`)}
+            onClick={(id) => console.log(`Post ${id} clicked`)}
           />
         ))}
       </div>
     </div>
   );
 }
+
+export default PostList;

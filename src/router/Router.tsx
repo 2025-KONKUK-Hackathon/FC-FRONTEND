@@ -1,30 +1,28 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
-import { ROUTES } from '@/router/constant/Routes';
-import Layout from '@/router/Layout';
+import { ROUTES } from '@router/constant/Routes';
+import Layout from '@router/Layout';
+import MainLayout from '@pages/mainLayout/MainLayout';
 
-const Login = lazy(() => import('@/pages/auth/login/Login'));
-const SignUp = lazy(() => import('@/pages/auth/signup/Signup'));
+const Login = lazy(() => import('@pages/auth/login/Login'));
+const SignUp = lazy(() => import('@pages/auth/signup/Signup'));
 
-const GatheringCreate = lazy(() => import('@/pages/gathering/create/CreateGathering'));
-const GatheringDetail = lazy(() => import('@/pages/gathering/detail/GatheringDetail'));
-const GatheringList = lazy(() => import('@/pages/gathering/list/GatheringList'));
-const GatheringMembers = lazy(() => import('@/pages/gathering/members/ApplicantList'));
+const GatheringCreate  = lazy(() => import('@pages/gathering/create/CreateGathering'));
+const GatheringDetail  = lazy(() => import('@pages/gathering/detail/GatheringDetail'));
+const GatheringList    = lazy(() => import('@pages/gathering/list/GatheringList'));
+const GatheringMembers = lazy(() => import('@pages/gathering/members/ApplicantList'));
 
-const PostsCreate = lazy(() => import('@/pages/posts/create/CreatePost'));
-const PostsDetail = lazy(() => import('@/pages/posts/detail/PostDetail'));
-const PostsList = lazy(() => import('@/pages/posts/list/PostList'));
+const PostCreate = lazy(() => import('@pages/posts/create/CreatePost'));
+const PostDetail = lazy(() => import('@pages/posts/detail/PostDetail'));
+const PostList   = lazy(() => import('@pages/posts/list/PostList'));
 
-const NonFound = lazy(() => import('@/shared/components/nonFound/NonFound'));
+const NonFound = lazy(() => import('@shared/components/nonFound/NonFound'));
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
-      {
-        path: ROUTES.HOME,
-        element: <PostsList />,
-      },
+      // 인증 관련 페이지
       {
         path: ROUTES.AUTH.LOGIN,
         element: <Login />,
@@ -33,10 +31,24 @@ const router = createBrowserRouter([
         path: ROUTES.AUTH.SIGNUP,
         element: <SignUp />,
       },
+
+      // 메인 화면
       {
-        path: ROUTES.GATHERING.LIST,
-        element: <GatheringList />,
+        path: ROUTES.HOME,
+        element: <MainLayout />,
+        children: [
+          {
+            index: true,
+            element: <PostList />
+          },
+          {
+            path: ROUTES.GATHERING.LIST,
+            element: <GatheringList />,
+          },
+        ]
       },
+
+      // 상세, 생성 페이지
       {
         path: ROUTES.GATHERING.CREATE,
         element: <GatheringCreate />,
@@ -51,16 +63,18 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.POSTS.CREATE,
-        element: <PostsCreate />,
+        element: <PostCreate />,
       },
       {
         path: ROUTES.POSTS.DETAIL,
-        element: <PostsDetail />,
+        element: <PostDetail />,
       },
+
+      // 404 페이지
       {
         path: '*',
         element: <NonFound />,
-      },
+      }
     ],
   },
 ]);

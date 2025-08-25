@@ -70,6 +70,10 @@ export const categoryStyle = recipe({
         color: vars.color.KU_Darkgreen,
         borderColor: vars.color.KU_Darkgreen,
       },
+      primary: {
+        color: vars.color.primary,
+        borderColor: vars.color.primary,
+      },
       White: {
         color: vars.color.White,
         borderColor: vars.color.White,

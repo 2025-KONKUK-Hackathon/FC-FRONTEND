@@ -1,3 +1,5 @@
 export default function PostDetail() {
-  return <div>PostDetail</div>;
+  return (
+    <div>PostDetail</div>
+  )
 }
