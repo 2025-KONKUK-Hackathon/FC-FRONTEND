@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     react(),
     vanillaExtractPlugin({
-      identifiers: "debug",
+      identifiers: 'debug',
     }),
     tsconfigPaths(),
     svgr({
