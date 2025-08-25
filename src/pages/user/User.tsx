@@ -1,4 +1,4 @@
-import { Ic_User } from "@svg/index";
+import { Ic_user_solid } from "@svg/index";
 import { userProfileMockup } from "./mockup";
 import { useState } from "react";
 import * as styles from "./User.css";
@@ -13,7 +13,7 @@ export default function User() {
     <div className={styles.userContainer}>
       <div className={styles.userInfoContainer}>
         <div className={styles.userInfoImageContainer}>
-          <Ic_User className={styles.userInfoImage} />
+          <Ic_user_solid className={styles.userInfoImage} />
         </div>
         <div className={styles.userInfoTextContainer}>
           <p className={styles.userInfoName}>{userProfileMockup.name}</p>
