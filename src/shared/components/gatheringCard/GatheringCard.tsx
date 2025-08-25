@@ -13,7 +13,7 @@ interface GatheringCardProps {
   period: string;
   title: string;
   description: string;
-  imageUrl: string;
+  mediaUrl: string[];
   leaderName: string; 
   comments: string[];
   createdAt: string; 
@@ -27,11 +27,11 @@ export default function GatheringCard({
   period,
   title,
   description,
-  imageUrl,
+  mediaUrl,
   leaderName,
   comments,
 }: GatheringCardProps) {
-
+  const imageUrl = mediaUrl[0];
   return(
   <div className={styles.container}>
     <div className={styles.imageContainer}>
