@@ -6,6 +6,7 @@ export const gatheringWrapper = style({
   gap: '1rem',
   width: '100%',
   flexDirection: 'column',
+  paddingBottom:"2rem",
 });
 
 export const gatheringDetailWrapper = style({
@@ -125,4 +126,13 @@ export const gatheringDetailDescriptionTitleIcon = style({
   width: '1.5rem',
   height: '1.5rem',
   color: vars.color.grey200,
+});
+
+export const gatheringDetailImageWrapper = style({
+  display: 'flex',
+  gap: '1rem',
+  width: '100%',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
