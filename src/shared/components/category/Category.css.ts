@@ -1,18 +1,15 @@
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "@styles/theme.css";
-import { style } from "@vanilla-extract/css";
 
 export const categoryStyle = recipe({
   base: {
     display: "inline-flex",
     alignItems: "center",
-    gap: "1rem",
-    padding: "0.5rem 0.75rem",
-    height: "3.5rem",
+    justifyContent: "center",
     borderRadius: "0.8rem",
     border: "1px solid",
     backgroundColor: vars.color.grey800,
-    fontSize: "1.4rem",
+    width: "fit-content",
   },
   variants: {
     color: {
@@ -117,9 +114,47 @@ export const categoryStyle = recipe({
         borderColor: vars.color.Charcoal,
       },
     },
+    size: {
+      small: {
+        padding: "0.25rem 0.5rem",
+        fontSize: "1rem",
+        gap: "0.5rem",
+      },
+      medium: {
+        padding: "0.5rem 1rem",
+        fontSize: "1.2rem",
+        gap: "0.8rem",
+      },
+      large: {
+        padding: "0.5rem 0.75rem",
+        fontSize: "1.4rem",
+        gap: "1rem",
+      },
+    },
   },
 });
 
-export const iconStyle = style({
-  height: "1.5rem",
+export const iconStyle = recipe({
+  base: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "fit-content",
+  },
+  variants: {
+    size: {
+      small: {
+        width: "1rem",
+        height: "1rem",
+      },
+      medium: {
+        width: "1.2rem",
+        height: "1.2rem",
+      },
+      large: {
+        width: "1.4rem",
+        height: "1.4rem",
+      },
+    },
+  },
 });
