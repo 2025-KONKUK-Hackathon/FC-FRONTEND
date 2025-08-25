@@ -22,6 +22,8 @@ const PostCreate = lazy(() => import("@pages/posts/create/CreatePost"));
 const PostDetail = lazy(() => import("@pages/posts/detail/PostDetail"));
 const PostList = lazy(() => import("@pages/posts/list/PostList"));
 
+const MyPage = lazy(() => import("@pages/myPage/MyPage"));
+
 const NotFound = lazy(() => import("@shared/components/notFound/NotFound"));
 
 const router = createBrowserRouter([
@@ -74,6 +76,12 @@ const router = createBrowserRouter([
       {
         path: ROUTES.POSTS.DETAIL,
         element: <PostDetail />,
+      },
+
+      // 마이 페이지
+      {
+        path: ROUTES.MY_PAGE,
+        element: <MyPage />,
       },
 
       // 404 페이지
