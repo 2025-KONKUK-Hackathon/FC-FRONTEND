@@ -2,21 +2,21 @@ import * as styles from '@/shared/components/gatheringCard/GatheringCard.css';
 import { Ic_personGrey300 } from "@svg/index";
 import Category from "@/shared/components/category/Category";
 import StatusChip from "@/shared/components/gatheringCard/component/StatusChip";
-import { CLASS_CATEGORY, type ClassCategoryKey } from "@shared/constant/class";
-import { type GatheringStatus } from '@shared/constant/status';
+import { CLASS_CATEGORY, type ClassCategoryKey } from "@/shared/constant/class";
+import { type GatheringStatus } from '@/shared/constant/status';
+import { getRelativeTime } from '@/shared/components/comment/utils/dateUtils';
 
 interface GatheringCardProps {
   status: GatheringStatus;
   type: ClassCategoryKey;
   currentCount: number;
   maxCount: number;
-  period: string;
   title: string;
   description: string;
   mediaUrl: string[];
   leaderName: string; 
   comments: string[];
-  createdAt: string; 
+  createdAt: Date;
 }
 
 export default function GatheringCard({
@@ -24,14 +24,15 @@ export default function GatheringCard({
   type,
   currentCount,
   maxCount,
-  period,
   title,
   description,
   mediaUrl,
   leaderName,
   comments,
+  createdAt,
 }: GatheringCardProps) {
   const imageUrl = mediaUrl[0];
+  const time = getRelativeTime(createdAt);
   return(
   <div className={styles.container}>
     <div className={styles.imageContainer}>
@@ -50,7 +51,7 @@ export default function GatheringCard({
       </div>
       <div className={styles.row}>
         <div className={styles.footer}>{leaderName}</div>
-        <div className={styles.footer}>{`${period} 전`}</div>
+        <div className={styles.footer}>{`${time} 전`}</div>
         <div className={styles.footer}>{`댓글 ${comments.length}개`}</div>
       </div>
     </div>
