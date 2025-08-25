@@ -1,11 +1,13 @@
 export const SUBJECT_CATEGORY = {
-  COURSE_REGISTRATION: { text: "수강신청", icon: "🔥", color: "Ocean" },
-  CLASS: { text: "수업", icon: "💡", color: "Charcoal" },
-  TEAM_PROJECT: { text: "팀프로젝트", icon: "🤝", color: "Pink" },
-  ARTICLE: { text: "아티클", icon: "📝", color: "Green" },
-  CAREER: { text: "취업", icon: "🎖️", color: "Orange" },
-  PROJECT: { text: "프로젝트", icon: "💻", color: "Blue" },
-  STUDY: { text: "스터디", icon: "📚", color: "Purple" },
-  INTERNSHIP: { text: "현장실습", icon: "💼", color: "Yellow" },
-  ETC: { text: "기타", icon: "🌈", color: "White" },
+  COURSE_REGISTRATION: { text: '수강신청', icon: '🔥', color: 'Ocean' },
+  CLASS: { text: '수업', icon: '💡', color: 'Charcoal' },
+  TEAM_PROJECT: { text: '팀프로젝트', icon: '🤝', color: 'Pink' },
+  ARTICLE: { text: '아티클', icon: '📝', color: 'Green' },
+  CAREER: { text: '취업', icon: '🎖️', color: 'Orange' },
+  PROJECT: { text: '프로젝트', icon: '💻', color: 'Blue' },
+  STUDY: { text: '스터디', icon: '📚', color: 'Purple' },
+  INTERNSHIP: { text: '현장실습', icon: '💼', color: 'Yellow' },
+  ETC: { text: '기타', icon: '🌈', color: 'White' },
 } as const;
+
+export type SubjectCategory = keyof typeof SUBJECT_CATEGORY;
