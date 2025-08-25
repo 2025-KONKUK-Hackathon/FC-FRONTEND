@@ -16,11 +16,12 @@ export const imageContainer = style({
   position: 'relative',
 
   width: '35%',
+  aspectRatio: '16 / 9',
 });
 
 export const image = style({
   width: '100%',
-  height: '100%',
+  height: 'auto',
   borderRadius: '0.8rem',
 
   objectFit: 'cover',
@@ -68,6 +69,12 @@ export const countContainer = style({
 
 export const count = style({
   color: vars.color.grey300,
+  fontSize: '1.3rem'
+});
+
+export const icon = style({
+  width: '1.3rem',
+  height: '1.3rem',
 });
 
 export const footer = style({
