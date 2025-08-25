@@ -19,7 +19,7 @@ globalStyle("#root", {
   display: "flex",
   flexDirection: "column",
   flexGrow: 1,
-  background: vars.color.grey900,
+  background: vars.color.grey800,
 });
 
 globalStyle("main", {

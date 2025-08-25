@@ -10,6 +10,7 @@ export const categoryStyle = recipe({
     border: "1px solid",
     backgroundColor: vars.color.grey800,
     width: "fit-content",
+    minWidth: "fit-content",
   },
   variants: {
     color: {
@@ -68,10 +69,6 @@ export const categoryStyle = recipe({
       KU_Darkgreen: {
         color: vars.color.KU_Darkgreen,
         borderColor: vars.color.KU_Darkgreen,
-      },
-      primary: {
-        color: vars.color.primary,
-        borderColor: vars.color.primary,
       },
       White: {
         color: vars.color.White,

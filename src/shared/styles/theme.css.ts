@@ -5,7 +5,6 @@ export const vars = createGlobalTheme(":root", {
     KU_Darkgreen: "#036B3F",
     White: "#FFFFFF",
     Black: "#000000",
-    primary: "#036B3F",
 
     grey100: "#ECEFF5",
     grey200: "#D1D3DC",

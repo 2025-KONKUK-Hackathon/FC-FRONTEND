@@ -165,10 +165,6 @@ export const buttonStyle = recipe({
       variants: { variant: "fill", bgColor: "Charcoal" },
       style: { backgroundColor: vars.color.Charcoal },
     },
-    {
-      variants: { variant: "fill", bgColor: "primary" },
-      style: { backgroundColor: vars.color.primary },
-    },
     // outline variant
     {
       variants: { variant: "outline", bgColor: "Pink" },
