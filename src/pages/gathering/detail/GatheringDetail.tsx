@@ -7,16 +7,16 @@ import { useState } from 'react';
 import PopUp from './components/popUp/PopUp';
 
 interface GatheringDetailProps {
-  title: string;
-  description: string;
-  tags: SubjectCategory[];
-  isRecruiting: string;
-  maxPeople: number;
-  currentPeople: number;
-  activityPeriod: string;
-  applicationPeriod: string;
-  studyLeader: string;
-  img:string[];
+  title?: string;
+  description?: string;
+  tags?: SubjectCategory[];
+  isRecruiting?: string;
+  maxPeople?: number;
+  currentPeople?: number;
+  activityPeriod?: string;
+  applicationPeriod?: string;
+  studyLeader?: string;
+  img?: string[];
 }
 //TODO: 모임 신청 가능 여부에 따라 조건부 렌더링, 모임장
 
