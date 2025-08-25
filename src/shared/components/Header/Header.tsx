@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faBars } from "@fortawesome/free-solid-svg-icons";
 import * as styles from "./Header.css";
 import { useNavigate } from "react-router-dom";
+import { Ic_chevron_left, Ic_bars } from "@svg/index";
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -34,7 +33,7 @@ const Header = ({
           onClick={handleBackClick}
           aria-label="뒤로가기"
         >
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <img src={Ic_chevron_left} alt="뒤로가기 아이콘" width={22} />
         </button>
       )}
       <h1 className={styles.title}>feat/connect</h1>
@@ -44,7 +43,7 @@ const Header = ({
           onClick={onMenuClick}
           aria-label="메뉴"
         >
-          <FontAwesomeIcon icon={faBars} />
+          <img src={Ic_bars} alt="메뉴 아이콘" width={22} />
         </button>
       )}
     </header>
