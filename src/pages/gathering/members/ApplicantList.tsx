@@ -1,3 +1,5 @@
 export default function ApplicantList() {
-  return <div>ApplicantList</div>;
+  return (
+    <div>ApplicantList</div>
+  )
 }
