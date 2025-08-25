@@ -1,0 +1,21 @@
+import { vars } from "@shared/styles/theme.css";
+import { style } from "@vanilla-extract/css";
+
+export const container = style({
+  display: "flex",
+  flexDirection: "column",
+
+  gap: "1rem",
+});
+
+export const title = style({
+  fontSize: "2rem",
+
+  color: vars.color.White,
+});
+
+export const description = style({
+  fontSize: "1.4rem",
+
+  color: vars.color.grey300,
+});
