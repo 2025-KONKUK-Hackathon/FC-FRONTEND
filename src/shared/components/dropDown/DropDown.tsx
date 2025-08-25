@@ -4,7 +4,8 @@ import type { DropDownSize, DropDownOption } from './constant/dropDown';
 
 interface DropDownProps {
   options: DropDownOption[];
-  defaultValue?: string;
+  selectedValue: string;
+  setSelectedValue: (value: string) => void;
   placeholder?: string;
   size?: DropDownSize;
   disabled?: boolean;
@@ -15,7 +16,8 @@ interface DropDownProps {
 
 export default function DropDown({
   options,
-  defaultValue,
+  selectedValue,
+  setSelectedValue,
   placeholder = '옵션을 선택하세요',
   size = 'medium',
   disabled = false,
@@ -24,7 +26,6 @@ export default function DropDown({
   onClose,
 }: DropDownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(defaultValue || '');
   const containerRef = useRef<HTMLDivElement>(null);
 
   const selectedOption = options.find(option => option.value === selectedValue);
@@ -64,7 +65,7 @@ export default function DropDown({
     setIsOpen(false);
     onChange?.(option.value);
     onClose?.();
-  }, [onChange, onClose]);
+  }, [setSelectedValue, onChange, onClose]);
 
   return (
     <div className={styles.dropdownContainer} ref={containerRef}>
