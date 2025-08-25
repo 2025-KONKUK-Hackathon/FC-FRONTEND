@@ -70,10 +70,6 @@ export const categoryStyle = recipe({
         color: vars.color.KU_Darkgreen,
         borderColor: vars.color.KU_Darkgreen,
       },
-      primary: {
-        color: vars.color.primary,
-        borderColor: vars.color.primary,
-      },
       White: {
         color: vars.color.White,
         borderColor: vars.color.White,
@@ -113,58 +109,6 @@ export const categoryStyle = recipe({
       Charcoal: {
         color: vars.color.Charcoal,
         borderColor: vars.color.Charcoal,
-      },
-      KU_Lightgreen: {
-        color: vars.color.KU_Lightgreen,
-        borderColor: vars.color.KU_Lightgreen,
-      },
-      KU_Green: {
-        color: vars.color.KU_Green,
-        borderColor: vars.color.KU_Green,
-      },
-      KU_Magenta: {
-        color: vars.color.KU_Magenta,
-        borderColor: vars.color.KU_Magenta,
-      },
-      KU_Yellow: {
-        color: vars.color.KU_Yellow,
-        borderColor: vars.color.KU_Yellow,
-      },
-      KU_Violet: {
-        color: vars.color.KU_Violet,
-        borderColor: vars.color.KU_Violet,
-      },
-      KU_Orange: {
-        color: vars.color.KU_Orange,
-        borderColor: vars.color.KU_Orange,
-      },
-      KU_DarkGray: {
-        color: vars.color.KU_DarkGray,
-        borderColor: vars.color.KU_DarkGray,
-      },
-      KU_Blue: {
-        color: vars.color.KU_Blue,
-        borderColor: vars.color.KU_Blue,
-      },
-      KU_CoolGray: {
-        color: vars.color.KU_CoolGray,
-        borderColor: vars.color.KU_CoolGray,
-      },
-      KU_WarmGray: {
-        color: vars.color.KU_WarmGray,
-        borderColor: vars.color.KU_WarmGray,
-      },
-      KU_LightGray: {
-        color: vars.color.KU_LightGray,
-        borderColor: vars.color.KU_LightGray,
-      },
-      KU_Beige: {
-        color: vars.color.KU_Beige,
-        borderColor: vars.color.KU_Beige,
-      },
-      KU_Black: {
-        color: vars.color.KU_Black,
-        borderColor: vars.color.KU_Black,
       },
     },
     size: {
