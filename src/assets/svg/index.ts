@@ -2,7 +2,7 @@
 export { default as Ic_eye } from "@svg/ic_eye.svg?react";
 export { default as Ic_eye_close } from "@svg/ic_eye_close.svg?react";
 export { default as Ic_camera } from "@svg/ic_camera.svg?react";
-export { default as Ic_user_solid } from "@svg/ic_user_solid.svg";
+export { default as Ic_user_solid } from "@svg/ic_user_solid.svg?react";
 export { default as Ic_users_solid } from "@svg/ic_users_solid.svg?react";
 export { default as Ic_chevron_left } from "@svg/ic_chevron_left.svg?react";
 export { default as Ic_bars } from "@svg/ic_bars.svg?react";
