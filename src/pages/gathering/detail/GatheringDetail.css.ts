@@ -10,7 +10,7 @@ export const gatheringWrapper = style({
 
 export const gatheringDetailWrapper = style({
   display: 'flex',
-  gap: '1rem',
+  gap: '2rem',
   width: '100%',
   flexDirection: 'column',
   padding: '0.5rem 1.5rem',
@@ -73,6 +73,14 @@ export const gatheringDetailContentTitle = style({
   color: vars.color.grey100,
   borderBottom: `1px solid ${vars.color.grey200}`,
   paddingBottom: '1rem',
+});
+
+export const gatheringDetailButtonWrapper = style({
+  display: 'flex',
+  gap: '1rem',
+  width: '100%',
+  justifyContent: 'center',
+  flexDirection: 'column',
 });
 
 export const gatheringDetailContent = style({

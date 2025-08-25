@@ -2,13 +2,12 @@ import Category from '@/shared/components/category/Category';
 import * as styles from './GatheringDetail.css';
 import { SUBJECT_CATEGORY, type SubjectCategory } from '@/shared/constant/subject';
 import { Ic_calendar, Ic_user } from '@/assets/svg';
+import Button from '@/shared/components/button/Button';
 
 interface GatheringDetailProps {
   title: string;
   image: string;
   description: string;
-  startDate: string;
-  endDate: string;
   tags: SubjectCategory[];
   isRecruiting: string;
   maxPeople: number;
@@ -17,14 +16,13 @@ interface GatheringDetailProps {
   applicationPeriod: string;
   studyLeader: string;
 }
+//TODO: 모임 신청 가능 여부에 따라 조건부 렌더링, 모임장
 
 export default function GatheringDetail({
   title = '모임 제목',
   image = 'https://picsum.photos/200/300',
   description = '모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명모임 설명',
-  startDate = '2025-01-01',
-  endDate = '2025-01-01',
-  tags = ['CLASS', 'STUDY', 'STUDY', 'STUDY', 'STUDY', 'STUDY', 'STUDY'],
+  tags = ['CLASS', 'STUDY'],
   isRecruiting = '모집중', //모임 신청 가능 여부
   maxPeople = 10, //모임 최대 인원
   currentPeople = 0, //모임 현재 인원
@@ -39,9 +37,7 @@ export default function GatheringDetail({
         <div className={styles.gatheringDetailHeader}>
           <div className={styles.gatheringDetailHeaderTop}>
             <Category text={isRecruiting} icon="🕒" color="KU_Darkgreen" size="small" />
-            <p className={styles.gatheringDetailDate}>
-              {applicationPeriod}
-            </p>
+            <p className={styles.gatheringDetailDate}>{applicationPeriod}</p>
           </div>
 
           <p className={styles.gatheringDetailTitle}>{title}</p>
@@ -51,11 +47,15 @@ export default function GatheringDetail({
           </p>
         </div>
 
-        {
-          //TODO: 모임 신청 가능 여부에 따라 조건부 렌더링, 모임장
-        }
-        <div>maxPeople: {maxPeople}</div>
-        <div>currentPeople: {currentPeople}</div>
+        <div className={styles.gatheringDetailButtonWrapper}>
+          <Button
+            text={`모집 현황 ${currentPeople}/${maxPeople}`}
+            variant="outline"
+            size="medium"
+          />
+          <Button text={`모임 신청`} variant="fill" size="medium" />
+        </div>
+
         <div className={styles.gatheringDetailContentWrapper}>
           <p className={styles.gatheringDetailContentTitle}>모임안내</p>
           <div className={styles.gatheringDetailContent}>
@@ -73,14 +73,14 @@ export default function GatheringDetail({
             </div>
             <p className={styles.gatheringDetailDescription}>{description}</p>
           </div>
-        
+
           <div className={styles.gatheringDetailContent}>
             <div className={styles.gatheringDetailDescriptionTitle}>
               <Ic_calendar className={styles.gatheringDetailDescriptionTitleIcon} />
               활동기간
             </div>
-            <p>{startDate} ~ {endDate}</p>
-          </div>  
+            <p>{activityPeriod}</p>
+          </div>
         </div>
       </div>
     </div>
