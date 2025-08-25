@@ -4,7 +4,7 @@ export const CLASS_CATEGORY = {
   EVENT: { text: "과행사", icon: "🎊", color: "Green" },
   FRIENDSHIP: { text: "친목", icon: "🤝", color: "Orange" },
   ETC: { text: "기타", icon: "🌈", color: "White" },
-  ANNOUCEMENT: { text: "공지", icon: "📢", color: "Red" },
+  ANNOUCEMENT: { text: "공지사항", icon: "📢", color: "Red" },
 } as const;
 
 export type ClassCategory =
