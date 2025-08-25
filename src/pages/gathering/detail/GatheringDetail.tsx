@@ -117,8 +117,6 @@ export default function GatheringDetail({
               }
             </div>
           </div>
-  
-
       </div>
     </div>
     </>

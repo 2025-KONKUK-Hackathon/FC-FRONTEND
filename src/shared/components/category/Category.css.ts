@@ -10,6 +10,7 @@ export const categoryStyle = recipe({
     border: "1px solid",
     backgroundColor: vars.color.grey800,
     width: "fit-content",
+    minWidth: "fit-content",
   },
   variants: {
     color: {
