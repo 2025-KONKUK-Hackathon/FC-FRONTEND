@@ -9,3 +9,5 @@ export const CLASS_CATEGORY = {
 
 export type ClassCategory =
   (typeof CLASS_CATEGORY)[keyof typeof CLASS_CATEGORY];
+
+export type ClassCategoryKey = keyof typeof CLASS_CATEGORY;
