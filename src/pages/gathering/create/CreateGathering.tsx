@@ -8,6 +8,7 @@ import { CLASS_CATEGORY_OPTIONS } from "@shared/constant/class";
 import DropDown from "@shared/components/dropDown/DropDown";
 import ImageBtn from "@shared/components/imageBtn/ImageBtn";
 import { Ic_gathering } from "@svg/index";
+import Button from "@shared/components/button/Button";
 
 export default function CreateGathering() {
   const { formData, handleStringChange, handleDropdownChange, errors } = useGatheringForm();
@@ -69,7 +70,7 @@ export default function CreateGathering() {
         <FormSection title="사진을 올려주세요" description="사진 업로드는 선택입니다">
           <ImageBtn />
         </FormSection>
-
+        <Button text="모임 만들기" />
       </div>
     </>
   );
