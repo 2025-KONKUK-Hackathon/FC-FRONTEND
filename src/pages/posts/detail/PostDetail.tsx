@@ -30,7 +30,7 @@ export default function PostDetail() {
   const [post, setPost] = useState<PostDetailData | null>(null);
 
   // 예시: 현재 로그인한 사용자의 ID
-  const currentUserId = 1;
+  const currentUserId = 123;
   const isAuthor = post ? currentUserId === post.writerId : false;
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export default function PostDetail() {
             commentData.content.map((comment) => (
               <Comment
                 key={comment.commentId}
-                currentUserId={post?.writerId || 0}
+                currentUserId={currentUserId || 0}
                 comment={{
                   id: comment.commentId,
                   author: {
