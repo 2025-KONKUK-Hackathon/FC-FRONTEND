@@ -9,6 +9,7 @@ import { SUBJECT_CATEGORY_OPTIONS } from "@shared/constant/subject";
 import { PART_CATEGORY_OPTIONS } from "@shared/constant/part";
 import DropDown from "@shared/components/dropDown/DropDown";
 import ImageBtn from "@shared/components/imageBtn/ImageBtn";
+import Button from "@shared/components/button/Button";
 
 export default function CreatePost() {
   const { formData, handleStringChange, handleDropdownChange, errors } = usePostsForm();
@@ -40,6 +41,7 @@ export default function CreatePost() {
         <FormSection title="이미지" description="게시물의 이미지를 업로드해주세요.">
           <ImageBtn />
         </FormSection>
+        <Button text="게시물 작성" />
       </div>
     </>
   )
