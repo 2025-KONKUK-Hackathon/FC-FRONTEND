@@ -10,10 +10,21 @@ export const container = style({
   backgroundColor: vars.color.grey700,
 });
 
+export const titleContainer = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
+});
+
 export const title = style({
   fontSize: "2rem",
 
   color: vars.color.White,
+});
+
+export const icon = style({
+  width: "3rem",
+  height: "3rem",
 });
 
 export const description = style({
