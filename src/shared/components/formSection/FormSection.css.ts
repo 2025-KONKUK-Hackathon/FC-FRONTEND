@@ -5,7 +5,9 @@ export const container = style({
   display: "flex",
   flexDirection: "column",
 
+  padding: "2rem",
   gap: "1rem",
+  backgroundColor: vars.color.grey700,
 });
 
 export const title = style({

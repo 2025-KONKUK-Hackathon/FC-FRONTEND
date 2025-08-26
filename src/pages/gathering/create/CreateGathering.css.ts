@@ -5,7 +5,7 @@ export const container = style({
   display: "flex",
   flexDirection: "column",
   gap: "24px",
-  padding: "5rem 2rem",
+  padding: "5rem 0",
   borderRadius: "12px",
   maxWidth: "600px",
   margin: "0 auto",
@@ -20,6 +20,7 @@ export const title = style({
 export const description = style({
   fontSize: "2rem",
   color: vars.color.grey400,
+  padding: "2rem",
 });
 
 export const row = style({
@@ -36,6 +37,7 @@ export const titleContainer = style({
   display: "flex",
   alignItems: "center",
   gap: "1rem",
+  padding: "2rem",
   marginBottom: "1rem",
 });
 
