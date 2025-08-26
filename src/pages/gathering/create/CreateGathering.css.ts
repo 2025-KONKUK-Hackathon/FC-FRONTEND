@@ -14,7 +14,6 @@ export const container = style({
 export const title = style({
   fontSize: "3.5rem",
   fontWeight: 700,
-  marginBottom: "16px",
   color: vars.color.White,
 });
 
@@ -30,4 +29,16 @@ export const row = style({
   gap: "1rem",
   color: vars.color.grey300,
   fontSize: "1.6rem",
+});
+
+export const titleContainer = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
+  marginBottom: "1rem",
+});
+
+export const icon = style({
+  width: "4rem",
+  height: "4rem",
 });

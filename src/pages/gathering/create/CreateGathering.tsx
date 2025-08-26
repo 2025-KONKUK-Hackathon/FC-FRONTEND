@@ -7,6 +7,7 @@ import TextArea from "@shared/components/textArea/TextArea";
 import { CLASS_CATEGORY_OPTIONS } from "@shared/constant/class";
 import DropDown from "@shared/components/dropDown/DropDown";
 import ImageBtn from "@shared/components/imageBtn/ImageBtn";
+import { Ic_gathering } from "@svg/index";
 
 export default function CreateGathering() {
   const { formData, handleStringChange, handleDropdownChange } = useGatheringForm();
@@ -15,8 +16,11 @@ export default function CreateGathering() {
       <Header showBackButton={true} />
       <div className={styles.container}>
         <div>
-          <h1 className={styles.title}>모임 만들기</h1>
-        <h2 className={styles.description}>모임을 만들어보세요!</h2>
+          <div className={styles.titleContainer}>
+            <Ic_gathering className={styles.icon} />
+            <h1 className={styles.title}>모임 만들기</h1>
+          </div>
+          <h2 className={styles.description}>모임을 만들어보세요!</h2>
         </div>
         <FormSection title="모임 이름!!" description="모임의 이름을 입력해주세요.">
           <Input
