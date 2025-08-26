@@ -8,7 +8,7 @@ interface InputProps {
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  type?: "text" | "password" | "email" | "number" | "tel" | "url";
+  type?: "text" | "password" | "email" | "number" | "tel" | "url" | "date";
 }
 
 export default function Input({
