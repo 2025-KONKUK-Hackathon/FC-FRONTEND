@@ -1,17 +1,33 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as styles from './Login.css';
 import Input from '@shared/components/input/Input';
 import Button from '@shared/components/button/Button';
+import { useLoginForm, type LoginFormData } from './hooks/useLoginForm';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { form, isLoading, login } = useLoginForm();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { handleSubmit, formState: { errors, isValid }, watch, setValue } = form;
 
-  const handleLogin = () => {
-    navigate('/');
+  const emailValue = watch('email');
+  const passwordValue = watch('password');
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue('email', e.target.value, { shouldValidate: true });
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue('password', e.target.value, { shouldValidate: true });
+  };
+
+  const onSubmit = async (data: LoginFormData) => {
+    const result = await login(data);
+    if (result.success) {
+      navigate('/');
+    } else {
+      console.error(result.error);
+    }
   };
 
   const handleSignUp = () => {
@@ -28,29 +44,40 @@ export default function Login() {
         </div>
         <span className={styles.subtitle}>건국대학교 컴퓨터공학부 학생들을 위한<br />통합 커뮤니티</span>
 
-        <div className={styles.formContainer}>
-          <div className={styles.inputGroup}>
-            <Input 
-              placeholder='이메일을 입력하세요'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type='email'
-            />
-            <Input 
-              placeholder='비밀번호를 입력하세요' 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type='password'
-            />
+        <form className={styles.formContainer}>
+          <div className={styles.inputWrapper}>
+            <div className={styles.inputContainer}>
+              <Input 
+                placeholder='이메일을 입력하세요'
+                value={emailValue}
+                onChange={handleEmailChange}
+                type='email'
+              />
+              {errors.email && (
+                <span className={styles.errorMessage}>{errors.email.message}</span>
+              )}
+            </div>
+
+            <div className={styles.inputContainer}>
+              <Input
+                placeholder='비밀번호를 입력하세요'
+                value={passwordValue}
+                onChange={handlePasswordChange}
+                type='password'
+              />
+              {errors.password && (
+                <span className={styles.errorMessage}>{errors.password.message}</span>
+              )}
+            </div>
           </div>
 
           <div className={styles.buttonGroup}>
             <Button 
-              text='로그인'
+              text={isLoading ? '로그인 중...' : '로그인'}
               size='large'
               bgColor='KU_Darkgreen'
-              onClick={handleLogin}
-              disabled={!email || !password}
+              disabled={!isValid || isLoading}
+              onClick={handleSubmit(onSubmit)}
             />
             
             <div className={styles.divider}>
@@ -65,7 +92,7 @@ export default function Login() {
               onClick={handleSignUp}
             />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

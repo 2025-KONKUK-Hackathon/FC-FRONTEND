@@ -46,13 +46,25 @@ export const formContainer = style({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  gap: '2rem',
+  gap: '0.8rem',
 });
 
-export const inputGroup = style({
+export const inputWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.6rem',
+});
+
+export const inputContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '6.2rem',
+});
+
+export const errorMessage = style({
+  margin: '0.4rem 0 0 0.8rem',
+  fontSize: '1rem',
+  color: vars.color.Red,
 });
 
 export const buttonGroup = style({
