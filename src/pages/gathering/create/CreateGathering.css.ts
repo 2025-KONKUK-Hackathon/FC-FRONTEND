@@ -23,6 +23,7 @@ export const description = style({
 });
 
 export const row = style({
+  width: "100%",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",

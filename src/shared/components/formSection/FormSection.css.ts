@@ -19,3 +19,9 @@ export const description = style({
 
   color: vars.color.grey300,
 });
+
+export const error = style({
+  fontSize: "1.4rem",
+
+  color: vars.color.Red,
+});

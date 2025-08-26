@@ -2,15 +2,39 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export const gatheringFormSchema = z.object({
-  type: z.string(),
-  currentCount: z.string().regex(/^\d+$/, "숫자만 입력해주세요."),
-  maxCount: z.string().regex(/^\d+$/, "숫자만 입력해주세요."),
-  title: z.string().min(1, "제목을 입력해주세요."),
-  description: z.string().min(1, "설명을 입력해주세요."),
-  mediaUrl: z.array(z.string()).optional(),
-  leaderName: z.string().min(1, "리더 이름을 입력해주세요."),
-});
+export const gatheringFormSchema = z
+  .object({
+    tag: z.string(),
+    maxPeople: z.string().regex(/^\d+$/, "숫자만 입력해주세요."),
+    title: z.string().min(1, "제목을 입력해주세요."),
+    description: z.string().min(1, "설명을 입력해주세요."),
+    img: z.array(z.string()).optional(),
+    studyLeader: z.string().min(1, "리더 이름을 입력해주세요."),
+    applicationStart: z.string().min(1, "신청 시작일을 입력해주세요."),
+    applicationEnd: z.string().min(1, "신청 종료일을 입력해주세요."),
+    activityStart: z.string().min(1, "활동 시작일을 입력해주세요."),
+    activityEnd: z.string().min(1, "활동 종료일을 입력해주세요."),
+  })
+  .refine(
+    (data) =>
+      !data.applicationStart ||
+      !data.applicationEnd ||
+      data.applicationStart <= data.applicationEnd,
+    {
+      message: "신청 종료일은 시작일보다 같거나 커야 합니다.",
+      path: ["applicationEnd"],
+    }
+  )
+  .refine(
+    (data) =>
+      !data.activityStart ||
+      !data.activityEnd ||
+      data.activityStart <= data.activityEnd,
+    {
+      message: "활동 종료일은 시작일보다 같거나 커야 합니다.",
+      path: ["activityEnd"],
+    }
+  );
 
 export type GatheringFormValues = z.infer<typeof gatheringFormSchema>;
 
@@ -23,13 +47,16 @@ export function useGatheringForm() {
   } = useForm<GatheringFormValues>({
     resolver: zodResolver(gatheringFormSchema),
     defaultValues: {
-      type: "",
-      currentCount: undefined,
-      maxCount: undefined,
+      tag: "",
+      maxPeople: undefined,
       title: "",
       description: "",
-      mediaUrl: undefined,
-      leaderName: "",
+      img: undefined,
+      studyLeader: "",
+      applicationStart: undefined,
+      applicationEnd: undefined,
+      activityStart: undefined,
+      activityEnd: undefined,
     },
     mode: "onChange",
   });
