@@ -5,7 +5,6 @@ export const signupWrapper = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '3.6rem',
   width: '100%',
   maxWidth: '50rem',
   height: '100vh',
