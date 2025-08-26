@@ -17,19 +17,29 @@ export interface RequestConfig {
   method: HTTPMethodType;
   url: string;
   query?: Record<string, string | number | boolean>;
-  body?: Record<string, unknown>;
+  body?: Record<string, unknown> | FormData;
+  headers?: Record<string, string>;
 }
 
 export const request = async <T>(config: RequestConfig): Promise<T> => {
-  const { method, url, query, body } = config;
+  const { method, url, query, body, headers } = config;
+
+  const requestConfig: any = {
+    method,
+    url,
+    params: query,
+    data: body,
+  };
+
+  // FormData가 아닌 경우에만 Content-Type 지정
+  if (headers) {
+    requestConfig.headers = headers;
+  } else if (body && !(body instanceof FormData)) {
+    requestConfig.headers = { 'Content-Type': 'application/json' };
+  }
 
   try {
-    const response = await axiosInstance.request<BaseResponse<T>>({
-      method,
-      url,
-      params: query,
-      data: body,
-    });
+    const response = await axiosInstance.request<BaseResponse<T>>(requestConfig);
 
     return response.data.data;
   } catch (error: unknown) {
