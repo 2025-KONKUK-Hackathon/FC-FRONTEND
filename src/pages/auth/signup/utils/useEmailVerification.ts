@@ -16,8 +16,8 @@ export const useEmailVerification = () => {
         url: '/users/emails/verifications',
         body: { email: verificationData.email, code: verificationData.code },
       }),
-    onSuccess: (data) => {
-      console.log('이메일 인증 확인 성공:', data);
+    onSuccess: () => {
+      console.info('이메일 인증 확인 성공');
     },
     onError: (error) => {
       console.error('이메일 인증 확인 실패:', error);

@@ -25,8 +25,8 @@ export const useSignup = () => {
           phone: signupData.phone,
         },
       }),
-    onSuccess: (data) => {
-      console.log('회원가입 성공:', data);
+    onSuccess: () => {
+      console.info('회원가입 성공');
     },
     onError: (error) => {
       console.error('회원가입 실패:', error);

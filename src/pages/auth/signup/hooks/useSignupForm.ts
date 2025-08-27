@@ -145,7 +145,6 @@ export const useSignupForm = () => {
         return { success: false, error: '인증된 이메일과 입력한 이메일이 일치하지 않습니다.' };
       }
       
-      console.log('회원가입 데이터:', data);
       await signupMutation.mutateAsync({
         email: data.email,
         name: data.name,
