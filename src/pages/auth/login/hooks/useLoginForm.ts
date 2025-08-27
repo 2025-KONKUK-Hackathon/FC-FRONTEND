@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLogin } from '../utils/useLogin';
 
 export const loginSchema = z.object({
   email: z
@@ -23,6 +24,8 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 
 export const useLoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string>('');
+  const loginMutation = useLogin();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -36,11 +39,15 @@ export const useLoginForm = () => {
   const login = async (data: LoginFormData) => {
     try {
       setIsLoading(true);
-      console.log('로그인 데이터:', data); 
-      return { success: true };
+      setLoginError('');
+      const result = await loginMutation.mutateAsync(data);
+      console.log('로그인 성공:', result);
+      return { success: true, data: result };
     } catch (error) {
       console.error('로그인 실패:', error);
-      return { success: false, error: '로그인에 실패했습니다.' };
+      const errorMessage = '비밀번호를 잘못 입력하셨거나 등록되지 않은 이메일 입니다.';
+      setLoginError(errorMessage);
+      return { success: false, error: errorMessage };
     } finally {
       setIsLoading(false);
     }
@@ -49,6 +56,7 @@ export const useLoginForm = () => {
   return {
     form,
     isLoading,
+    loginError,
     login,
   };
 };

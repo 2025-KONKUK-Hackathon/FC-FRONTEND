@@ -70,7 +70,6 @@ export const errorMessage = style({
 export const buttonGroup = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '1.2rem',
   marginTop: '1rem',
 });
 
