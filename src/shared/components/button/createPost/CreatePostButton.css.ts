@@ -14,9 +14,28 @@ export const wrapper = style({
     color: vars.color.White,
     borderRadius: '999px',
     boxShadow: '0 4px 12px rgba(255, 255, 255, 0.1)',
+    textDecoration: 'none',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    transform: 'translateY(0)',
+    ':hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 8px 25px rgba(255, 255, 255, 0.15)',
+        backgroundColor: '#024d37',
+    },
+    ':active': {
+        transform: 'translateY(0)',
+        transition: 'all 0.15s ease',
+        boxShadow: '0 2px 8px rgba(255, 255, 255, 0.1)',
+    },
 })
 
 export const icon = style({
     fill: vars.color.White,
     fontSize: '1.6rem',
+    transition: 'transform 0.3s ease',
+    selectors: {
+        [`${wrapper}:hover &`]: {
+            transform: 'rotate(12deg) scale(1.1)',
+        }
+    }
 })

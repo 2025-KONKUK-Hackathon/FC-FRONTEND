@@ -1,9 +1,11 @@
+import CreatePostButton from "@shared/components/button/createPost/CreatePostButton";
 import PostListItem from "./components/PostListItem";
 import StudentCouncilListItem from "./components/StudentCouncilListItem";
 import { generalPostsDummy } from "./constant/GeneralPostsDummy";
 import { studentCouncilPostsDummy } from "./constant/StudentCouncilPostsDummy";
 import * as styles from "./PostList.css";
 import { useState, useRef, useEffect } from "react";
+import { ROUTES } from "@router/constant/Routes";
 
 export default function PostList() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -96,6 +98,10 @@ export default function PostList() {
             onClick={(id) => console.log(`Post ${id} clicked`)}
           />
         ))}
+      </div>
+
+      <div className={styles.createButtonWrapper}>
+        <CreatePostButton to={ROUTES.POSTS.CREATE} />
       </div>
     </div>
   );
