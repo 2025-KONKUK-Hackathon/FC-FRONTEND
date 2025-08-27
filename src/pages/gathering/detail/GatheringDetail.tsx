@@ -6,26 +6,16 @@ import {
 } from "@/shared/constant/subject";
 import { Ic_calendar, Ic_user } from "@/assets/svg";
 import Button from "@/shared/components/button/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PopUp from "./components/popUp/PopUp";
-import { useParams } from "react-router-dom";
-
-interface GatheringDetailProps {
-  meetingName: string;
-  content: string;
-  category: SubjectCategory;
-  meetingStatus: string;
-  recruitNumber: number;
-  currentRecruitCount: number;
-  recruitStartDate: string;
-  recruitEndDate: string;
-  actualStartDate: string;
-  actualEndDate: string;
-  hostName: string;
-  hostId: number;
-  imageUrls: string[];
-}
-//TODO: 모임 신청 가능 여부에 따라 조건부 렌더링, 모임장
+import { useNavigate, useParams } from "react-router-dom";
+import Header from "@shared/components/Header/Header";
+import { request } from "@/api/request";
+import type {
+  GatheringDetailProps,
+  GatheringMemberResponse,
+  GatheringDetailResponse,
+} from "./types/Gathering";
 
 function GatheringDetailPage({
   meetingName,
@@ -41,6 +31,8 @@ function GatheringDetailPage({
   hostName,
   hostId,
   imageUrls,
+  isHost = true,
+  memberList = [],
 }: GatheringDetailProps) {
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
@@ -56,16 +48,15 @@ function GatheringDetailPage({
     <>
       {isPopUpOpen && (
         <PopUp
-          maxPeople={recruitNumber}
-          currentPeople={currentRecruitCount}
+          recruitNumber={recruitNumber}
+          currentRecruitCount={currentRecruitCount}
           isHost={true}
           handlePopUpClose={handlePopUpClose}
+          memberList={memberList}
         />
       )}
       <div className={styles.gatheringWrapper}>
-        {
-          //TOFO: 이미지 없을 걍우 처리
-        }
+        <Header showBackButton={true} showLogo={false} />
         <img
           src={imageUrls[0]}
           alt="모임 이미지"
@@ -99,10 +90,11 @@ function GatheringDetailPage({
               size="medium"
               onClick={handlePopUpOpen}
             />
-            {
-              //TODO: host 여부에 따른 버튼 렌더링 로직 추가
-            }
-            <Button text={`모임 신청`} variant="fill" size="medium" />
+            {isHost ? (
+              <Button text={`모임 마감`} variant="fill" size="medium" />
+            ) : (
+              <Button text={`모임 신청`} variant="fill" size="medium" />
+            )}
           </div>
 
           <div className={styles.gatheringDetailContentWrapper}>
@@ -113,9 +105,16 @@ function GatheringDetailPage({
               </p>
               <Category
                 key={category}
-                text={SUBJECT_CATEGORY[category].text}
-                icon={SUBJECT_CATEGORY[category].icon}
-                color={SUBJECT_CATEGORY[category].color}
+                text={
+                  SUBJECT_CATEGORY[category as SubjectCategory]?.text || "기타"
+                }
+                icon={
+                  SUBJECT_CATEGORY[category as SubjectCategory]?.icon || "🌈"
+                }
+                color={
+                  SUBJECT_CATEGORY[category as SubjectCategory]?.color ||
+                  "White"
+                }
                 size="small"
               />
               <p className={styles.gatheringDetailDescription}>{content}</p>
@@ -159,24 +158,40 @@ function GatheringDetailPage({
 
 export default function GatheringDetail() {
   const { id } = useParams();
-  //TODO: 모임 상세 조회 로직 추가
-  const meetingDetail = {
-    meetingName: "모임 제목",
-    content: "모임 내용",
-    category: "CLASS" as SubjectCategory,
-    meetingStatus: "모집중",
-    recruitNumber: 10,
-    currentRecruitCount: 5,
-    recruitStartDate: "2025-01-01",
-    recruitEndDate: "2025-01-01",
-    actualStartDate: "2025-01-01",
-    actualEndDate: "2025-01-01",
-    hostName: "홍길동",
-    hostId: 1,
-    imageUrls: [
-      "https://picsum.photos/200/300",
-      "https://picsum.photos/200/300",
-    ],
-  };
-  return <GatheringDetailPage {...meetingDetail} />;
+  const navigate = useNavigate();
+  const [meetingDetail, setMeetingDetail] =
+    useState<GatheringDetailResponse | null>(null);
+  const [memberList, setMemberList] = useState<GatheringMemberResponse[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!id) return;
+
+      try {
+        // 모임 상세 정보와 멤버 목록을 병렬로 가져오기
+        const [meetingData, membersData] = await Promise.all([
+          request<GatheringDetailResponse>({
+            method: "GET",
+            url: `/meetings/${id}`,
+          }),
+          request<GatheringMemberResponse[]>({
+            method: "GET",
+            url: `/meetings/${id}/members`,
+          }),
+        ]);
+
+        setMeetingDetail(meetingData);
+        setMemberList(membersData);
+      } catch (err) {
+        navigate("/not-found");
+      }
+    };
+    fetchData();
+  }, [id, navigate]);
+
+  if (!meetingDetail) {
+    return <div>모임 정보를 찾을 수 없습니다.</div>;
+  }
+
+  return <GatheringDetailPage {...meetingDetail} memberList={memberList} />;
 }
