@@ -25,14 +25,14 @@ export default function CreateGathering() {
         </div>
         <FormSection title="모임 이름!!" description="모임의 이름을 입력해주세요." errorMessage={errors.title?.message} >
           <Input
-            value={formData.title}
+            value={formData.title ?? ""}
             onChange={handleStringChange("title")}
             placeholder="모임 이름"
           />
         </FormSection>
         <FormSection title="모임 설명" description="모임에 대한 설명을 입력해주세요." errorMessage={errors.description?.message} >
           <TextArea
-            value={formData.description}
+            value={formData.description ?? ""}
             onChange={handleStringChange("description")}
             placeholder="모임 설명"
           />
@@ -42,7 +42,7 @@ export default function CreateGathering() {
         </FormSection>
         <FormSection title="최대 인원을 정해주세요" description="최대 인원은 2명 이상이어야 합니다." errorMessage={errors.maxPeople?.message} >
           <div className={styles.row}>
-          <Input type="number" value={String(formData.maxPeople)} onChange={handleStringChange("maxPeople")} placeholder="최대 인원" />
+          <Input type="number" value={String(formData.maxPeople ?? 0)} onChange={handleStringChange("maxPeople")} placeholder="최대 인원" />
           명
           </div>
         </FormSection>
@@ -55,16 +55,16 @@ export default function CreateGathering() {
         </FormSection>
         <FormSection title="신청 기간" description="모임의 신청 기간을 설정해주세요" errorMessage={errors.applicationStart?.message || errors.applicationEnd?.message} >
           <div className={styles.row}>
-            <Input type="date" value={formData.applicationStart} onChange={handleStringChange("applicationStart")} />
+            <Input type="date" value={formData.applicationStart ?? ""} onChange={handleStringChange("applicationStart")} />
           -
-          <Input type="date" value={formData.applicationEnd} onChange={handleStringChange("applicationEnd")} />
+          <Input type="date" value={formData.applicationEnd ?? ""} onChange={handleStringChange("applicationEnd")} />
           </div>
         </FormSection>
         <FormSection title ="활동 기간" description="모임의 활동 기간을 설정해주세요" errorMessage={errors.activityStart?.message || errors.activityEnd?.message} >
           <div className={styles.row}>
-            <Input type="date" value={formData.activityStart} onChange={handleStringChange("activityStart")} />
+            <Input type="date" value={formData.activityStart ?? ""} onChange={handleStringChange("activityStart")} />
             -
-            <Input type="date" value={formData.activityEnd} onChange={handleStringChange("activityEnd")} />
+            <Input type="date" value={formData.activityEnd ?? ""} onChange={handleStringChange("activityEnd")} />
           </div>
         </FormSection>
         <FormSection title="사진을 올려주세요" description="사진 업로드는 선택입니다" >
