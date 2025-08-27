@@ -40,7 +40,7 @@ export const postMeta = style({
 export const writerName = style({
   fontSize: '1.6rem',
   fontWeight: 'bold',
-  color: vars.color.Mint,
+  color: vars.color.grey100,
 });
 
 export const createdAt = style({
