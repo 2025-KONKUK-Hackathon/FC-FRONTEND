@@ -11,5 +11,5 @@ export { default as Ic_signs_post } from '@svg/ic_signs_post.svg?react';
 export { default as Ic_user } from '@svg/ic_user.svg?react';
 export { default as Ic_calendar } from '@svg/ic_calendar.svg?react';
 export { default as Ic_x } from '@svg/ic_x.svg?react';
-export { default as Ic_personGrey300 } from '@svg/ic_person_grey300.svg?react';
 export { default as Ic_trash_white } from '@svg/ic_trash_white.svg?react';
+export { default as Ic_personGrey300 } from '@svg/ic_person_grey300.svg?react';
