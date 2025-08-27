@@ -10,3 +10,5 @@ export { default as Ic_user } from '@svg/ic_user.svg?react';
 export { default as Ic_calendar } from '@svg/ic_calendar.svg?react';
 export { default as Ic_x } from '@svg/ic_x.svg?react';
 export { default as Ic_personGrey300 } from '@svg/ic_person_grey300.svg?react';
+export { default as Pencil_solid_full } from '@svg/pencil-solid-full.svg?react';
+export { default as Pen_to_square_reqgular_full } from '@svg/pen-to-square-regular-full.svg?react'
