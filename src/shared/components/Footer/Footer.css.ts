@@ -3,13 +3,13 @@ import { vars } from "@styles/theme.css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const container = style({
-  display: "flex",
   width: "100%",
+  maxWidth: "430px",
+  display: "flex",
   height: "6rem",
-  backgroundColor: vars.color.grey800,
+  backgroundColor: vars.color.grey900,
   position: "fixed",
   bottom: 0,
-  left: 0,
   zIndex: 1000,
 });
 
