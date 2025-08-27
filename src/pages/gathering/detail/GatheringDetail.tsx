@@ -1,19 +1,16 @@
-import Category from "@/shared/components/category/Category";
-import * as styles from "@/pages/gathering/detail/GatheringDetail.css";
-import { CLASS_CATEGORY } from "@/shared/constant/class";
-import { Ic_calendar, Ic_user } from "@/assets/svg";
-import Button from "@/shared/components/button/Button";
-import { useState } from "react";
-import PopUp from "./components/popUp/PopUp";
-import { useNavigate, useParams } from "react-router-dom";
-import Header from "@shared/components/Header/Header";
-import type { GatheringDetailProps } from "./types/Gathering";
-import LoadingSvg from "@shared/components/loading/Loading";
-import { STATUS, type StatusType } from "@shared/constant/status";
-import {
-  useGatheringDetail,
-  useGatheringMutations,
-} from "@/pages/gathering/detail/hooks";
+import Category from '@/shared/components/category/Category';
+import * as styles from '@/pages/gathering/detail/GatheringDetail.css';
+import { CLASS_CATEGORY } from '@/shared/constant/class';
+import { Ic_calendar, Ic_user } from '@/assets/svg';
+import Button from '@/shared/components/button/Button';
+import { useState } from 'react';
+import PopUp from './components/popUp/PopUp';
+import { useNavigate, useParams } from 'react-router-dom';
+import Header from '@shared/components/Header/Header';
+import type { GatheringDetailProps } from './types/Gathering';
+import LoadingSvg from '@shared/components/loading/Loading';
+import { STATUS, type StatusType } from '@shared/constant/status';
+import { useGatheringDetail, useGatheringMutations } from '@/pages/gathering/detail/hooks';
 
 function GatheringDetailPage({
   meetingName,
@@ -42,8 +39,7 @@ function GatheringDetailPage({
   };
 
   const { id } = useParams();
-  const { meetingApplicationMutation, meetingCloseMutation } =
-    useGatheringMutations(id);
+  const { meetingApplicationMutation, meetingCloseMutation } = useGatheringMutations(id);
 
   const handleMeetingApplicationButton = () => {
     if (isHost) {
@@ -56,7 +52,7 @@ function GatheringDetailPage({
   };
 
   const isValidMeetingApplication = () => {
-    if (meetingStatus && Object.values(STATUS).includes(meetingStatus)) {
+    if (meetingStatus && Object.keys(STATUS).includes(meetingStatus)) {
       return meetingStatus === STATUS.IN_PROGRESS;
     }
     return false;
@@ -75,11 +71,7 @@ function GatheringDetailPage({
       )}
       <div className={styles.gatheringWrapper}>
         <Header showBackButton={true} showLogo={false} />
-        <img
-          src={imageUrls[0]}
-          alt="모임 이미지"
-          className={styles.gatheringDetailImage}
-        />
+        <img src={imageUrls[0]} alt="모임 이미지" className={styles.gatheringDetailImage} />
         <div className={styles.gatheringDetailWrapper}>
           <div className={styles.gatheringDetailHeader}>
             <div className={styles.gatheringDetailHeaderTop}>
@@ -112,9 +104,7 @@ function GatheringDetailPage({
                 text="모임 마감"
                 variant="fill"
                 size="medium"
-                disabled={
-                  !isValidMeetingApplication() || meetingCloseMutation.isPending
-                }
+                disabled={!isValidMeetingApplication() || meetingCloseMutation.isPending}
                 onClick={handleMeetingApplicationButton}
               />
             ) : (
@@ -135,22 +125,20 @@ function GatheringDetailPage({
           <div className={styles.gatheringDetailContentWrapper}>
             <p className={styles.gatheringDetailContentTitle}>모임안내</p>
             <div className={styles.gatheringDetailContent}>
-              <p className={styles.gatheringDetailDescriptionTitle}>
-                모임 소개
-              </p>
+              <p className={styles.gatheringDetailDescriptionTitle}>모임 소개</p>
               <Category
                 key={category}
                 text={
-                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]
-                    ?.text || CLASS_CATEGORY.ETC.text
+                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]?.text ||
+                  CLASS_CATEGORY.ETC.text
                 }
                 icon={
-                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]
-                    ?.icon || CLASS_CATEGORY.ETC.icon
+                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]?.icon ||
+                  CLASS_CATEGORY.ETC.icon
                 }
                 color={
-                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]
-                    ?.color || CLASS_CATEGORY.ETC.color
+                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]?.color ||
+                  CLASS_CATEGORY.ETC.color
                 }
                 size="small"
               />
@@ -159,9 +147,7 @@ function GatheringDetailPage({
 
             <div className={styles.gatheringDetailContent}>
               <div className={styles.gatheringDetailDescriptionTitle}>
-                <Ic_calendar
-                  className={styles.gatheringDetailDescriptionTitleIcon}
-                />
+                <Ic_calendar className={styles.gatheringDetailDescriptionTitleIcon} />
                 활동기간
               </div>
               <p>
@@ -172,18 +158,12 @@ function GatheringDetailPage({
 
           <div className={styles.gatheringDetailContent}>
             <div className={styles.gatheringDetailDescriptionTitle}>
-              <Ic_calendar
-                className={styles.gatheringDetailDescriptionTitleIcon}
-              />
+              <Ic_calendar className={styles.gatheringDetailDescriptionTitleIcon} />
               모임 이미지
             </div>
             <div className={styles.gatheringDetailImageWrapper}>
-              {imageUrls.map((item) => (
-                <img
-                  src={item}
-                  alt="모임 이미지"
-                  className={styles.gatheringDetailImage}
-                />
+              {imageUrls.map(item => (
+                <img src={item} alt="모임 이미지" className={styles.gatheringDetailImage} />
               ))}
             </div>
           </div>
@@ -211,7 +191,7 @@ export default function GatheringDetail() {
   }
 
   if (meetingError || memberError || !meetingDetail) {
-    navigate("/not-found");
+    navigate('/not-found');
     return null;
   }
 
