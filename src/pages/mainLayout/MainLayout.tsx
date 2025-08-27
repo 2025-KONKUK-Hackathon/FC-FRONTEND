@@ -6,10 +6,10 @@ import * as styles from "./MainLayout.css";
 const MainLayout = () => {
   return (
     <div className={styles.layout}>
-      <Header showBackButton={true} showMenuButton={true} />
-      <main className={styles.main}>
+      <Header />
+      <div className={styles.main}>
         <Outlet />
-      </main>
+      </div>
       <Footer />
     </div>
   );

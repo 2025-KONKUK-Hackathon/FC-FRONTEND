@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as styles from './PostDetail.css';
+import Category from '@shared/components/category/Category';
 import Comment from '@shared/components/comment/Comment';
 import Input from '@shared/components/input/Input';
 import Button from '@shared/components/button/Button';
 import { Ic_chevron_left_white, Ic_trash_white } from '@svg/index';
 import { formatDate } from './utils/formatDate';
+import { GRADE, AFFILIATION, PART, TOPIC } from './constant/PostKeyword';
 import type { PostDetailData } from './types/postTypes';
 import { postDetailMock, postCommentMock } from './constant/PostDetailDummy';
 
@@ -61,6 +63,14 @@ export default function PostDetail() {
           </button>
         )}
       </div>
+
+      <div className={styles.keywordsContainer}>
+        {post?.grade && <Category text={GRADE[post.grade]} icon='🎓' color='Pink' size='medium' />}
+        {post?.affiliation && <Category text={AFFILIATION[post.affiliation]} icon='💻' color='Yellow' size='medium' />}
+        {post?.part && <Category text={PART[post.part]} icon='🌐' color='Mint' size='medium' />}
+        {post?.topic && <Category text={TOPIC[post.topic]} icon='📚' color='Purple' size='medium' />}
+      </div>
+
       <span className={styles.postTitle}>{post?.title}</span>
       
       <div className={styles.postMeta}>

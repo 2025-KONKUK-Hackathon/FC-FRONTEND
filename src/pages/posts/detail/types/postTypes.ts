@@ -1,3 +1,5 @@
+import { GRADE, AFFILIATION, PART, TOPIC } from '../constant/PostKeyword';
+
 export interface PostDetailData {
   writerName: string;
   writerId: number;
@@ -6,6 +8,10 @@ export interface PostDetailData {
   createdAt: string;
   commentCount: number;
   imageUrls?: string[];
+  grade: keyof typeof GRADE;
+  affiliation: keyof typeof AFFILIATION;
+  part: keyof typeof PART;
+  topic: keyof typeof TOPIC;
 }
 
 export interface PostCommentData {

@@ -10,6 +10,10 @@ export const postDetailMock: PostDetailData = {
   createdAt: '2025-08-26T16:46:47.503Z',
   commentCount: 5,
   imageUrls: ['img_a', 'img_b', 'img_c', 'img_d'],
+  grade: 'FIRST',
+  affiliation: 'COMPUTER',
+  part: 'SERVER',
+  topic: 'CLASS',
 };
 
 export const postCommentMock: PostCommentData[] = [

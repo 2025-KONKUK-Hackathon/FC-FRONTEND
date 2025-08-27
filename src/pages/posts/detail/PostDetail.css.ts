@@ -17,11 +17,16 @@ export const postHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
   padding: '1.8rem 0',
-  backgroundColor: vars.color.grey800,
+  backgroundColor: vars.color.grey900,
 });
 
 export const headerButton = style({
   cursor: 'pointer',
+});
+
+export const keywordsContainer = style({
+  display: 'flex',
+  gap: '0.8rem',
 });
 
 export const postTitle = style({
@@ -106,7 +111,7 @@ export const commentInputWrapper = style({
   right: 0,
   gap: '0.8rem',
   padding: '1.4rem',
-  backgroundColor: vars.color.grey800,
+  backgroundColor: vars.color.grey900,
 });
 
 export const commentInputContainer = style({

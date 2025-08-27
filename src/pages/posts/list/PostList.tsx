@@ -37,7 +37,7 @@ export default function PostList() {
       const itemWidth = 29 + 20; // 아이템 너비 + gap
 
       const currentIndex = Math.floor(scrollLeft / (totalSlides * itemWidth));
-      console.log(currentIndex, scrollLeft);
+
       setCurrentSlide(Math.max(0, Math.min(currentIndex, totalSlides - 1)));
     };
 
