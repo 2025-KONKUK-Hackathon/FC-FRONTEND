@@ -6,7 +6,7 @@ export const container = style({
   display: "flex",
   width: "100%",
   height: "6rem",
-  backgroundColor: vars.color.White,
+  backgroundColor: vars.color.grey800,
   position: "fixed",
   bottom: 0,
   left: 0,
@@ -22,7 +22,7 @@ export const navItem = recipe({
     alignItems: "center",
     justifyContent: "center",
     fontSize: "1.4rem",
-    textDecoration: "none", // Link 기본 스타일 제거
+    textDecoration: "none",
     transition: "color 0.3s ease",
   },
   variants: {
@@ -53,11 +53,26 @@ export const navText = recipe({
         fontWeight: "600",
       },
       false: {
-        color: vars.color.grey900,
+        color: vars.color.grey400,
       },
     },
   },
   defaultVariants: {
     isActive: false,
+  },
+});
+
+export const icon = recipe({
+  base: {
+    width: "4rem",
+    height: "4rem",
+    color: vars.color.grey500,
+  },
+  variants: {
+    isActive: {
+      true: {
+        color: vars.color.KU_Darkgreen,
+      },
+    },
   },
 });
