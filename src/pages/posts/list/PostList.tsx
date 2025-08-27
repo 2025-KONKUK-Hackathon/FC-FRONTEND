@@ -4,10 +4,23 @@ import { generalPostsDummy } from "./constant/GeneralPostsDummy";
 import { studentCouncilPostsDummy } from "./constant/StudentCouncilPostsDummy";
 import * as styles from "./PostList.css";
 import { useState, useRef, useEffect } from "react";
+import DropDown from "@shared/components/dropDown/DropDown";
+import { 
+  PART_FILTER_OPTIONS, 
+  GRADE_FILTER_OPTIONS, 
+  TOPIC_FILTER_OPTIONS, 
+  AFFILIATION_FILTER_OPTIONS 
+} from "./constant/FilterOptions";
 
 export default function PostList() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // 필터 상태
+  const [partFilter, setPartFilter] = useState('ALL');
+  const [gradeFilter, setGradeFilter] = useState('ALL');
+  const [topicFilter, setTopicFilter] = useState('ALL');
+  const [affiliationFilter, setAffiliationFilter] = useState('ALL');
 
   const totalSlides = studentCouncilPostsDummy.length;
 

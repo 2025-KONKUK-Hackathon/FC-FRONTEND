@@ -1,3 +1,4 @@
+// 모임
 import type { DropDownOption } from "@shared/components/dropDown/constant/dropDown";
 
 export const CLASS_CATEGORY = {
