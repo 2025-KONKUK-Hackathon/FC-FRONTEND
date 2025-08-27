@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import * as styles from "./Footer.css";
+import * as styles from "@shared/components/Footer/Footer.css";
 import { ROUTES } from "@router/constant/Routes";
 import { Ic_signs_post, Ic_users_solid, Ic_user_solid } from "@svg/index";
 
@@ -14,8 +14,14 @@ const Footer = () => {
           isActive: location.pathname === ROUTES.HOME,
         })}
       >
-        <img src={Ic_signs_post} alt="게시판 아이콘" width={24} />
-        <span className={styles.navText({ isActive: location.pathname === ROUTES.HOME })}>게시판</span>
+        <Ic_signs_post className={styles.icon} />
+        <span
+          className={styles.navText({
+            isActive: location.pathname === ROUTES.HOME,
+          })}
+        >
+          게시판
+        </span>
       </Link>
       <Link
         to={ROUTES.GATHERING.LIST}
@@ -23,17 +29,29 @@ const Footer = () => {
           isActive: location.pathname === ROUTES.GATHERING.LIST,
         })}
       >
-        <img src={Ic_users_solid} alt="모임 아이콘" width={24} />
-        <span className={styles.navText({ isActive: location.pathname === ROUTES.GATHERING.LIST })}>모임</span>
+        <Ic_users_solid className={styles.icon} />
+        <span
+          className={styles.navText({
+            isActive: location.pathname === ROUTES.GATHERING.LIST,
+          })}
+        >
+          모임
+        </span>
       </Link>
       <Link
-        to={ROUTES.MY_PAGE}
+        to={ROUTES.USER.DETAIL}
         className={styles.navItem({
-          isActive: location.pathname === ROUTES.MY_PAGE,
+          isActive: location.pathname === ROUTES.USER.DETAIL,
         })}
       >
-        <img src={Ic_user_solid} alt="마이페이지 아이콘" width={24} />
-        <span className={styles.navText({ isActive: location.pathname === ROUTES.MY_PAGE })}>마이</span>
+        <Ic_user_solid className={styles.icon} />
+        <span
+          className={styles.navText({
+            isActive: location.pathname === ROUTES.USER.DETAIL,
+          })}
+        >
+          마이페이지
+        </span>
       </Link>
     </div>
   );

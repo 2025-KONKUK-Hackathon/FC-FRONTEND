@@ -14,5 +14,7 @@ export const ROUTES = {
     CREATE: "/posts/create",
     DETAIL: "/posts/detail/:id",
   },
-  MY_PAGE: "/my",
+  USER: {
+    DETAIL: "/user/:id",
+  },
 } as const;
