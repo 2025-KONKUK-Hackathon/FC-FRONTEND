@@ -1,29 +1,28 @@
-import { vars } from "@shared/styles/theme.css";
-import { style } from "@vanilla-extract/css";
+import { vars } from '@shared/styles/theme.css';
+import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
 
-  padding: "2rem",
-  gap: "1rem",
-  backgroundColor: vars.color.grey700,
+  padding: '2rem',
+  gap: '1rem',
 });
 
 export const title = style({
-  fontSize: "2rem",
+  fontSize: '2rem',
 
   color: vars.color.White,
 });
 
 export const description = style({
-  fontSize: "1.4rem",
+  fontSize: '1.4rem',
 
   color: vars.color.grey300,
 });
 
 export const error = style({
-  fontSize: "1.4rem",
+  fontSize: '1.4rem',
 
   color: vars.color.Red,
 });
