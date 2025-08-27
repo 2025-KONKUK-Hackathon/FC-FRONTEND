@@ -7,6 +7,17 @@ export const gatheringWrapper = style({
   width: "100%",
   flexDirection: "column",
   paddingBottom: "2rem",
+  position: "relative",
+});
+
+export const gatheringDetailBackButton = style({
+  width: "1.5rem",
+  height: "1.5rem",
+  color: vars.color.grey200,
+  cursor: "pointer",
+  position: "absolute",
+  top: "1rem",
+  left: "1rem",
 });
 
 export const gatheringDetailWrapper = style({
