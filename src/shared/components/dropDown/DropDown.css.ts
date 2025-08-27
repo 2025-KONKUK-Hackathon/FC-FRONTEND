@@ -18,6 +18,7 @@ export const dropdownTrigger = recipe({
     backgroundColor: vars.color.grey800,
     color: vars.color.White,
     cursor: 'pointer',
+    transition: 'all 0.2s ease',
     ':disabled': {
       backgroundColor: vars.color.grey600,
       color: vars.color.grey400,
@@ -39,7 +40,19 @@ export const dropdownTrigger = recipe({
         fontSize: '1.6rem',
       }
     },
+    isSelected: {
+      true: {
+        backgroundColor: vars.color.KU_Darkgreen,
+        borderColor: vars.color.KU_Darkgreen,
+      },
+      false: {}
+    }
   }
+});
+
+export const dropdownTriggerSelected = style({
+  backgroundColor: vars.color.KU_Darkgreen,
+  borderColor: vars.color.KU_Darkgreen,
 });
 
 export const placeholder = style({
