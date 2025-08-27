@@ -41,7 +41,6 @@ export const useLoginForm = () => {
       setIsLoading(true);
       setLoginError('');
       const result = await loginMutation.mutateAsync(data);
-      console.log('로그인 성공:', result);
       return { success: true, data: result };
     } catch (error) {
       console.error('로그인 실패:', error);
