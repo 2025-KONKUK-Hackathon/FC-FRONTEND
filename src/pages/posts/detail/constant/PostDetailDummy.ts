@@ -62,7 +62,7 @@ export const postCommentMock: PostCommentData[] = [
   {
     content: [
       {
-        commentId: 3,
+        commentId: 4,
         writerId: 789,
         writerName: '임지성',
         content: 'ㅎㅎㅎ',
@@ -76,7 +76,7 @@ export const postCommentMock: PostCommentData[] = [
   {
     content: [
       {
-        commentId: 3,
+        commentId: 5,
         writerId: 789,
         writerName: '임지성',
         content: 'ㅎㅎㅎㅎ',

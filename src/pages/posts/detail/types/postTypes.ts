@@ -14,17 +14,17 @@ export interface PostDetailData {
   topic: keyof typeof TOPIC;
 }
 
+interface CommnetItem {
+    commentId: number;
+    writerId: number;
+    writerName: string;
+    content: string;
+    createdAt: string;
+    cursor: number;
+}
+
 export interface PostCommentData {
-  content: [
-    {
-      commentId: number;
-      writerId: number;
-      writerName: string;
-      content: string;
-      createdAt: string;
-      cursor: number;
-    }
-  ],
+  content: CommnetItem[],
   nextCursor: number;
   isLast: boolean;
 }
