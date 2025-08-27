@@ -1,3 +1,4 @@
+import CreatePostButton from "@shared/components/button/createPost/CreatePostButton";
 import PostListItem from "./components/PostListItem";
 import StudentCouncilListItem from "./components/StudentCouncilListItem";
 import { generalPostsDummy } from "./constant/GeneralPostsDummy";
@@ -99,6 +100,10 @@ export default function PostList() {
             onClick={(id) => navigator(`/posts/detail/${id}`)}
           />
         ))}
+      </div>
+
+      <div className={styles.createButtonWrapper}>
+        <CreatePostButton to={ROUTES.POSTS.CREATE} />
       </div>
     </div>
   );
