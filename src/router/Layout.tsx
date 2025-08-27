@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
-import Loading from '@shared/components/loading/Loading';
+import { Outlet } from "react-router-dom";
+import { Suspense } from "react";
+import Loading from "@shared/components/loading/Loading";
 
 const Layout = () => {
   return (

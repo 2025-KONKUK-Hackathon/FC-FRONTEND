@@ -22,8 +22,11 @@ globalStyle('#root', {
   background: vars.color.grey800,
 });
 
-globalStyle('main', {
-  //TODO: header, footer 추가 후 minHeight 및 paddingTop 수정
-  minHeight: '100vh',
+globalStyle("main", {
+  minHeight: "100vh",
+  maxWidth: "430px",
+  width: "100%",
+  margin: "0 auto",
   flexGrow: 1,
+  background: vars.color.grey900,
 });
