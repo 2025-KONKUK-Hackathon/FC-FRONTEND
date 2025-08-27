@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRequestVerification } from '../utils/useRequestVerification';
 
 export const signupSchema = z.object({
   email: z
@@ -48,6 +49,9 @@ export const signupSchema = z.object({
 export type SignupFormData = z.infer<typeof signupSchema>;
 
 export const useSignupForm = () => {
+  const requestVerificationMutation = useRequestVerification();
+  const [isEmailSent, setIsEmailSent] = useState(false);
+  const [emailError, setEmailError] = useState<string>('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const form = useForm<SignupFormData>({
@@ -67,10 +71,26 @@ export const useSignupForm = () => {
   const requestEmailVerification = async (email: string) => {
     try {
       console.log('이메일 인증 요청:', email);
+      setEmailError('');
+      await requestVerificationMutation.mutateAsync({ email });
+      setIsEmailSent(true);
       return { success: true };
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('이메일 인증 요청 실패:', error);
-      return { success: false, error: '이메일 인증 요청에 실패했습니다.' };
+      setIsEmailSent(false);
+      
+      // 409 상태 코드인 경우 이미 존재하는 이메일
+      if (error && typeof error === 'object' && 'response' in error && 
+          error.response && typeof error.response === 'object' && 'status' in error.response && 
+          error.response.status === 409) {
+        const errorMessage = '이미 존재하는 이메일 입니다.';
+        setEmailError(errorMessage);
+        return { success: false, error: errorMessage };
+      }
+      
+      const errorMessage = '이메일 인증 요청에 실패했습니다.';
+      setEmailError(errorMessage);
+      return { success: false, error: errorMessage };
     }
   };
 
@@ -102,6 +122,8 @@ export const useSignupForm = () => {
 
   return {
     form,
+    isEmailSent,
+    emailError,
     isEmailVerified,
     requestEmailVerification,
     verifyCode,

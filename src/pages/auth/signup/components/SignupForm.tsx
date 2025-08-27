@@ -53,6 +53,11 @@ export default function SignupForm({
           {error}
         </span>
       )}
+      {verificationSent && (
+        <span className={styles.validationMessage({ success: true })}>
+          인증번호가 전송되었습니다
+        </span>
+      )}
       {showSuccessMessage && (
         <span className={styles.validationMessage({ success: true })}>
           인증 완료

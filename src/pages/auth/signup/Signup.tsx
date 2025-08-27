@@ -9,6 +9,8 @@ export default function Signup() {
 
   const {
     form,
+    isEmailSent,
+    emailError,
     isEmailVerified,
     requestEmailVerification,
     verifyCode,
@@ -25,6 +27,7 @@ export default function Signup() {
   const phoneValue = watch('phone');
 
   const isAllFieldsValid = isValid && 
+    isEmailSent &&
     isEmailVerified && 
     emailValue && 
     verificationCodeValue && 
@@ -90,7 +93,8 @@ export default function Signup() {
         value={emailValue}
         onChange={handleEmailChange}
         onButtonClick={handleEmailVerification}
-        error={errors.email?.message}
+        verificationSent={isEmailSent}
+        error={emailError || errors.email?.message}
       />
       <SignupForm
         type='emailVerification'
