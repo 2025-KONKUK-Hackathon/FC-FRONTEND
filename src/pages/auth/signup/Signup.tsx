@@ -21,6 +21,8 @@ export default function Signup() {
   const verificationCodeValue = watch('verificationCode');
   const passwordValue = watch('password');
   const nameValue = watch('name');
+  const studentNumberValue = watch('studentNumber');
+  const phoneValue = watch('phone');
 
   const isAllFieldsValid = isValid && 
     isEmailVerified && 
@@ -28,10 +30,14 @@ export default function Signup() {
     verificationCodeValue && 
     passwordValue && 
     nameValue &&
+    studentNumberValue &&
+    phoneValue &&
     !errors.email &&
     !errors.verificationCode &&
     !errors.password &&
-    !errors.name;
+    !errors.name &&
+    !errors.studentNumber &&
+    !errors.phone;
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue('email', e.target.value, { shouldValidate: true });
@@ -47,6 +53,14 @@ export default function Signup() {
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue('name', e.target.value, { shouldValidate: true });
+  };
+
+  const handleStudentNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue('studentNumber', e.target.value, { shouldValidate: true });
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue('phone', e.target.value, { shouldValidate: true });
   };
 
   const handleEmailVerification = async () => {
@@ -98,6 +112,18 @@ export default function Signup() {
         value={nameValue}
         onChange={handleNameChange}
         error={errors.name?.message}
+      />
+      <SignupForm
+        type='studentNumber'
+        value={studentNumberValue}
+        onChange={handleStudentNumberChange}
+        error={errors.studentNumber?.message}
+      />
+      <SignupForm
+        type='phone'
+        value={phoneValue}
+        onChange={handlePhoneChange}
+        error={errors.phone?.message}
       />
       <div className={styles.buttonContainer}>
         <Button 

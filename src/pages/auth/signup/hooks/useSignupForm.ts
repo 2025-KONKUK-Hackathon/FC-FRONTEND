@@ -33,6 +33,16 @@ export const signupSchema = z.object({
       /^[가-힣a-zA-Z\s]+$/,
       '이름은 한글 또는 영문만 입력 가능합니다'
     ),
+
+  studentNumber: z
+    .string()
+    .min(1, '학번을 입력해주세요')
+    .regex(/^\d{9}$/, '학번은 9자리 숫자여야 합니다'),
+
+  phone: z
+    .string()
+    .min(1, '전화번호를 입력해주세요')
+    .regex(/^\d{11}$/, '전화번호는 11자리 숫자여야 합니다'),
 });
 
 export type SignupFormData = z.infer<typeof signupSchema>;
@@ -48,6 +58,8 @@ export const useSignupForm = () => {
       verificationCode: '',
       password: '',
       name: '',
+      studentNumber: '',
+      phone: '',
     },
   });
 

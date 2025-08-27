@@ -37,11 +37,6 @@ export default function SignupForm({
             value={value}
             onChange={onChange}
           />
-          {showSuccessMessage && (
-            <span className={styles.validationMessage({ success: true })}>
-              인증 완료
-            </span>
-          )}
         </div>
         {config.buttonText && (
           <Button
@@ -56,6 +51,11 @@ export default function SignupForm({
       {error && (
         <span className={styles.validationMessage({ success: false })}>
           {error}
+        </span>
+      )}
+      {showSuccessMessage && (
+        <span className={styles.validationMessage({ success: true })}>
+          인증 완료
         </span>
       )}
     </div>

@@ -1,4 +1,4 @@
-export type SignupFormType = 'email' | 'emailVerification' | 'password' | 'name';
+export type SignupFormType = 'email' | 'emailVerification' | 'password' | 'name' | 'studentNumber' | 'phone';
 
 export interface SignupFormConfig {
   title: string;
@@ -30,6 +30,16 @@ export const SIGNUP_FORM_CONFIGS: Record<SignupFormType, SignupFormConfig> = {
   name: {
     title: '이름',
     placeholder: '이름을 입력하세요',
+    inputType: 'text',
+  },
+  studentNumber: {
+    title: '학번',
+    placeholder: '학번을 입력하세요',
+    inputType: 'text',
+  },
+  phone: {
+    title: '전화번호',
+    placeholder: '전화번호를 입력하세요',
     inputType: 'text',
   },
 };
