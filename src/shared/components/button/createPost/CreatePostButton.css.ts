@@ -13,13 +13,13 @@ export const wrapper = style({
     fontWeight: '300',
     color: vars.color.White,
     borderRadius: '999px',
-    boxShadow: '0 4px 12px rgba(255, 255, 255, 0.1)',
+    boxShadow: '0 4px 12px rgba(255, 255, 255, 0.05)',
     textDecoration: 'none',
     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     transform: 'translateY(0)',
     ':hover': {
         transform: 'translateY(-2px)',
-        boxShadow: '0 8px 25px rgba(255, 255, 255, 0.15)',
+        boxShadow: '0 8px 25px rgba(255, 255, 255, 0.05)',
         backgroundColor: '#024d37',
     },
     ':active': {

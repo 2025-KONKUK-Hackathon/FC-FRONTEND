@@ -74,11 +74,11 @@ export const createButtonWrapper = style({
   bottom: "7rem",
   // 웹 환경 대응 위치 조정
   right: "50%",
-  transform: "translateX(calc(215px - 2rem))",
+  transform: "translateX(calc(215px - 1.3rem))",
   // 모바일 환경 대응 위치 조정
   "@media": {
     "screen and (max-width: 430px)": {
-      right: "2rem",
+      right: "1.3rem",
       transform: "none",
     },
   },

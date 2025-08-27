@@ -11,7 +11,6 @@ export const container = style({
   position: "fixed",
   bottom: 0,
   zIndex: 1000,
-  // borderTop: `1px solid ${vars.color.grey800}`
 });
 
 export const navItem = recipe({

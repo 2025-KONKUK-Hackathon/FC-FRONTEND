@@ -1,5 +1,5 @@
 import * as styles from './CreatePostButton.css';
-import { Pencil_solid_full } from '@svg/index';
+import { IC_pencil_solid_full } from '@svg/index';
 import { Link } from 'react-router-dom';
 
 interface CreatePostButtonProps {
@@ -9,7 +9,7 @@ interface CreatePostButtonProps {
 const CreatePostButton = ({ to }: CreatePostButtonProps) => {
   return (
     <Link to={to} className={styles.wrapper}>
-      <Pencil_solid_full className={styles.icon} />
+      <IC_pencil_solid_full className={styles.icon} />
       글쓰기
     </Link>
   );
