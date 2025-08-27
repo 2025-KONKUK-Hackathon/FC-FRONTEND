@@ -104,8 +104,8 @@ export default function PostDetail() {
           <span className={styles.commentsCount}>댓글 {post?.commentCount || 0}개</span>
           <button type='button' onClick={handleScrapClick}>
             {scrapped
-              ? <Ic_bookmark style={{ width: '2rem', height: '2rem' }} />
-              : <Ic_bookmark_solid style={{ width: '2rem', height: '2rem' }} />
+              ? <Ic_bookmark_solid style={{ width: '2rem', height: '2rem' }} />
+              : <Ic_bookmark style={{ width: '2rem', height: '2rem' }} />
             }
           </button>
         </div>
