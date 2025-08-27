@@ -5,7 +5,7 @@ import Category from '@shared/components/category/Category';
 import Comment from '@shared/components/comment/Comment';
 import Input from '@shared/components/input/Input';
 import Button from '@shared/components/button/Button';
-import { Ic_chevron_left_white, Ic_trash_white } from '@svg/index';
+import { Ic_chevron_left_white, Ic_trash_white, Ic_bookmark, Ic_bookmark_solid } from '@svg/index';
 import { formatDate } from './utils/formatDate';
 import { GRADE, AFFILIATION, PART, TOPIC } from './constant/PostKeyword';
 import type { PostDetailData } from './types/postTypes';
@@ -24,12 +24,18 @@ export default function PostDetail() {
     navigator(-1);
   };
 
+  const handleScrapClick = () => {
+    // 게시글 스크랩
+    setScrapped(!scrapped);
+  };
+
   const handleAddCommentClick = () => {
     // 댓글 추가
   };
 
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<PostDetailData | null>(null);
+  const [scrapped, setScrapped] = useState<boolean>(false);
 
   // 예시: 현재 로그인한 사용자의 ID
   const currentUserId = 123;
@@ -93,8 +99,16 @@ export default function PostDetail() {
 
       <div className={styles.postContent}>{post?.content}</div>
 
-      <div className={styles.commentsContainer}>
-        <span className={styles.commentsCount}>댓글 {post?.commentCount || 0}개</span>
+      <div className={styles.commentsWrapper}>
+        <div className={styles.commentsCountContainer}>
+          <span className={styles.commentsCount}>댓글 {post?.commentCount || 0}개</span>
+          <button type='button' onClick={handleScrapClick}>
+            {scrapped
+              ? <Ic_bookmark style={{ width: '2rem', height: '2rem' }} />
+              : <Ic_bookmark_solid style={{ width: '2rem', height: '2rem' }} />
+            }
+          </button>
+        </div>
 
         <div className={styles.commentList}>
           {postCommentMock.map((commentData) => 

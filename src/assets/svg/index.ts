@@ -13,3 +13,5 @@ export { default as Ic_calendar } from '@svg/ic_calendar.svg?react';
 export { default as Ic_x } from '@svg/ic_x.svg?react';
 export { default as Ic_trash_white } from '@svg/ic_trash_white.svg?react';
 export { default as Ic_personGrey300 } from '@svg/ic_person_grey300.svg?react';
+export { default as Ic_bookmark } from '@svg/ic_bookmark.svg?react';
+export { default as Ic_bookmark_solid } from '@svg/ic_bookmark_solid.svg?react';

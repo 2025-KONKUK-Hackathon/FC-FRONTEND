@@ -83,7 +83,7 @@ export const postContent = style({
   lineHeight: '1.6',
 });
 
-export const commentsContainer = style({
+export const commentsWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   margin: '3rem 0 7rem 0',
@@ -91,10 +91,16 @@ export const commentsContainer = style({
   borderTop: `1px solid ${vars.color.grey200}`,
 });
 
+export const commentsCountContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: '2rem',
+});
+
 export const commentsCount = style({
   fontSize: '1.8rem',
   fontWeight: 'bold',
-  marginBottom: '2rem',
 });
 
 export const commentList = style({
