@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRequestVerification } from '../utils/useRequestVerification';
 import { useEmailVerification } from '../utils/useEmailVerification';
+import { useSignup } from '../utils/useSignup';
 
 export const signupSchema = z.object({
   email: z
@@ -52,6 +53,7 @@ export type SignupFormData = z.infer<typeof signupSchema>;
 export const useSignupForm = () => {
   const requestVerificationMutation = useRequestVerification();
   const emailVerificationMutation = useEmailVerification();
+  const signupMutation = useSignup();
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [emailError, setEmailError] = useState<string>('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
@@ -137,7 +139,16 @@ export const useSignupForm = () => {
       if (!isEmailVerified) {
         return { success: false, error: '이메일 인증을 완료해주세요.' };
       }
+      
       console.log('회원가입 데이터:', data);
+      await signupMutation.mutateAsync({
+        email: data.email,
+        name: data.name,
+        password: data.password,
+        studentNumber: data.studentNumber,
+        phone: data.phone,
+      });
+      
       return { success: true };
     } catch (error) {
       console.error('회원가입 실패:', error);
