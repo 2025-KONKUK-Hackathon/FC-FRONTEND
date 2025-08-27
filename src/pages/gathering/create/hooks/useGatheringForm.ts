@@ -21,7 +21,7 @@ export const gatheringFormSchema = z
       !data.applicationEnd ||
       data.applicationStart <= data.applicationEnd,
     {
-      message: "신청 종료일은 시작일보다 같거나 커야 합니다.",
+      message: "신청 종료일은 시작일 이후여야 합니다.",
       path: ["applicationEnd"],
     }
   )
@@ -31,7 +31,7 @@ export const gatheringFormSchema = z
       !data.activityEnd ||
       data.activityStart <= data.activityEnd,
     {
-      message: "활동 종료일은 시작일보다 같거나 커야 합니다.",
+      message: "활동 종료일은 시작일 이후여야 합니다.",
       path: ["activityEnd"],
     }
   );
