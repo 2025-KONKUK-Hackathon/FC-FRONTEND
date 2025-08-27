@@ -92,13 +92,12 @@ export const useSignupForm = () => {
   const requestEmailVerification = async (email: string) => {
     try {
       console.info('이메일 인증 요청');
-      setEmailError('');
       resetEmailVerificationState();
       await requestVerificationMutation.mutateAsync({ email });
       setIsEmailSent(true);
       return { success: true };
     } catch (error: unknown) {
-      console.error('이메일 인증 요청 실패:', error);
+      console.error('이메일 인증 요청 실패');
       setIsEmailSent(false);
       
       // 409 상태 코드인 경우 이미 존재하는 이메일
@@ -133,7 +132,7 @@ export const useSignupForm = () => {
       setVerifiedEmail(currentEmail);
       return { success: true };
     } catch (error: unknown) {
-      console.error('인증번호 확인 실패:', error);
+      console.error('인증번호 확인 실패');
       
       // 400 상태 코드인 경우 인증번호 불일치
       const status = getHttpStatus(error);
