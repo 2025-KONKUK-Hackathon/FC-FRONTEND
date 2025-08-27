@@ -1,9 +1,9 @@
-import type { SubjectCategory } from "@shared/constant/subject";
+import type { CLASS_CATEGORY } from "@shared/constant/class";
 
 export interface GatheringDetailResponse {
   meetingName: string;
   content: string;
-  category: SubjectCategory;
+  category: keyof typeof CLASS_CATEGORY;
   meetingStatus: string;
   recruitNumber: number;
   currentRecruitCount: number;

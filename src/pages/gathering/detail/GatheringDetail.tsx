@@ -1,21 +1,19 @@
 import Category from "@/shared/components/category/Category";
 import * as styles from "@/pages/gathering/detail/GatheringDetail.css";
-import {
-  SUBJECT_CATEGORY,
-  type SubjectCategory,
-} from "@/shared/constant/subject";
+import { CLASS_CATEGORY } from "@/shared/constant/class";
 import { Ic_calendar, Ic_user } from "@/assets/svg";
 import Button from "@/shared/components/button/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PopUp from "./components/popUp/PopUp";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "@shared/components/Header/Header";
-import { request } from "@/api/request";
-import type {
-  GatheringDetailProps,
-  GatheringMemberResponse,
-  GatheringDetailResponse,
-} from "./types/Gathering";
+import type { GatheringDetailProps } from "./types/Gathering";
+import LoadingSvg from "@shared/components/loading/Loading";
+import { STATUS, type StatusType } from "@shared/constant/status";
+import {
+  useGatheringDetail,
+  useGatheringMutations,
+} from "@/pages/gathering/detail/hooks";
 
 function GatheringDetailPage({
   meetingName,
@@ -31,7 +29,7 @@ function GatheringDetailPage({
   hostName,
   hostId,
   imageUrls,
-  isHost = true,
+  isHost = false,
   memberList = [],
 }: GatheringDetailProps) {
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
@@ -44,13 +42,34 @@ function GatheringDetailPage({
     setIsPopUpOpen(false);
   };
 
+  const { id } = useParams();
+  const { meetingApplicationMutation, meetingCloseMutation } =
+    useGatheringMutations(id);
+
+  const handleMeetingApplicationButton = () => {
+    if (isHost) {
+      // 모임 마감
+      meetingCloseMutation.mutate();
+    } else {
+      // 모임 신청
+      meetingApplicationMutation.mutate();
+    }
+  };
+
+  const isValidMeetingApplication = () => {
+    if (meetingStatus && Object.values(STATUS).includes(meetingStatus)) {
+      return meetingStatus === STATUS.IN_PROGRESS;
+    }
+    return false;
+  };
+
   return (
     <>
       {isPopUpOpen && (
         <PopUp
           recruitNumber={recruitNumber}
           currentRecruitCount={currentRecruitCount}
-          isHost={true}
+          isHost={isHost}
           handlePopUpClose={handlePopUpClose}
           memberList={memberList}
         />
@@ -66,10 +85,9 @@ function GatheringDetailPage({
           <div className={styles.gatheringDetailHeader}>
             <div className={styles.gatheringDetailHeaderTop}>
               <Category
-                text={meetingStatus}
-                icon="🕒"
+                text={STATUS[meetingStatus as StatusType]}
                 color="KU_Darkgreen"
-                size="small"
+                size="medium"
               />
               <p className={styles.gatheringDetailDate}>
                 {recruitStartDate} ~ {recruitEndDate}
@@ -91,9 +109,27 @@ function GatheringDetailPage({
               onClick={handlePopUpOpen}
             />
             {isHost ? (
-              <Button text={`모임 마감`} variant="fill" size="medium" />
+              <Button
+                text="모임 마감"
+                variant="fill"
+                size="medium"
+                disabled={
+                  !isValidMeetingApplication() || meetingCloseMutation.isPending
+                }
+                onClick={handleMeetingApplicationButton}
+              />
             ) : (
-              <Button text={`모임 신청`} variant="fill" size="medium" />
+              <Button
+                text="모임 신청"
+                variant="fill"
+                disabled={
+                  !isValidMeetingApplication() ||
+                  meetingApplicationMutation.isPending ||
+                  currentRecruitCount >= recruitNumber
+                }
+                size="medium"
+                onClick={handleMeetingApplicationButton}
+              />
             )}
           </div>
 
@@ -106,14 +142,16 @@ function GatheringDetailPage({
               <Category
                 key={category}
                 text={
-                  SUBJECT_CATEGORY[category as SubjectCategory]?.text || "기타"
+                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]
+                    ?.text || CLASS_CATEGORY.ETC.text
                 }
                 icon={
-                  SUBJECT_CATEGORY[category as SubjectCategory]?.icon || "🌈"
+                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]
+                    ?.icon || CLASS_CATEGORY.ETC.icon
                 }
                 color={
-                  SUBJECT_CATEGORY[category as SubjectCategory]?.color ||
-                  "White"
+                  CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]
+                    ?.color || CLASS_CATEGORY.ETC.color
                 }
                 size="small"
               />
@@ -159,38 +197,23 @@ function GatheringDetailPage({
 export default function GatheringDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [meetingDetail, setMeetingDetail] =
-    useState<GatheringDetailResponse | null>(null);
-  const [memberList, setMemberList] = useState<GatheringMemberResponse[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!id) return;
+  const {
+    meetingDetail,
+    memberList,
+    isMeetingPending,
+    isMemberPending,
+    meetingError,
+    memberError,
+  } = useGatheringDetail(id);
 
-      try {
-        // 모임 상세 정보와 멤버 목록을 병렬로 가져오기
-        const [meetingData, membersData] = await Promise.all([
-          request<GatheringDetailResponse>({
-            method: "GET",
-            url: `/meetings/${id}`,
-          }),
-          request<GatheringMemberResponse[]>({
-            method: "GET",
-            url: `/meetings/${id}/members`,
-          }),
-        ]);
+  if (isMeetingPending || isMemberPending) {
+    return <LoadingSvg />;
+  }
 
-        setMeetingDetail(meetingData);
-        setMemberList(membersData);
-      } catch (err) {
-        navigate("/not-found");
-      }
-    };
-    fetchData();
-  }, [id, navigate]);
-
-  if (!meetingDetail) {
-    return <div>모임 정보를 찾을 수 없습니다.</div>;
+  if (meetingError || memberError || !meetingDetail) {
+    navigate("/not-found");
+    return null;
   }
 
   return <GatheringDetailPage {...meetingDetail} memberList={memberList} />;
