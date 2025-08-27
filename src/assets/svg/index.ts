@@ -7,3 +7,6 @@ export { default as Ic_users_solid } from "@svg/ic_users_solid.svg?react";
 export { default as Ic_chevron_left } from "@svg/ic_chevron_left.svg?react";
 export { default as Ic_bars } from "@svg/ic_bars.svg?react";
 export { default as Ic_signs_post } from "@svg/ic_signs_post.svg?react";
+export { default as Ic_user } from "@svg/ic_user.svg?react";
+export { default as Ic_calendar } from "@svg/ic_calendar.svg?react";
+export { default as Ic_x } from "@svg/ic_x.svg?react";
