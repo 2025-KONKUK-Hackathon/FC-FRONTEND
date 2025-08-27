@@ -6,7 +6,7 @@ export const gatheringWrapper = style({
   gap: '1rem',
   width: '100%',
   flexDirection: 'column',
-  paddingBottom:"2rem",
+  paddingBottom: '2rem',
 });
 
 export const gatheringDetailWrapper = style({
