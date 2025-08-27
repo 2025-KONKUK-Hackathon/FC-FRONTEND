@@ -63,8 +63,10 @@ export const imageContainer = style({
   scrollBehavior: 'smooth',
   WebkitOverflowScrolling: 'touch',
   scrollSnapType: 'x mandatory',
-  '::-webkit-scrollbar': {
-    display: 'none',
+  selectors: {
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
 });
 
