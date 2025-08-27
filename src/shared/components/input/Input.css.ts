@@ -9,6 +9,7 @@ export const inputContainer = style({
   alignItems: "flex-start",
 
   width: "100%",
+  minWidth: 0,
   gap: "1rem",
 });
 
