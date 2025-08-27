@@ -73,11 +73,27 @@ export const useSignupForm = () => {
     },
   });
 
+  const resetEmailVerificationState = () => {
+    setIsEmailSent(false);
+    setEmailError('');
+    setIsEmailVerified(false);
+    setVerifiedEmail('');
+  };
+
+  const getHttpStatus = (error: unknown): number | undefined => {
+    if (error && typeof error === 'object' && 'response' in error &&
+        error.response && typeof error.response === 'object' && 'status' in error.response) {
+      return error.response.status as number;
+    }
+    return undefined;
+  };
+
   // 이메일 인증 요청
   const requestEmailVerification = async (email: string) => {
     try {
-      console.log('이메일 인증 요청:', email);
+      console.info('이메일 인증 요청');
       setEmailError('');
+      resetEmailVerificationState();
       await requestVerificationMutation.mutateAsync({ email });
       setIsEmailSent(true);
       return { success: true };
@@ -86,9 +102,8 @@ export const useSignupForm = () => {
       setIsEmailSent(false);
       
       // 409 상태 코드인 경우 이미 존재하는 이메일
-      if (error && typeof error === 'object' && 'response' in error && 
-          error.response && typeof error.response === 'object' && 'status' in error.response && 
-          error.response.status === 409) {
+      const status = getHttpStatus(error);
+      if (status === 409) {
         const errorMessage = '이미 존재하는 이메일 입니다.';
         setEmailError(errorMessage);
         return { success: false, error: errorMessage };
@@ -103,7 +118,7 @@ export const useSignupForm = () => {
   // 인증번호 확인
   const verifyCode = async (code: string) => {
     try {
-      console.log('인증번호 확인:', code);
+      console.info('인증번호 확인');
       setCodeError('');
       const currentEmail = form.getValues('email');
       if (!currentEmail) {
@@ -121,9 +136,8 @@ export const useSignupForm = () => {
       console.error('인증번호 확인 실패:', error);
       
       // 400 상태 코드인 경우 인증번호 불일치
-      if (error && typeof error === 'object' && 'response' in error && 
-          error.response && typeof error.response === 'object' && 'status' in error.response && 
-          error.response.status === 400) {
+      const status = getHttpStatus(error);
+      if (status === 400) {
         const errorMessage = '인증번호가 일치하지 않습니다.';
         setCodeError(errorMessage);
         return { success: false, error: errorMessage };
