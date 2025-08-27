@@ -57,6 +57,7 @@ export const useSignupForm = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [emailError, setEmailError] = useState<string>('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [verifiedEmail, setVerifiedEmail] = useState<string>('');
   const [codeError, setCodeError] = useState<string>('');
 
   const form = useForm<SignupFormData>({
@@ -114,6 +115,7 @@ export const useSignupForm = () => {
         code: code 
       });
       setIsEmailVerified(true);
+      setVerifiedEmail(currentEmail);
       return { success: true };
     } catch (error: unknown) {
       console.error('인증번호 확인 실패:', error);
@@ -138,6 +140,9 @@ export const useSignupForm = () => {
     try {
       if (!isEmailVerified) {
         return { success: false, error: '이메일 인증을 완료해주세요.' };
+      }
+      if (data.email !== verifiedEmail) {
+        return { success: false, error: '인증된 이메일과 입력한 이메일이 일치하지 않습니다.' };
       }
       
       console.log('회원가입 데이터:', data);
