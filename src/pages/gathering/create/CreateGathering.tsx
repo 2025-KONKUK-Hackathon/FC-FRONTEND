@@ -23,7 +23,7 @@ export default function CreateGathering() {
           </div>
           <h2 className={styles.description}>모임을 만들어보세요</h2>
         </div>
-        <FormSection title="모임 이름!!" description="모임의 이름을 입력해 주세요." errorMessage={errors.title?.message} >
+        <FormSection title="모임 이름" description="모임의 이름을 입력해 주세요." errorMessage={errors.title?.message} >
           <Input
             value={formData.title ?? ""}
             onChange={handleStringChange("title")}
@@ -37,20 +37,13 @@ export default function CreateGathering() {
             placeholder="모임 설명"
           />
         </FormSection>
-        <FormSection title="어떤 모임인지 설명해 주세요" description="카테고리 설정" errorMessage={errors.tag?.message} >
+        <FormSection title="어떤 모임인지 설명해 주세요" errorMessage={errors.tag?.message} >
           <DropDown options={CLASS_CATEGORY_OPTIONS} selectedValue={formData.tag} setSelectedValue={handleDropdownChange("tag")} placeholder="타입 선택"/>
         </FormSection>
         <FormSection title="최대 인원을 정해주세요" description="최대 인원은 2명 이상이어야 합니다." errorMessage={errors.maxPeople?.message} >
           <div className={styles.row}>
           <Input type="number" value={String(formData.maxPeople ?? 0)} onChange={handleStringChange("maxPeople")} placeholder="최대 인원" />
           </div>
-        </FormSection>
-        <FormSection title="모임 리더 이름" description="모임의 리더 이름을 입력해주세요." errorMessage={errors.studyLeader?.message} >
-          <Input
-            value={formData.studyLeader}
-            onChange={handleStringChange("studyLeader")}
-            placeholder="리더 이름"
-          />
         </FormSection>
         <FormSection title="신청 기간" description="모임의 신청 기간을 설정해주세요" errorMessage={errors.applicationStart?.message || errors.applicationEnd?.message} >
           <div className={styles.row}>
