@@ -61,7 +61,7 @@ export default function PopUp({
 
                 {isHost && (
                   <div className={styles.popUpContentItemToHost}>
-                    <p>학번: {member.studentNunmber}</p>
+                    <p>학번: {member.studentNumber}</p>
                     <p>연락처: {member.phone}</p>
                   </div>
                 )}

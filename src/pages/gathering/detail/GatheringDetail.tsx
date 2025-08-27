@@ -27,9 +27,8 @@ function GatheringDetailPage({
   actualStartDate,
   actualEndDate,
   hostName,
-  hostId,
   imageUrls,
-  isHost = false,
+  isHost,
   memberList = [],
 }: GatheringDetailProps) {
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);

@@ -12,16 +12,15 @@ export interface GatheringDetailResponse {
   actualStartDate: string;
   actualEndDate: string;
   hostName: string;
-  hostId: number;
   imageUrls: string[];
-  isHost?: boolean;
+  isHost: boolean;
 }
 
 export interface GatheringMemberResponse {
   meetingMemberId: number;
   name: string;
   phone: string;
-  studentNunmber: string;
+  studentNumber: string;
   registerAt: string;
 }
 
