@@ -12,6 +12,7 @@ export default function Signup() {
     isEmailSent,
     emailError,
     isEmailVerified,
+    codeError,
     requestEmailVerification,
     verifyCode,
     submitSignup,
@@ -103,7 +104,7 @@ export default function Signup() {
         onButtonClick={handleCodeVerification}
         buttonDisabled={!verificationCodeValue || verificationCodeValue.length !== 6}
         showSuccessMessage={isEmailVerified}
-        error={errors.verificationCode?.message}
+        error={codeError || errors.verificationCode?.message}
       />
       <SignupForm
         type='password'

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRequestVerification } from '../utils/useRequestVerification';
+import { useEmailVerification } from '../utils/useEmailVerification';
 
 export const signupSchema = z.object({
   email: z
@@ -50,9 +51,11 @@ export type SignupFormData = z.infer<typeof signupSchema>;
 
 export const useSignupForm = () => {
   const requestVerificationMutation = useRequestVerification();
+  const emailVerificationMutation = useEmailVerification();
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [emailError, setEmailError] = useState<string>('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [codeError, setCodeError] = useState<string>('');
 
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
@@ -98,11 +101,33 @@ export const useSignupForm = () => {
   const verifyCode = async (code: string) => {
     try {
       console.log('인증번호 확인:', code);
+      setCodeError('');
+      const currentEmail = form.getValues('email');
+      if (!currentEmail) {
+        return { success: false, error: '이메일을 먼저 입력해주세요.' };
+      }
+      
+      await emailVerificationMutation.mutateAsync({ 
+        email: currentEmail, 
+        code: code 
+      });
       setIsEmailVerified(true);
       return { success: true };
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('인증번호 확인 실패:', error);
-      return { success: false, error: '잘못된 인증번호입니다.' };
+      
+      // 400 상태 코드인 경우 인증번호 불일치
+      if (error && typeof error === 'object' && 'response' in error && 
+          error.response && typeof error.response === 'object' && 'status' in error.response && 
+          error.response.status === 400) {
+        const errorMessage = '인증번호가 일치하지 않습니다.';
+        setCodeError(errorMessage);
+        return { success: false, error: errorMessage };
+      }
+
+      const errorMessage = '잘못된 인증번호입니다.';
+      setCodeError(errorMessage);
+      return { success: false, error: errorMessage };
     }
   };
 
@@ -125,6 +150,7 @@ export const useSignupForm = () => {
     isEmailSent,
     emailError,
     isEmailVerified,
+    codeError,
     requestEmailVerification,
     verifyCode,
     submitSignup,
