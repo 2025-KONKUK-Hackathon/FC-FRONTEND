@@ -74,6 +74,11 @@ export const filterContainer = style({
   // todo: 카테고리 추가 시 가로 스크롤 지원
 });
 
+export const filterDropdownWrapper = style({
+  flex: "1",
+  minWidth: "0", // flex item이 텍스트 길이보다 작아질 수 있도록
+});
+
 export const generalPostsSection = style({
   display: "flex",
   flexDirection: "column",

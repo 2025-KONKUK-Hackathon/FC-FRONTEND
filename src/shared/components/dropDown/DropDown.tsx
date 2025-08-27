@@ -76,10 +76,10 @@ export default function DropDown({
         onClick={handleToggle}
         disabled={disabled}
       >
-        <div className={selectedOption && selectedValue !== 'ALL' ? '' : styles.placeholder}>
+        <div className={`${styles.dropdownText} ${selectedOption && selectedValue !== 'ALL' ? '' : styles.placeholder}`}>
           {(selectedOption && selectedValue !== 'ALL') ? selectedOption.label : placeholder}
         </div>
-        <div>
+        <div className={styles.toggleIcon}>
           {/* 아이콘 추가 필요 */}
           {isOpen ? '▲' : '▼'}
         </div>

@@ -60,34 +60,42 @@ export default function PostList() {
       {/* 필터 섹션 */}
       <div className={styles.filterSection}>
         <div className={styles.filterContainer}>
-          <DropDown
-            options={AFFILIATION_FILTER_OPTIONS}
-            selectedValue={affiliationFilter}
-            setSelectedValue={setAffiliationFilter}
-            placeholder="소속"
-            size="small"
-          />
-          <DropDown
-            options={PART_FILTER_OPTIONS}
-            selectedValue={partFilter}
-            setSelectedValue={setPartFilter}
-            placeholder="파트"
-            size="small"
-          />
-          <DropDown
-            options={GRADE_FILTER_OPTIONS}
-            selectedValue={gradeFilter}
-            setSelectedValue={setGradeFilter}
-            placeholder="학년"
-            size="small"
-          />
-          <DropDown
-            options={TOPIC_FILTER_OPTIONS}
-            selectedValue={topicFilter}
-            setSelectedValue={setTopicFilter}
-            placeholder="주제"
-            size="small"
-          />
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={AFFILIATION_FILTER_OPTIONS}
+              selectedValue={affiliationFilter}
+              setSelectedValue={setAffiliationFilter}
+              placeholder="소속"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={PART_FILTER_OPTIONS}
+              selectedValue={partFilter}
+              setSelectedValue={setPartFilter}
+              placeholder="파트"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={GRADE_FILTER_OPTIONS}
+              selectedValue={gradeFilter}
+              setSelectedValue={setGradeFilter}
+              placeholder="학년"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={TOPIC_FILTER_OPTIONS}
+              selectedValue={topicFilter}
+              setSelectedValue={setTopicFilter}
+              placeholder="주제"
+              size="small"
+            />
+          </div>
         </div>
       </div>
 
