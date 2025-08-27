@@ -6,6 +6,7 @@ import { studentCouncilPostsDummy } from "./constant/StudentCouncilPostsDummy";
 import * as styles from "./PostList.css";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@router/constant/Routes";
 
 export default function PostList() {
   const navigator = useNavigate();
