@@ -115,11 +115,13 @@ export const commentInputWrapper = style({
   alignItems: 'center',
   position: 'fixed',
   bottom: 0,
-  left: 0,
-  right: 0,
+  left: '50%',
   gap: '0.8rem',
+  width: '100%',
+  maxWidth: '43rem',
   padding: '1.4rem',
   backgroundColor: vars.color.grey900,
+  transform: 'translateX(-50%)',
 });
 
 export const commentInputContainer = style({
