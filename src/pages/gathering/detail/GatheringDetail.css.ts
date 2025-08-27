@@ -140,3 +140,4 @@ export const gatheringDetailImageWrapper = style({
   alignItems: "center",
   justifyContent: "center",
 });
+
