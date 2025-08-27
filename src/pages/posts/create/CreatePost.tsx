@@ -16,7 +16,7 @@ export default function CreatePost() {
   const { formData, handleStringChange, handleDropdownChange, errors } = usePostsForm();
   return (
     <>
-      <Header />
+      <Header showBackButton={true} />
       <div className={styles.container}>
         <div className={styles.titleContainer}>
           <Ic_alrim className={styles.icon} />
