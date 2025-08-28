@@ -6,7 +6,7 @@ import { Ic_user } from '@svg/index';
 interface CommentProps {
   currentUserId?: number;
   comment: CommentData;
-  onDelete?: (commentId: number) => void;
+  onDelete?: (commentId: string) => void;
 }
 
 export default function Comment({ currentUserId, comment, onDelete }: CommentProps) {
@@ -14,7 +14,7 @@ export default function Comment({ currentUserId, comment, onDelete }: CommentPro
 
   const handleDelete = () => {
     if (onDelete && window.confirm('댓글을 삭제하시겠습니까?')) {
-      onDelete(comment.id);
+      onDelete(String(comment.id));
     }
   };
 

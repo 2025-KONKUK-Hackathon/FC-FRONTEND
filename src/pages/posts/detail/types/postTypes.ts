@@ -26,12 +26,12 @@ interface CommentItem {
 }
 
 export interface PostCommentResponse {
-  content: CommentItem[],
+  content: CommentItem[];
   nextCursor: number;
   isLast: boolean;
 }
 
 export interface AddCommentRequest {
-  postId: number;
+  postId: string;
   content: string;
 }
