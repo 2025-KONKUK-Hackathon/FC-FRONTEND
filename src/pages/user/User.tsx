@@ -156,7 +156,6 @@ export default function User() {
                   category={item.category as ClassCategoryKey}
                   status={item.status}
                   imageUrl={item.imageUrl}
-                  onClick={id => navigate(`/gathering/detail/${id}`)}
                 />
               ))
             ) : (
