@@ -32,16 +32,12 @@ export default function Info() {
         <p className={styles.title}>🔗 건국대학교 컴퓨터공학부 관련 링크를 확인해보세요!</p>
         <div className={styles.linkContainer}>
           <Link
-            text="건국대학교 컴퓨터공학부 졸업요건"
+            text="건국대학교 컴퓨터공학부 졸업요건(전공 · 다전공 · 부전공 포함)"
             href="https://www.konkuk.ac.kr/bulletins25/27752/subview.do?enc=Zm5jdDF8QEB8JTJGb2xiMjVHcmRScXJtbnQlMkZidWxsZXRpbnMyNSUyRjY4JTJGdmlldy5kbyUzRnNyY2hZZWFyJTNEMjAyNSUyNnNyY2hDbGclM0QxMDMwNDElMjZzcmNoTWpyJTNEMTI3NDI4JTI2"
           />
           <Link
             text="건국대학교 컴퓨터공학부 전공역량/ 로드맵"
             href="https://www.konkuk.ac.kr/bulletins25/28109/subview.do"
-          />
-          <Link
-            text="건국대학교 컴퓨터공학부 졸업요건"
-            href="https://www.konkuk.ac.kr/bulletins25/27752/subview.do?enc=Zm5jdDF8QEB8JTJGb2xiMjVHcmRScXJtbnQlMkZidWxsZXRpbnMyNSUyRjY4JTJGdmlldy5kbyUzRnNyY2hZZWFyJTNEMjAyNSUyNnNyY2hDbGclM0QxMDMwNDElMjZzcmNoTWpyJTNEMTI3NDI4JTI2"
           />
           <Link
             text="건국대학교 컴퓨터공학부 전공교육과정"
