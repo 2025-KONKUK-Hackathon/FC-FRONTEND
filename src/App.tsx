@@ -24,6 +24,7 @@ function App() {
         toastStyle={{
           backgroundColor: '#ffffff',
           color: '#000000',
+          fontSize: '1.2rem',
         }}
       />
     </QueryClientProvider>
