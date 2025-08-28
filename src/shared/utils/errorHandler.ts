@@ -1,5 +1,3 @@
-import { toast } from 'react-toastify';
-
 interface ErrorResponse {
   message?: string;
   error?: string;
@@ -52,19 +50,31 @@ export const handleApiError = (error: unknown, fallbackMessage?: string) => {
   }
   
   // Toast 메시지 표시
-  toast.error(errorMessage);
+  showWarningToast(errorMessage);
   
   return errorMessage;
 };
 
 export const showSuccessToast = (message: string) => {
-  toast.success(message);
+  import('react-toastify').then(({ toast }) => {
+    import('@/shared/components/toast/Toast').then(({ default: Toast }) => {
+      import('react').then(({ createElement }) => {
+        toast(createElement(Toast, { text: message, type: 'success' }));
+      });
+    });
+  });
 };
 
 export const showInfoToast = (message: string) => {
-  toast.info(message);
+  showSuccessToast(message);
 };
 
 export const showWarningToast = (message: string) => {
-  toast.warning(message);
+  import('react-toastify').then(({ toast }) => {
+    import('@/shared/components/toast/Toast').then(({ default: Toast }) => {
+      import('react').then(({ createElement }) => {
+        toast(createElement(Toast, { text: message, type: 'warning' }));
+      });
+    });
+  });
 };
