@@ -86,7 +86,7 @@ function GatheringListPage({
       {/* 동기부여 섹션 */}
       <div className={styles.motivationalSection}>
         <div className={styles.sparkleLeft}>✨</div>
-        <div className={styles.motivationalText}>🚀 모임을 만들고 참여해보세요!</div>
+        <div className={styles.motivationalText}>모임을 만들고 참여해보세요!</div>
         <div className={styles.motivationalSubText}>새로운 사람들과 함께하는 특별한 경험</div>
         <div className={styles.sparkleRight}>⭐</div>
       </div>
@@ -108,8 +108,8 @@ function GatheringListPage({
 
       <div className={styles.generalPostsSection}>
         {filteredGatherings.length === 0 ? (
-          <EmptyState 
-            type="gatherings" 
+          <EmptyState
+            type="gatherings"
             message="해당 조건의 모임이 없습니다"
             subMessage="새로운 모임을 만들어보는 건 어떨까요?"
           />

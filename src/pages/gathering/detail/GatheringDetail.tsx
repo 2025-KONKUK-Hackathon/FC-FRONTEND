@@ -52,8 +52,9 @@ function GatheringDetailPage({
   };
 
   const isValidMeetingApplication = () => {
+    console.log(meetingStatus);
     if (meetingStatus && Object.keys(STATUS).includes(meetingStatus)) {
-      return meetingStatus === STATUS.IN_PROGRESS;
+      return meetingStatus === 'IN_PROGRESS';
     }
     return false;
   };
@@ -71,7 +72,7 @@ function GatheringDetailPage({
       )}
       <div className={styles.gatheringWrapper}>
         <Header showBackButton={true} showLogo={false} />
-        <img src={imageUrls[0]} alt="모임 이미지" className={styles.gatheringDetailImage} />
+        <img src={imageUrls[0]} alt="모임 이미지" className={styles.gatheringDetailMainImage} />
         <div className={styles.gatheringDetailWrapper}>
           <div className={styles.gatheringDetailHeader}>
             <div className={styles.gatheringDetailHeaderTop}>
