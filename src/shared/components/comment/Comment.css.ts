@@ -5,7 +5,7 @@ export const commentWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',
-  padding: '1.2rem 1.6rem',
+  padding: '1.2rem 1.4rem 1.2rem 1.6rem',
   borderRadius: '12px',
   border: `2px solid ${vars.color.Charcoal}`,
   backgroundColor: vars.color.grey800,
@@ -47,9 +47,10 @@ export const commentDate = style({
 });
 
 export const actionButton = style({
-  padding: '0.4rem',
-  fontSize: '1.2rem',
+  // padding: '0.4rem',
+  fontSize: '1.5rem',
   cursor: 'pointer',
+  marginBottom: '1.2rem',
 });
 
 export const commentContent = style({
