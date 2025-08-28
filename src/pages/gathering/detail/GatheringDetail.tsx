@@ -140,7 +140,7 @@ function GatheringDetailPage({
                   CLASS_CATEGORY[category as keyof typeof CLASS_CATEGORY]?.color ||
                   CLASS_CATEGORY.ETC.color
                 }
-                size="small"
+                size="medium"
               />
               <p className={styles.gatheringDetailDescription}>{content}</p>
             </div>

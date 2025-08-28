@@ -101,13 +101,14 @@ export const gatheringDetailContent = style({
   width: "100%",
   flexDirection: "column",
   color: vars.color.grey300,
+  fontSize: "1.4rem",
 });
 
 export const gatheringDetailDescriptionTitle = style({
   display: "flex",
   alignItems: "center",
   gap: "0.5rem",
-  fontSize: "1.3rem",
+  fontSize: "1.6rem",
   fontWeight: "bold",
   color: vars.color.grey100,
   marginBottom: "1rem",
@@ -117,6 +118,7 @@ export const gatheringDetailDescription = style({
   lineHeight: "1.5",
   width: "100%",
   wordBreak: "keep-all",
+  fontSize: "1.4rem",
 });
 
 export const gatheringDetailContentPeriod = style({
