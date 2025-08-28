@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css';
+import { globalStyle, keyframes } from '@vanilla-extract/css';
 import '@styles/layers.css.ts';
 import '@styles/reset.css.ts';
 import { vars } from '@styles/theme.css.ts';
@@ -31,17 +31,17 @@ globalStyle('main', {
   background: vars.color.grey900,
 });
 
-globalStyle('@keyframes sparkle', {
+export const sparkleAnimation = keyframes({
   '0%': {
     transform: 'scale(1) rotate(0deg)',
-    opacity: '0.7',
+    opacity: 0.7,
   },
   '50%': {
     transform: 'scale(1.2) rotate(180deg)',
-    opacity: '1',
+    opacity: 1,
   },
   '100%': {
     transform: 'scale(1) rotate(0deg)',
-    opacity: '0.7',
+    opacity: 0.7,
   },
 });

@@ -26,7 +26,7 @@ export default function GatheringCard({
   currentRecruitCount,
   category,
   status,
-  imageUrl,
+  // imageUrl,
 }: GatheringCardProps) {
   const handleClick = () => {
     console.log(meetingId);

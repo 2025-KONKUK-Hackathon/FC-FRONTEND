@@ -1,5 +1,6 @@
 import { vars } from "@shared/styles/theme.css";
 import { style } from "@vanilla-extract/css";
+import { sparkleAnimation } from "@shared/styles/global.css";
 
 export const container = style({
   display: "flex",
@@ -65,7 +66,7 @@ export const sparkleLeft = style({
   left: "58%",
   fontSize: "1.2rem",
   opacity: 0.7,
-  animation: "sparkle 2s ease-in-out infinite",
+  animation: `${sparkleAnimation} 2s ease-in-out infinite`,
   zIndex: 1,
 });
 
@@ -75,7 +76,7 @@ export const sparkleRight = style({
   right: "15px",
   fontSize: "1rem",
   opacity: 0.6,
-  animation: "sparkle 2s ease-in-out infinite 1s",
+  animation: `${sparkleAnimation} 2s ease-in-out infinite 1s`,
   zIndex: 1,
 });
 
