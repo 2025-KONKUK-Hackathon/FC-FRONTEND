@@ -130,6 +130,7 @@ export default function User() {
                   createdAt={item.createdAt}
                   commentCount={item.commentCount}
                   writerName={item.writerName}
+                  onClick={id => navigate(`/posts/detail/${id}`)}
                 />
               ))
             ) : (
