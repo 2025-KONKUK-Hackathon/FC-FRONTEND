@@ -1,38 +1,37 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export const gatheringFormSchema = z
   .object({
-    tag: z.string(),
-    maxPeople: z.string().regex(/^\d+$/, "숫자만 입력해주세요."),
-    title: z.string().min(1, "제목을 입력해주세요."),
-    description: z.string().min(1, "설명을 입력해주세요."),
+    tag: z.string().min(1, '태그를 선택해 주세요'),
+    maxPeople: z
+      .string()
+      .min(1, '최대 인원을 입력해 주세요.')
+      .regex(/^\d+$/, '숫자만 입력 가능합니다.'),
+    title: z.string().min(1, '제목을 입력해 주세요.'),
+    description: z.string().min(1, '설명을 입력해 주세요.'),
     img: z.array(z.string()).optional(),
-    studyLeader: z.string().min(1, "리더 이름을 입력해주세요."),
-    applicationStart: z.string().min(1, "신청 시작일을 입력해주세요."),
-    applicationEnd: z.string().min(1, "신청 종료일을 입력해주세요."),
-    activityStart: z.string().min(1, "활동 시작일을 입력해주세요."),
-    activityEnd: z.string().min(1, "활동 종료일을 입력해주세요."),
+    applicationStart: z.string().min(1, '신청 시작일을 입력해 주세요.'),
+    applicationEnd: z.string().min(1, '신청 종료일을 입력해 주세요.'),
+    activityStart: z.string().min(1, '활동 시작일을 입력해 주세요.'),
+    activityEnd: z.string().min(1, '활동 종료일을 입력해 주세요.'),
   })
   .refine(
-    (data) =>
+    data =>
       !data.applicationStart ||
       !data.applicationEnd ||
       data.applicationStart <= data.applicationEnd,
     {
-      message: "신청 종료일은 시작일 이후여야 합니다.",
-      path: ["applicationEnd"],
+      message: '신청 종료일은 시작일 이후여야 합니다.',
+      path: ['applicationEnd'],
     }
   )
   .refine(
-    (data) =>
-      !data.activityStart ||
-      !data.activityEnd ||
-      data.activityStart <= data.activityEnd,
+    data => !data.activityStart || !data.activityEnd || data.activityStart <= data.activityEnd,
     {
-      message: "활동 종료일은 시작일 이후여야 합니다.",
-      path: ["activityEnd"],
+      message: '활동 종료일은 시작일 이후여야 합니다.',
+      path: ['activityEnd'],
     }
   );
 
@@ -47,18 +46,18 @@ export function useGatheringForm() {
   } = useForm<GatheringFormValues>({
     resolver: zodResolver(gatheringFormSchema),
     defaultValues: {
-      tag: "",
-      maxPeople: "",
-      title: "",
-      description: "",
+      tag: '',
+      maxPeople: '',
+      title: '',
+      description: '',
       img: undefined,
-      studyLeader: "",
-      applicationStart: "",
-      applicationEnd: "",
-      activityStart: "",
-      activityEnd: "",
+      applicationStart: '',
+      applicationEnd: '',
+      activityStart: '',
+      activityEnd: '',
     },
-    mode: "onChange",
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
   });
 
   const formData = watch();
