@@ -11,7 +11,7 @@ export const STAMP = {
   2: {
     src: '/src/assets/img/stamp2.png',
     alt: 'stamp_2',
-    text: '스탬프를 채워보세요!',
+    text: '스탬프를 더 채워보세요!',
     color: 'Navy',
   },
   3: {
@@ -23,7 +23,7 @@ export const STAMP = {
   4: {
     src: '/src/assets/img/stamp4.png',
     alt: 'stamp_4',
-    text: '곧 모임왕이네요! 모임왕까지 가보자구요!',
+    text: '곧 모임왕이네요! 모임왕까지 가보자고요!',
     color: 'Coral',
   },
   5: {
