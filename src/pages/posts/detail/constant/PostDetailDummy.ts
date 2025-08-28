@@ -1,6 +1,6 @@
-import type { PostDetailData, PostCommentData } from '../types/postTypes';
+import type { PostDetailResponse, PostCommentResponse } from '../types/postTypes';
 
-export const postDetailMock: PostDetailData = {
+export const postDetailMock: PostDetailResponse = {
   writerName: '황규운',
   writerId: 1,
   title: '컴퓨터공학부 동아리 모집',
@@ -16,7 +16,7 @@ export const postDetailMock: PostDetailData = {
   topic: 'CLASS',
 };
 
-export const postCommentMock: PostCommentData[] = [
+export const postCommentMock: PostCommentResponse[] = [
   {
     content: [
       {

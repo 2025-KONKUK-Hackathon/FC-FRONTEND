@@ -11,3 +11,13 @@ export const GATHERING_KEY = {
     memberId,
   ],
 } as const;
+
+export const POST_KEY = {
+  ALL: ["post"],
+  POST_LIST: () => [...POST_KEY.ALL, "list"],
+  POST_DETAIL: (id: number) => [...POST_KEY.ALL, id],
+  POST_COMMENTS: (id: number) => [
+    ...POST_KEY.POST_DETAIL(id),
+    "comments"
+  ],
+} as const;

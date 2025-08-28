@@ -18,8 +18,9 @@ import { GRADE_CATEGORY } from '@shared/constant/grade';
 import { PART_CATEGORY } from '@shared/constant/part';
 import { SUBJECT_CATEGORY } from '@shared/constant/subject';
 import { AFFILIATION } from './constant/PostKeyword';
-import type { PostDetailData } from './types/postTypes';
-import { postDetailMock, postCommentMock } from './constant/PostDetailDummy';
+import type { PostDetailResponse } from './types/postTypes';
+import { postDetailMock } from './constant/PostDetailDummy';
+import { usePostDetail, useCommentsDetail } from './hooks/usePostDetail';
 
 export default function PostDetail() {
   const navigator = useNavigate();
@@ -64,7 +65,7 @@ export default function PostDetail() {
   };
 
   const { id } = useParams<{ id: string }>();
-  const [post, setPost] = useState<PostDetailData | null>(null);
+  const [post, setPost] = useState<PostDetailResponse | null>(null);
   const [scrapped, setScrapped] = useState<boolean>(false);
   const [imageContainerRef, setImageContainerRef] = useState<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -74,10 +75,21 @@ export default function PostDetail() {
   const currentUserId = 123;
   const isAuthor = post ? currentUserId === post.writerId : false;
 
+  const {
+    data: postDetailData,
+    isLoading: isPostLoading,
+    error: postError,
+  } = usePostDetail(id ? Number(id) : 0);
+  const {
+    data: postCommentsData,
+    isLoading: isCommentsLoading,
+    error: commentsError,
+  } = useCommentsDetail(id ? Number(id) : 0, 0, 10);
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        setPost(postDetailMock);
+        setPost(postDetailData || postDetailMock);
       } catch {
         console.error('게시글 불러오기 실패');
       }
@@ -206,23 +218,21 @@ export default function PostDetail() {
         <span className={styles.commentsCount}>댓글 {post?.commentCount || 0}개</span>
 
         <div className={styles.commentList}>
-          {postCommentMock.map(commentData =>
-            commentData.content.map(comment => (
-              <Comment
-                key={comment.commentId}
-                currentUserId={currentUserId || 0}
-                comment={{
-                  id: comment.commentId,
-                  author: {
-                    userName: comment.writerName,
-                    userId: comment.writerId,
-                  },
-                  content: comment.content,
-                  createdAt: new Date(comment.createdAt),
-                }}
-              />
-            ))
-          )}
+          {postCommentsData?.content?.map((comment) => (
+            <Comment
+              key={comment.commentId}
+              currentUserId={currentUserId || 0}
+              comment={{
+                id: comment.commentId,
+                author: {
+                  userName: comment.writerName,
+                  userId: comment.writerId,
+                },
+                content: comment.content,
+                createdAt: new Date(comment.createdAt),
+              }}
+            />
+          ))}
         </div>
 
         <div className={styles.commentInputWrapper}>

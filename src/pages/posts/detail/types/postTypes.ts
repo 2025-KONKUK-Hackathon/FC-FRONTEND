@@ -1,6 +1,6 @@
 import { GRADE, AFFILIATION, PART, TOPIC } from '../constant/PostKeyword';
 
-export interface PostDetailData {
+export interface PostDetailResponse {
   writerName: string;
   writerId: number;
   title: string;
@@ -23,7 +23,7 @@ interface CommnetItem {
     cursor: number;
 }
 
-export interface PostCommentData {
+export interface PostCommentResponse {
   content: CommnetItem[],
   nextCursor: number;
   isLast: boolean;

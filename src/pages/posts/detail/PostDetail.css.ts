@@ -17,6 +17,7 @@ export const postHeader = style({
   justifyContent: 'flex-start',
   padding: '1.8rem 0',
   backgroundColor: vars.color.grey900,
+  zIndex: 2,
 });
 
 export const headerButton = style({
