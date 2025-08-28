@@ -37,11 +37,6 @@ export default function SignupForm({
             value={value}
             onChange={onChange}
           />
-          {showSuccessMessage && (
-            <span className={styles.validationMessage({ success: true })}>
-              인증 완료
-            </span>
-          )}
         </div>
         {config.buttonText && (
           <Button
@@ -56,6 +51,16 @@ export default function SignupForm({
       {error && (
         <span className={styles.validationMessage({ success: false })}>
           {error}
+        </span>
+      )}
+      {verificationSent && (
+        <span className={styles.validationMessage({ success: true })}>
+          해당 이메일로 인증번호가 전송되었습니다.
+        </span>
+      )}
+      {showSuccessMessage && (
+        <span className={styles.validationMessage({ success: true })}>
+          인증 완료
         </span>
       )}
     </div>

@@ -6,13 +6,13 @@ export const formWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   width: '94%',
-  height: '12rem',
+  height: '11rem',
   paddingBottom: '2rem',
 });
 
 export const formTitle = style({
   marginBottom: '1rem',
-  fontSize: '1.8rem',
+  fontSize: '1.6rem',
   fontWeight: 'bold',
   color: vars.color.White,
 });
@@ -24,7 +24,7 @@ export const formInputContainer = style({
 
 export const inputContainer = style({
   flex: 1,
-  marginRight: '1.6rem',
+  marginRight: '1rem',
 });
 
 export const validationMessage = recipe({
