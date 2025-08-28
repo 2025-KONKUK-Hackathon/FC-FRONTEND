@@ -29,6 +29,8 @@ export const textSection = style({
   display: "flex",
   flexDirection: "column",
   gap: "0.5rem",
+  minWidth: 0,
+  width: "100%",
 });
 
 export const title = style({
@@ -39,6 +41,8 @@ export const title = style({
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
+  // width: "100%",
+  // minWidth: 0,
 });
 
 export const content = style({
@@ -48,8 +52,10 @@ export const content = style({
   color: vars.color.grey300,
   overflow: "hidden",
   display: "-webkit-box",
-  WebkitLineClamp: 1,
+  WebkitLineClamp: 2,
   WebkitBoxOrient: "vertical",
+  // width: "100%",
+  // minWidth: 0,
 });
 
 export const imageSection = style({

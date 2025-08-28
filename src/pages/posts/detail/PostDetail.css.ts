@@ -141,6 +141,9 @@ export const postImage = style({
 export const postContent = style({
   fontSize: '1.4rem',
   lineHeight: '1.7',
+  // wordBreak: 'break-all',
+  overflowWrap: 'break-word',
+  whiteSpace: 'pre-wrap',
 });
 
 export const commentsWrapper = style({

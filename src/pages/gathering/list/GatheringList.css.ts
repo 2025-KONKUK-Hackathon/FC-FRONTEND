@@ -53,7 +53,7 @@ export const motivationalSubText = style({
 export const sparkleLeft = style({
   position: 'absolute',
   top: '15px',
-  left: '58%',
+  left: '21rem',
   fontSize: '1.2rem',
   opacity: 0.7,
   animation: `${sparkleAnimation} 2s ease-in-out infinite`,
