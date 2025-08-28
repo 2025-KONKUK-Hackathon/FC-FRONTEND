@@ -46,7 +46,10 @@ export const useSignupMutations = () => {
       request<BaseResponse<SignupResponse>>({
         method: HTTPMethod.POST,
         url: '/users/emails/verifications',
-        body: data,
+        query: {
+          email: data.email,
+          code: data.code,
+        },
       }),
     onSuccess: () => {
       console.info('인증번호 확인 성공');
