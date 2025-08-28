@@ -5,6 +5,8 @@ import { PART_CATEGORY, type Part } from '@shared/constant/part';
 import { GRADE_CATEGORY, type Grade } from '@shared/constant/grade';
 import { SUBJECT_CATEGORY, type Subject } from '@shared/constant/subject';
 import { getTimeAgo } from '@shared/utils/timeUtils';
+import { ROUTES } from '@router/constant/Routes';
+import { useNavigate } from 'react-router-dom';
 
 interface PostCardProps {
   postId: number;
@@ -36,13 +38,8 @@ export default function PostCard({
   writerName,
   onClick,
 }: PostCardProps) {
-  const handleClick = () => {
-    onClick?.(postId.toString());
-    console.log(writerName);
-  };
-
   return (
-    <div className={styles.container} onClick={handleClick}>
+    <div className={styles.container} onClick={() => onClick?.(postId.toString())}>
       <div className={styles.topSection}>
         <div className={styles.textSection}>
           {/* todo: 제목 앞에 '학생회'나 'LINK' 칩 추가하기 */}

@@ -9,7 +9,6 @@ import {
   TOPIC_FILTER_OPTIONS,
   AFFILIATION_FILTER_OPTIONS,
 } from './constant/FilterOptions';
-import { studentCouncilPostsDummy } from './constant/StudentCouncilPostsDummy';
 import { ROUTES } from '@router/constant/Routes';
 import { usePostList } from './hooks/usePostList';
 import { useNavigate } from 'react-router-dom';
@@ -78,7 +77,7 @@ function PostListPage({
 
   const navigator = useNavigate();
 
-  const totalSlides = studentCouncilPostsDummy.length;
+  const totalSlides = posts.filter(post => post.isAnnouncement).length;
   const { currentSlide, containerRef, handleIndicatorClick } = useSlideIndicator({
     totalSlides,
     itemWidth: 29,

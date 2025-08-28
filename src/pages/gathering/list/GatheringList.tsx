@@ -85,9 +85,8 @@ function GatheringListPage({
       {/* 동기부여 섹션 */}
       <div className={styles.motivationalSection}>
         <div className={styles.sparkleLeft}>✨</div>
-        <div className={styles.motivationalText}>모임을 만들고 참여해보세요!</div>
+        <div className={styles.motivationalText}>🚀 모임을 만들고 참여해보세요!</div>
         <div className={styles.motivationalSubText}>새로운 사람들과 함께하는 특별한 경험</div>
-        <div className={styles.motivationalDecoration}>🚀</div>
         <div className={styles.sparkleRight}>⭐</div>
       </div>
 
@@ -113,7 +112,7 @@ function GatheringListPage({
             meetingId={gathering.meetingId}
             hostName={gathering.hostName}
             meetingName={gathering.meetingName}
-            content={gathering.content || "모임에 대한 설명이 없습니다."}
+            content={gathering.content || '모임에 대한 설명이 없습니다.'}
             recruitNumber={gathering.recruitNumber}
             currentRecruitCount={gathering.currentRecruitCount}
             category={gathering.category as ClassCategoryKey}
