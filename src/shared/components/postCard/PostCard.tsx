@@ -4,6 +4,7 @@ import { AFFILIATION_CATEGORY, type AffiliationCategoryKey } from '@shared/const
 import { PART_CATEGORY, type Part } from '@shared/constant/part';
 import { GRADE_CATEGORY, type Grade } from '@shared/constant/grade';
 import { SUBJECT_CATEGORY, type Subject } from '@shared/constant/subject';
+import { getTimeAgo } from '@shared/utils/timeUtils';
 
 interface PostCardProps {
   postId: number;
@@ -92,7 +93,7 @@ export default function PostCard({
         </div>
 
         <div className={styles.metaInfo}>
-          <span className={styles.createdAt}>{createdAt}</span>
+          <span className={styles.createdAt}>{getTimeAgo(createdAt)}</span>
           <span className={styles.commentCount}>댓글 {commentCount}</span>
           <span className={styles.authorName}>{styles.authorName}</span>
         </div>
