@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import * as styles from './DropDown.css';
 import type { DropDownSize, DropDownOption } from './constant/dropDown';
+import { Ic_chevron_down, Ic_chevron_up } from '@svg/index';
 
 interface DropDownProps {
   options: DropDownOption[];
@@ -32,14 +33,17 @@ export default function DropDown({
   const isSelected = selectedOption && selectedValue !== 'ALL';
 
   // 외부 클릭 감지
-  const handleClickOutside = useCallback((event: MouseEvent) => {
-    if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-      if (isOpen) {
-        setIsOpen(false);
-        onClose?.();
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        if (isOpen) {
+          setIsOpen(false);
+          onClose?.();
+        }
       }
-    }
-  }, [isOpen, onClose]);
+    },
+    [isOpen, onClose]
+  );
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -48,10 +52,10 @@ export default function DropDown({
 
   const handleToggle = useCallback(() => {
     if (disabled) return;
-    
+
     const newIsOpen = !isOpen;
     setIsOpen(newIsOpen);
-    
+
     if (newIsOpen) {
       onOpen?.();
     } else {
@@ -59,37 +63,46 @@ export default function DropDown({
     }
   }, [disabled, isOpen, onClose, onOpen]);
 
-  const handleOptionSelect = useCallback((option: DropDownOption) => {
-    if (option.disabled) return;
-    
-    setSelectedValue(option.value);
-    setIsOpen(false);
-    onChange?.(option.value);
-    onClose?.();
-  }, [setSelectedValue, onChange, onClose]);
+  const handleOptionSelect = useCallback(
+    (option: DropDownOption) => {
+      if (option.disabled) return;
+
+      setSelectedValue(option.value);
+      setIsOpen(false);
+      onChange?.(option.value);
+      onClose?.();
+    },
+    [setSelectedValue, onChange, onClose]
+  );
 
   return (
     <div className={styles.dropdownContainer} ref={containerRef}>
       <button
-        type='button'
+        type="button"
         className={styles.dropdownTrigger({ size, isSelected: !!isSelected })}
         onClick={handleToggle}
         disabled={disabled}
       >
-        <div className={`${styles.dropdownText} ${selectedOption && selectedValue !== 'ALL' ? '' : styles.placeholder}`}>
-          {(selectedOption && selectedValue !== 'ALL') ? selectedOption.label : placeholder}
+        <div
+          className={`${styles.dropdownText} ${selectedOption && selectedValue !== 'ALL' ? '' : styles.placeholder}`}
+        >
+          {selectedOption && selectedValue !== 'ALL' ? selectedOption.label : placeholder}
         </div>
         <div className={styles.toggleIcon}>
           {/* 아이콘 추가 필요 */}
-          {isOpen ? '▲' : '▼'}
+          {isOpen ? (
+            <Ic_chevron_up className={styles.dropdownIcon({ isSelected: isSelected })} />
+          ) : (
+            <Ic_chevron_down className={styles.dropdownIcon({ isSelected: isSelected })} />
+          )}
         </div>
       </button>
 
       <div className={styles.dropdownMenu({ isOpen })}>
-        {options.map((option) => (
+        {options.map(option => (
           <button
             key={option.value}
-            type='button'
+            type="button"
             className={styles.dropdownOption({ size })}
             onClick={() => handleOptionSelect(option)}
             disabled={option.disabled}
