@@ -17,4 +17,7 @@ export const ROUTES = {
   USER: {
     DETAIL: '/user/:id',
   },
+  INFO: {
+    DETAIL: '/info',
+  },
 } as const;
