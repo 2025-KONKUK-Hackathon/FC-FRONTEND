@@ -2,6 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { request } from '@api/request';
 import { HTTPMethod } from '@api/request';
 import { type PostListData } from '../types/postList';
+import { POSTS_KEY } from '@shared/constant/queryKey';
 
 export const usePostList = (size = 5) => {
   const {
@@ -12,7 +13,7 @@ export const usePostList = (size = 5) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ['PostList', size], // todo: types에 쿼리키 설정
+    queryKey: POSTS_KEY.POSTS_LIST(), // todo: types에 쿼리키 설정
     queryFn: ({ pageParam = null }: { pageParam: number | null }) =>
       request<PostListData>({
         method: HTTPMethod.GET,
