@@ -19,6 +19,7 @@ export const scrollableContent = style({
   padding: '2rem',
   gap: '2rem',
   backgroundColor: vars.color.grey900,
+  overflow: 'auto',
 });
 
 export const titleContainer = style({

@@ -19,7 +19,6 @@ export const description = style({
 });
 
 export const error = style({
-  fontSize: '1.4rem',
-
+  fontSize: '1.2rem',
   color: vars.color.Red,
 });

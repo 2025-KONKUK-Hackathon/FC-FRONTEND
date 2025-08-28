@@ -5,7 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 export const gatheringFormSchema = z
   .object({
     tag: z.string().min(1, '태그를 선택해 주세요'),
-    maxPeople: z.string().regex(/^\d+$/, '숫자만 입력해 주세요.'),
+    maxPeople: z
+      .string()
+      .min(1, '최대 인원을 입력해 주세요.')
+      .regex(/^\d+$/, '숫자만 입력 가능합니다.'),
     title: z.string().min(1, '제목을 입력해 주세요.'),
     description: z.string().min(1, '설명을 입력해 주세요.'),
     img: z.array(z.string()).optional(),
@@ -53,7 +56,8 @@ export function useGatheringForm() {
       activityStart: '',
       activityEnd: '',
     },
-    mode: 'onChange',
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
   });
 
   const formData = watch();
