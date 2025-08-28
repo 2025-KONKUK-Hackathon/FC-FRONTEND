@@ -55,7 +55,7 @@ export default function SignupForm({
       )}
       {verificationSent && (
         <span className={styles.validationMessage({ success: true })}>
-          인증번호가 전송되었습니다
+          해당 이메일로 인증번호가 전송되었습니다.
         </span>
       )}
       {showSuccessMessage && (

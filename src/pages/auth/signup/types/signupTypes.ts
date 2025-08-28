@@ -11,7 +11,7 @@ export interface SignupFormConfig {
 export const SIGNUP_FORM_CONFIGS: Record<SignupFormType, SignupFormConfig> = {
   email: {
     title: '이메일',
-    placeholder: '이메일을 입력하세요',
+    placeholder: '건국이메일(konkuk.ac.kr)을 입력하세요',
     inputType: 'email',
     buttonText: '인증',
   },

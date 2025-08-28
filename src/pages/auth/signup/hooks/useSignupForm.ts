@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRequestVerification } from './useRequestVerification';
-import { useEmailVerification } from './useEmailVerification';
-import { useSignup } from './useSignup';
 
 export const signupSchema = z.object({
   email: z
@@ -51,9 +48,6 @@ export const signupSchema = z.object({
 export type SignupFormData = z.infer<typeof signupSchema>;
 
 export const useSignupForm = () => {
-  const requestVerificationMutation = useRequestVerification();
-  const emailVerificationMutation = useEmailVerification();
-  const signupMutation = useSignup();
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [emailError, setEmailError] = useState<string>('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
@@ -80,107 +74,18 @@ export const useSignupForm = () => {
     setVerifiedEmail('');
   };
 
-  const getHttpStatus = (error: unknown): number | undefined => {
-    if (error && typeof error === 'object' && 'response' in error &&
-        error.response && typeof error.response === 'object' && 'status' in error.response) {
-      return error.response.status as number;
-    }
-    return undefined;
-  };
-
-  // 이메일 인증 요청
-  const requestEmailVerification = async (email: string) => {
-    try {
-      console.info('이메일 인증 요청');
-      resetEmailVerificationState();
-      await requestVerificationMutation.mutateAsync({ email });
-      setIsEmailSent(true);
-      return { success: true };
-    } catch (error: unknown) {
-      console.error('이메일 인증 요청 실패');
-      setIsEmailSent(false);
-      
-      // 409 상태 코드인 경우 이미 존재하는 이메일
-      const status = getHttpStatus(error);
-      if (status === 409) {
-        const errorMessage = '이미 존재하는 이메일 입니다.';
-        setEmailError(errorMessage);
-        return { success: false, error: errorMessage };
-      }
-      
-      const errorMessage = '이메일 인증 요청에 실패했습니다.';
-      setEmailError(errorMessage);
-      return { success: false, error: errorMessage };
-    }
-  };
-
-  // 인증번호 확인
-  const verifyCode = async (code: string) => {
-    try {
-      console.info('인증번호 확인');
-      setCodeError('');
-      const currentEmail = form.getValues('email');
-      if (!currentEmail) {
-        return { success: false, error: '이메일을 먼저 입력해주세요.' };
-      }
-      
-      await emailVerificationMutation.mutateAsync({ 
-        email: currentEmail, 
-        code: code 
-      });
-      setIsEmailVerified(true);
-      setVerifiedEmail(currentEmail);
-      return { success: true };
-    } catch (error: unknown) {
-      console.error('인증번호 확인 실패');
-      
-      // 400 상태 코드인 경우 인증번호 불일치
-      const status = getHttpStatus(error);
-      if (status === 400) {
-        const errorMessage = '인증번호가 일치하지 않습니다.';
-        setCodeError(errorMessage);
-        return { success: false, error: errorMessage };
-      }
-
-      const errorMessage = '잘못된 인증번호입니다.';
-      setCodeError(errorMessage);
-      return { success: false, error: errorMessage };
-    }
-  };
-
-  // 회원가입 완료
-  const submitSignup = async (data: SignupFormData) => {
-    try {
-      if (!isEmailVerified) {
-        return { success: false, error: '이메일 인증을 완료해주세요.' };
-      }
-      if (data.email !== verifiedEmail) {
-        return { success: false, error: '인증된 이메일과 입력한 이메일이 일치하지 않습니다.' };
-      }
-      
-      await signupMutation.mutateAsync({
-        email: data.email,
-        name: data.name,
-        password: data.password,
-        studentNumber: data.studentNumber,
-        phone: data.phone,
-      });
-      
-      return { success: true };
-    } catch (error) {
-      console.error('회원가입 실패:', error);
-      return { success: false, error: '회원가입에 실패했습니다.' };
-    }
-  };
-
   return {
     form,
     isEmailSent,
+    setIsEmailSent,
     emailError,
+    setEmailError,
     isEmailVerified,
+    setIsEmailVerified,
+    verifiedEmail,
+    setVerifiedEmail,
     codeError,
-    requestEmailVerification,
-    verifyCode,
-    submitSignup,
+    setCodeError,
+    resetEmailVerificationState,
   };
 };
