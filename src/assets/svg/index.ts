@@ -17,3 +17,5 @@ export { default as IC_pencil_solid_full } from '@svg/ic_pencil_solid_full.svg?r
 export { default as Ic_bookmark } from '@svg/ic_bookmark.svg?react';
 export { default as Ic_bookmark_solid } from '@svg/ic_bookmark_solid.svg?react';
 export { default as Ic_logo } from '@svg/ic_logo.svg?react';
+export { default as Ic_chevron_down } from '@svg/ic_chevron_down.svg?react';
+export { default as Ic_chevron_up } from '@svg/ic_chevron_up.svg?react';
