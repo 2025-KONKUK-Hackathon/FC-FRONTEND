@@ -96,6 +96,8 @@ function PostListPage({
     },
   });
 
+  const navigate = useNavigate();
+
   // 필터링된 게시글 목록
   const filteredPosts = posts.filter(post => {
     const matchesAffiliation =
