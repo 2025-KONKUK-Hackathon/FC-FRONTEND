@@ -4,7 +4,7 @@ import { HTTPMethod } from '@api/request';
 import { type PostListData } from '../types/postList';
 import { POSTS_KEY } from '@shared/constant/queryKey';
 
-export const usePostList = (size = 5) => {
+export const usePostList = (size = 20) => {
   const {
     data,
     isPending: isPostListPending,
@@ -17,7 +17,7 @@ export const usePostList = (size = 5) => {
     queryFn: ({ pageParam = null }: { pageParam: number | null }) =>
       request<PostListData>({
         method: HTTPMethod.GET,
-        url: `/posts?${pageParam ? `cursorId=${pageParam}&` : ''}size=${20}`,
+        url: `/posts?${pageParam ? `cursorId=${pageParam}&` : ''}size=${size}`,
       }),
     getNextPageParam: (lastPage) => {
       // lastPage: 서버에서 내려온 응답(PostListData 타입)
