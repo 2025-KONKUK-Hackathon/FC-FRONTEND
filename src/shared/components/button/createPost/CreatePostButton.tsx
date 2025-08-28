@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 
 interface CreatePostButtonProps {
   to: string;
+  text?: string;
 }
 
-const CreatePostButton = ({ to }: CreatePostButtonProps) => {
+const CreatePostButton = ({ to, text = "글쓰기" }: CreatePostButtonProps) => {
   return (
     <Link to={to} className={styles.wrapper}>
       <IC_pencil_solid_full className={styles.icon} />
-      글쓰기
+      {text}
     </Link>
   );
 };
