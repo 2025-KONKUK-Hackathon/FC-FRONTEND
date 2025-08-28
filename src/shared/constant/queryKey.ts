@@ -22,3 +22,13 @@ export const POSTS_KEY = {
   POSTS_DETAIL: (postId: string) => [...POSTS_KEY.ALL, postId],
   POSTS_COMMENTS: (postId: string) => [...POSTS_KEY.POSTS_DETAIL(postId), 'comments'],
 } as const;
+
+export const POST_KEY = {
+  ALL: ['post'],
+  POST_LIST: () => [...POST_KEY.ALL, 'list'],
+  POST_DETAIL: (id: number) => [...POST_KEY.ALL, 'detail', id],
+  POST_COMMENTS: (id: number) => [
+    ...POST_KEY.POST_DETAIL(id),
+    'comments'
+  ],
+} as const;
