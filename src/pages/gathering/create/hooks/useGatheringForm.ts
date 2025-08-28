@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useGatherCreateMutations } from './useGatherCreateMutations';
 import type { GatherCreateRequest } from '../types/GatherCreate';
 import { useState } from 'react';
+import { removeQueryString } from '@shared/utils/removeQueryString';
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -103,7 +104,7 @@ export function useGatheringForm() {
       setValue(field, value, opts);
     };
   };
-  const { createGatheringMutation, postPresignedUrl } = useGatherCreateMutations();
+  const { createGatheringMutation, postPresignedUrl, uploadFiles } = useGatherCreateMutations();
   const requestBody = {
     ...formData,
     recruitNumber: Number(formData.recruitNumber),
@@ -117,7 +118,11 @@ export function useGatheringForm() {
     try {
       const mediaUrl = await postPresignedUrl.mutateAsync(mediaType);
       console.log('mediaUrl', mediaUrl);
-      setValue('imageUrls', mediaUrl.mediaUrl, opts);
+      const cleanedUrls = removeQueryString(mediaUrl.mediaUrl);
+      setValue('imageUrls', cleanedUrls, opts);
+      uploadFiles(mediaUrl.mediaUrl, files);
+      console.log('mediaUrl', mediaUrl);
+      console.log('cleanedUrls', cleanedUrls);
     } catch (error) {
       console.error('Error uploading images:', error);
     }
