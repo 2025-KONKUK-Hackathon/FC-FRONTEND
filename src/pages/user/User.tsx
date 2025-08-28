@@ -31,18 +31,20 @@ export default function User() {
     setMenu(menu);
   };
 
-  // gathering 수에 따른 스탬프 결정
-  // const getCurrentStamp = () => {
-  //   if (userGatheringCount === 0) return STAMP[0];
-  //   if (userGatheringCount >= 5) return STAMP[5];
-  //   return STAMP[userGatheringCount as keyof typeof STAMP];
-  // };
-
-  const currentStamp = STAMP[0];
+  // userMeeting.content의 길이에 따라 현재 스탬프 결정
+  const meetingCount = userMeeting?.content?.length || 0;
+  const maxStamps = 5;
+  const currentStampIndex = Math.min(meetingCount, maxStamps);
+  const currentStamp = STAMP[currentStampIndex as keyof typeof STAMP] || STAMP[0];
 
   const renderStampCircles = () => {
-    const stamps = Array.from({ length: 5 }, (_, index) => {
-      const isFilled = index < 0;
+    // userMeeting.content의 길이에 따라 스탬프 개수 결정
+    const meetingCount = userMeeting?.content?.length || 0;
+    const maxStamps = 5; // 최대 스탬프 개수
+    const filledStamps = Math.min(meetingCount, maxStamps); // 최대 5개까지만
+
+    const stamps = Array.from({ length: maxStamps }, (_, index) => {
+      const isFilled = index < filledStamps;
       const stampKey = (index + 1) as keyof typeof STAMP;
       const stampData = STAMP[stampKey];
 
@@ -78,6 +80,7 @@ export default function User() {
         <div className={styles.userInfoTextContainer}>
           <p className={styles.userInfoName}>{userInfo?.name}</p>
           <p>{userInfo?.phoneNumber}</p>
+          <p>{userInfo?.studentNumber}</p>
         </div>
       </div>
       <div className={styles.userStampContainer}>

@@ -7,6 +7,7 @@ import type { StatusType } from '@shared/constant/status';
 export interface UserInfoResponse {
   name: string;
   phoneNumber: string;
+  studentNumber: string;
 }
 
 export interface UserMeetingResponse {
