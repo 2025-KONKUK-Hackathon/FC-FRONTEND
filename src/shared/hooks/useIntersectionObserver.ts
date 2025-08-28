@@ -7,7 +7,7 @@ interface UseIntersectionObserverProps {
 }
 
 export function useIntersectionObserver({
-  threshold = 0.1,
+  threshold = 0.1, // 타겟 요소의 10%가 보일 때 콜백 실행
   rootMargin = '0px',
   onIntersect,
 }: UseIntersectionObserverProps = {}) {

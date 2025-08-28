@@ -3,7 +3,7 @@ import type { Color } from "@styles/theme.css";
 import * as styles from "./PostListItem.css";
 
 interface PostListItemProps {
-  id: string;
+  id: number;
   title: string;
   content: string;
   imageUrl?: string;
@@ -15,7 +15,7 @@ interface PostListItemProps {
   createdAt: string;
   commentCount: number;
   authorName: string;
-  onClick?: (id: string) => void;
+  onClick?: (id: number) => void;
 }
 
 export default function PostListItem({
