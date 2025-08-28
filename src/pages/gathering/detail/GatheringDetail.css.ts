@@ -124,6 +124,8 @@ export const gatheringDetailDescription = style({
   width: '100%',
   wordBreak: 'keep-all',
   fontSize: '1.4rem',
+  overflowWrap: 'break-word',
+  whiteSpace: 'pre-wrap',
 });
 
 export const gatheringDetailContentPeriod = style({
