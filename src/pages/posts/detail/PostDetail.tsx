@@ -193,6 +193,7 @@ export default function PostDetail() {
                 <Ic_chevron_left className={styles.scrollButtonIcon} />
               </button>
             )}
+          {postDetail.imageUrls && postDetail.imageUrls.length > 0 && 
             <div className={styles.imageContainer} ref={setImageContainerRef}>
               {postDetail.imageUrls.map((imageUrl, index) => (
                 <img
@@ -202,7 +203,7 @@ export default function PostDetail() {
                   className={styles.postImage}
                 />
               ))}
-            </div>
+            </div>}
             {canScrollRight && (
               <button
                 type="button"
