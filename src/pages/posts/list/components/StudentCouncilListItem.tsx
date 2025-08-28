@@ -5,6 +5,7 @@ import { PART_CATEGORY, type Part } from '@shared/constant/part';
 import { SUBJECT_CATEGORY, type Subject } from '@shared/constant/subject';
 import { AFFILIATION_CATEGORY, type AffiliationCategoryKey } from '@shared/constant/affiliation';
 import { CLASS_CATEGORY } from '@shared/constant/class';
+import { getTimeAgo } from '@shared/utils/timeUtils';
 
 interface StudentCouncilListItemProps {
   postId: number;
@@ -97,8 +98,8 @@ export default function StudentCouncilListItem({
         </div>
 
         <div className={styles.metaInfo}>
-          <span className={styles.createdAt}>{createdAt}</span>
-          <span className={styles.commentCount}>{commentCount}</span>
+          <span className={styles.createdAt}>{getTimeAgo(createdAt)}</span>
+          <span className={styles.commentCount}>댓글 {commentCount}</span>
           <span className={styles.authorName}>{writerName}</span>
         </div>
       </div>

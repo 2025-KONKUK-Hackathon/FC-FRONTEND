@@ -28,6 +28,7 @@ export const title = style({
 export const logo = style({
   width: '9rem',
   height: '7rem',
+  marginTop: '1rem',
 });
 
 export const backButton = style({

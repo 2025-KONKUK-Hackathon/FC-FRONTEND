@@ -2,6 +2,7 @@ import GatheringCard from '@shared/components/gatheringCard/GatheringCard';
 import CreatePostButton from '@shared/components/button/createPost/CreatePostButton';
 import DropDown from '@shared/components/dropDown/DropDown';
 import LoadingSvg from '@shared/components/loading/Loading';
+import EmptyState from '@shared/components/emptyState/EmptyState';
 import { useIntersectionObserver } from '@shared/hooks/useIntersectionObserver';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -106,29 +107,39 @@ function GatheringListPage({
       </div>
 
       <div className={styles.generalPostsSection}>
-        {filteredGatherings.map(gathering => (
-          <GatheringCard
-            key={gathering.meetingId}
-            meetingId={gathering.meetingId}
-            hostName={gathering.hostName}
-            meetingName={gathering.meetingName}
-            content={gathering.content || '모임에 대한 설명이 없습니다.'}
-            recruitNumber={gathering.recruitNumber}
-            currentRecruitCount={gathering.currentRecruitCount}
-            category={gathering.category as ClassCategoryKey}
-            imageUrl={gathering.imageUrl}
-            status={gathering.recruitStatus as StatusType}
+        {filteredGatherings.length === 0 ? (
+          <EmptyState 
+            type="gatherings" 
+            message="해당 조건의 모임이 없습니다"
+            subMessage="새로운 모임을 만들어보는 건 어떨까요?"
           />
-        ))}
+        ) : (
+          <>
+            {filteredGatherings.map(gathering => (
+              <GatheringCard
+                key={gathering.meetingId}
+                meetingId={gathering.meetingId}
+                hostName={gathering.hostName}
+                meetingName={gathering.meetingName}
+                content={gathering.content || '모임에 대한 설명이 없습니다.'}
+                recruitNumber={gathering.recruitNumber}
+                currentRecruitCount={gathering.currentRecruitCount}
+                category={gathering.category as ClassCategoryKey}
+                imageUrl={gathering.imageUrl}
+                status={gathering.recruitStatus as StatusType}
+              />
+            ))}
 
-        {/* 무한스크롤 트리거 */}
-        <div ref={targetRef} style={{ height: '20px' }} />
+            {/* 무한스크롤 트리거 */}
+            <div ref={targetRef} style={{ height: '20px' }} />
 
-        {/* 로딩 인디케이터 */}
-        {isFetchingNextPage && (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-            <LoadingSvg />
-          </div>
+            {/* 로딩 인디케이터 */}
+            {isFetchingNextPage && (
+              <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+                <LoadingSvg />
+              </div>
+            )}
+          </>
         )}
       </div>
 

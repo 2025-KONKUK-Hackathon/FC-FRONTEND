@@ -17,9 +17,9 @@ export default function Info() {
             text="건국대학교 이캠퍼스"
             href="https://ecampus.konkuk.ac.kr/ilos/main/main_form.acl"
           />
-          <Link text="건국대학교 수갈신청" href="https://sugang.konkuk.ac.kr" />
+          <Link text="건국대학교 수강신청" href="https://sugang.konkuk.ac.kr" />
           <Link
-            text="건국대학교 인턴십의무이수제"
+            text="건국대학교 인턴십 의무이수제"
             href="https://www.konkuk.ac.kr/bulletins25/27675/subview.do"
           />
           <Link
@@ -32,16 +32,12 @@ export default function Info() {
         <p className={styles.title}>🔗 건국대학교 컴퓨터공학부 관련 링크를 확인해보세요!</p>
         <div className={styles.linkContainer}>
           <Link
-            text="건국대학교 컴퓨터공학부 졸업요건"
+            text="건국대학교 컴퓨터공학부 졸업요건(전공 · 다전공 · 부전공 포함)"
             href="https://www.konkuk.ac.kr/bulletins25/27752/subview.do?enc=Zm5jdDF8QEB8JTJGb2xiMjVHcmRScXJtbnQlMkZidWxsZXRpbnMyNSUyRjY4JTJGdmlldy5kbyUzRnNyY2hZZWFyJTNEMjAyNSUyNnNyY2hDbGclM0QxMDMwNDElMjZzcmNoTWpyJTNEMTI3NDI4JTI2"
           />
           <Link
             text="건국대학교 컴퓨터공학부 전공역량/ 로드맵"
             href="https://www.konkuk.ac.kr/bulletins25/28109/subview.do"
-          />
-          <Link
-            text="건국대학교 컴퓨터공학부 졸업요건"
-            href="https://www.konkuk.ac.kr/bulletins25/27752/subview.do?enc=Zm5jdDF8QEB8JTJGb2xiMjVHcmRScXJtbnQlMkZidWxsZXRpbnMyNSUyRjY4JTJGdmlldy5kbyUzRnNyY2hZZWFyJTNEMjAyNSUyNnNyY2hDbGclM0QxMDMwNDElMjZzcmNoTWpyJTNEMTI3NDI4JTI2"
           />
           <Link
             text="건국대학교 컴퓨터공학부 전공교육과정"

@@ -4,6 +4,8 @@ import type { BaseResponse } from '@api/types';
 import { GATHERING_KEY } from '@shared/constant/queryKey';
 import { type GatherCreateRequest } from '../types/GatherCreate';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@router/constant/Routes';
+import { handleApiError, showSuccessToast } from '@shared/utils/errorHandler';
 import type { MediaUrl } from '@pages/posts/create/types/PostsCreate';
 
 export const useGatherCreateMutations = () => {
@@ -19,13 +21,14 @@ export const useGatherCreateMutations = () => {
       }),
     onSuccess: () => {
       console.log('성공~');
+      showSuccessToast('모임이 성공적으로 생성되었습니다!');
       queryClient.invalidateQueries({
         queryKey: GATHERING_KEY.GATHERING_LIST(),
       });
-      navigate('/');
+      navigate(ROUTES.GATHERING.LIST);
     },
-    onError: () => {
-      alert('모임 생성에 실패했습니다.');
+    onError: (error) => {
+      handleApiError(error, '모임 생성에 실패했습니다.');
     },
   });
   const postPresignedUrl = useMutation({
@@ -39,8 +42,8 @@ export const useGatherCreateMutations = () => {
       console.log('Presigned URL 생성 성공');
       return data;
     },
-    onError: () => {
-      alert('Presigned URL 생성에 실패했습니다.');
+    onError: (error) => {
+      handleApiError(error, 'Presigned URL 생성에 실패했습니다.');
     },
   });
 

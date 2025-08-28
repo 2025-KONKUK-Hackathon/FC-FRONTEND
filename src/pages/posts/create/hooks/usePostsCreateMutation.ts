@@ -4,6 +4,7 @@ import type { BaseResponse } from '@api/types';
 import { POSTS_KEY } from '@shared/constant/queryKey';
 import type { PostsCreateRequest, MediaUrl } from '../types/PostsCreate';
 import { useNavigate } from 'react-router-dom';
+import { handleApiError, showSuccessToast } from '@shared/utils/errorHandler';
 
 export const usePostsCreateMutations = () => {
   const navigate = useNavigate();
@@ -18,13 +19,14 @@ export const usePostsCreateMutations = () => {
       }),
     onSuccess: () => {
       console.log('성공~');
+      showSuccessToast('게시물이 성공적으로 생성되었습니다!');
       queryClient.invalidateQueries({
         queryKey: POSTS_KEY.POSTS_LIST(),
       });
       navigate('/');
     },
-    onError: () => {
-      alert('게시물 생성에 실패했습니다.');
+    onError: (error) => {
+      handleApiError(error, '게시물 생성에 실패했습니다.');
     },
   });
 
@@ -39,8 +41,8 @@ export const usePostsCreateMutations = () => {
       console.log('Presigned URL 생성 성공');
       return data;
     },
-    onError: () => {
-      alert('Presigned URL 생성에 실패했습니다.');
+    onError: (error) => {
+      handleApiError(error, 'Presigned URL 생성에 실패했습니다.');
     },
   });
 

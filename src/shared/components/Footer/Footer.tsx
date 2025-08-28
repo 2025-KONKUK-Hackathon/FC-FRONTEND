@@ -60,13 +60,13 @@ const Footer = () => {
       <Link
         to={ROUTES.INFO}
         className={styles.navItem({
-          isActive: location.pathname === ROUTES.USER.DETAIL,
+          isActive: location.pathname === ROUTES.INFO,
         })}
       >
-        <Ic_link className={styles.icon({ isActive: location.pathname === ROUTES.USER.DETAIL })} />
+        <Ic_link className={styles.icon({ isActive: location.pathname === ROUTES.INFO })} />
         <span
           className={styles.navText({
-            isActive: location.pathname === ROUTES.USER.DETAIL,
+            isActive: location.pathname === ROUTES.INFO,
           })}
         >
           링크

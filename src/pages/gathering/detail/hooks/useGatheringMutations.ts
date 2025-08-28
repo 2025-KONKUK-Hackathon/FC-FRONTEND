@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { request } from '@/api/request';
 import { GATHERING_KEY } from '@shared/constant/queryKey';
 import { STATUS } from '@shared/constant/status';
+import { handleApiError, showSuccessToast } from '@shared/utils/errorHandler';
 import type { BaseResponse } from '@api/types';
 
 export const useGatheringMutations = (id: string | undefined) => {
@@ -30,15 +31,16 @@ export const useGatheringMutations = (id: string | undefined) => {
       return { previousMeeting };
     },
     onSuccess: () => {
+      showSuccessToast('모임 신청이 완료되었습니다!');
       queryClient.invalidateQueries({
         queryKey: GATHERING_KEY.GATHERING_MEMBERS(id || ''),
       });
     },
-    onError: (_err, _variables, context) => {
+    onError: (err, _variables, context) => {
       if (context?.previousMeeting) {
         queryClient.setQueryData(GATHERING_KEY.GATHERING_DETAIL(id || ''), context.previousMeeting);
       }
-      alert('모임 신청에 실패했습니다.');
+      handleApiError(err, '모임 신청에 실패했습니다.');
     },
   });
 
@@ -65,6 +67,7 @@ export const useGatheringMutations = (id: string | undefined) => {
       return { previousMeeting };
     },
     onSuccess: () => {
+      showSuccessToast('모임이 마감되었습니다.');
       queryClient.invalidateQueries({
         queryKey: GATHERING_KEY.GATHERING_DETAIL(id || ''),
       });
@@ -72,11 +75,11 @@ export const useGatheringMutations = (id: string | undefined) => {
         queryKey: GATHERING_KEY.GATHERING_LIST(),
       });
     },
-    onError: (_err, _variables, context) => {
+    onError: (err, _variables, context) => {
       if (context?.previousMeeting) {
         queryClient.setQueryData(GATHERING_KEY.GATHERING_DETAIL(id || ''), context.previousMeeting);
       }
-      alert('모임 마감에 실패했습니다.');
+      handleApiError(err, '모임 마감에 실패했습니다.');
     },
   });
 
