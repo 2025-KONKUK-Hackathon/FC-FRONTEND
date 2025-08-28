@@ -5,9 +5,12 @@ import { generalPostsDummy } from "./constant/GeneralPostsDummy";
 import { studentCouncilPostsDummy } from "./constant/StudentCouncilPostsDummy";
 import * as styles from "./PostList.css";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@router/constant/Routes";
 
 export default function PostList() {
+  const navigator = useNavigate();
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -95,7 +98,7 @@ export default function PostList() {
             createdAt={post.createdAt}
             commentCount={post.commentCount}
             authorName={post.authorName}
-            onClick={(id) => console.log(`Post ${id} clicked`)}
+            onClick={(id) => navigator(`/posts/detail/${id}`)}
           />
         ))}
       </div>
