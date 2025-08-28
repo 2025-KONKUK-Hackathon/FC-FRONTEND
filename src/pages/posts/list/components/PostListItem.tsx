@@ -1,6 +1,7 @@
 import Category from "@shared/components/category/Category";
 import type { Color } from "@styles/theme.css";
 import * as styles from "./PostListItem.css";
+import { getTimeAgo } from "@shared/utils/timeUtils";
 
 interface PostListItemProps {
   id: number;
@@ -62,7 +63,7 @@ export default function PostListItem({
         </div>
         
         <div className={styles.metaInfo}>
-          <span className={styles.createdAt}>{createdAt}</span>
+          <span className={styles.createdAt}>{getTimeAgo(createdAt)}</span>
           <span className={styles.commentCount}>댓글 {commentCount}</span>
           <span className={styles.authorName}>{authorName}</span>
         </div>
