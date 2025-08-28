@@ -22,6 +22,7 @@ export const textSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.5rem',
+  minWidth: 0, // flex item이 shrink할 수 있도록 설정
 });
 
 export const title = style({
