@@ -5,8 +5,6 @@ import { PART_CATEGORY, type Part } from '@shared/constant/part';
 import { GRADE_CATEGORY, type Grade } from '@shared/constant/grade';
 import { SUBJECT_CATEGORY, type Subject } from '@shared/constant/subject';
 import { getTimeAgo } from '@shared/utils/timeUtils';
-import { ROUTES } from '@router/constant/Routes';
-import { useNavigate } from 'react-router-dom';
 
 interface PostCardProps {
   postId: number;
