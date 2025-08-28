@@ -1,15 +1,27 @@
-import CreatePostButton from '@shared/components/button/createPost/CreatePostButton';
-import PostListItem from './components/PostListItem';
 import StudentCouncilListItem from './components/StudentCouncilListItem';
-import { studentCouncilPostsDummy } from './constant/StudentCouncilPostsDummy';
+import CreatePostButton from '@shared/components/button/createPost/CreatePostButton';
+import DropDown from '@shared/components/dropDown/DropDown';
+import { useState } from 'react';
 import * as styles from './PostList.css';
-import { useNavigate } from 'react-router-dom';
-import { useSlideIndicator } from './hooks/useSlideIndicator';
+import {
+  PART_FILTER_OPTIONS,
+  GRADE_FILTER_OPTIONS,
+  TOPIC_FILTER_OPTIONS,
+  AFFILIATION_FILTER_OPTIONS,
+} from './constant/FilterOptions';
+import { studentCouncilPostsDummy } from './constant/StudentCouncilPostsDummy';
 import { ROUTES } from '@router/constant/Routes';
 import { usePostList } from './hooks/usePostList';
+import { useNavigate } from 'react-router-dom';
 import LoadingSvg from '@shared/components/loading/Loading';
 import type { PostListContent } from './types/postList';
+import { useSlideIndicator } from './hooks/useSlideIndicator';
 import { useIntersectionObserver } from '@shared/hooks/useIntersectionObserver';
+import PostCard from '@shared/components/postCard/PostCard';
+import type { Grade } from '@shared/constant/grade';
+import type { AffiliationCategoryKey } from '@shared/constant/affiliation';
+import type { Part } from '@shared/constant/part';
+import type { Subject } from '@shared/constant/subject';
 
 export default function PostList() {
   const {
@@ -58,6 +70,13 @@ function PostListPage({
   hasNextPage,
   isFetchingNextPage,
 }: PostListPageProps) {
+  // 필터 상태
+  const [partFilter, setPartFilter] = useState('ALL');
+  const [gradeFilter, setGradeFilter] = useState('ALL');
+  const [topicFilter, setTopicFilter] = useState('ALL');
+  const [affiliationFilter, setAffiliationFilter] = useState('ALL');
+
+
   const navigator = useNavigate();
 
   const totalSlides = studentCouncilPostsDummy.length;
@@ -81,6 +100,48 @@ function PostListPage({
 
   return (
     <div className={styles.container}>
+      {/* 필터 섹션 */}
+      <div className={styles.filterSection}>
+        <div className={styles.filterContainer}>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={AFFILIATION_FILTER_OPTIONS}
+              selectedValue={affiliationFilter}
+              setSelectedValue={setAffiliationFilter}
+              placeholder="소속"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={PART_FILTER_OPTIONS}
+              selectedValue={partFilter}
+              setSelectedValue={setPartFilter}
+              placeholder="파트"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={GRADE_FILTER_OPTIONS}
+              selectedValue={gradeFilter}
+              setSelectedValue={setGradeFilter}
+              placeholder="학년"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={TOPIC_FILTER_OPTIONS}
+              selectedValue={topicFilter}
+              setSelectedValue={setTopicFilter}
+              placeholder="주제"
+              size="small"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className={styles.studentCouncilSection}>
         <div className={styles.sectionTitle}>
           <span>📢</span>
@@ -120,18 +181,20 @@ function PostListPage({
 
       <div className={styles.generalPostsSection}>
         {posts.map(post => (
-          <PostListItem
+          <PostCard
             key={post.postId}
-            id={post.postId}
+            postId={post.postId}
             title={post.title}
             content={post.content}
             imageUrl={post.imageUrl}
-            categories={[post.topic, post.grade, post.affiliation, post.part]
-              .filter(Boolean)
-              .map(text => ({ text }))}
+            grade={post.grade as Grade}
+            affiliation={post.affiliation as AffiliationCategoryKey}
+            part={post.part as Part}
+            topic={post.topic as Subject}
             createdAt={post.createdAt} // todo: 게시글 생성시간 처리 로직 구현
             commentCount={post.commentCount}
-            authorName={post.writerName}
+            writerName={post.writerName}
+            writerId={post.writerId}
             onClick={id => navigator(`/posts/detail/${id}`)}
           />
         ))}
