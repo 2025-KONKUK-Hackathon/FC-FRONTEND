@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { request } from '@/api/request';
-import type { LoginFormData } from '../hooks/useLoginForm';
+import type { LoginFormData } from './useLoginForm';
 
 export interface LoginRequest {
   email: string;
