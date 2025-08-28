@@ -12,3 +12,7 @@ export interface PostsCreateRequest extends Record<string, unknown> {
   topic: Subject;
   affiliation: AffiliationCategoryKey;
 }
+
+export interface MediaUrl extends Record<string, unknown> {
+  mediaUrl: string[];
+}

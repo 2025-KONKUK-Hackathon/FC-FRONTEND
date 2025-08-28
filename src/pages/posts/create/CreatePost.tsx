@@ -13,7 +13,7 @@ import TextArea from '@shared/components/textArea/TextArea';
 import { AFFILIATION_CATEGORY_OPTIONS } from '@shared/constant/affiliation';
 
 export default function CreatePost() {
-  const { formData, handleStringChange, handleDropdownChange, errors, onSubmit, handleSubmit } = usePostsForm();
+  const { formData, handleStringChange, handleDropdownChange, handleImageUrlsChange, errors, onSubmit, handleSubmit, preview } = usePostsForm();
   return (
     <div className={styles.createPostContainer}>
       <Header showBackButton={true} showLogo={false} />
@@ -64,8 +64,8 @@ export default function CreatePost() {
             setSelectedValue={handleDropdownChange('affiliation')}
           />
         </FormSection>
-        <FormSection title="이미지" description="게시물의 이미지는 선택사항입니다.">
-          <ImageBtn />
+        <FormSection title="이미지" description="게시물의 이미지는 선택사항입니다." errorMessage={errors.imageUrls?.message}>
+          <ImageBtn onChange={handleImageUrlsChange} images={preview} />
         </FormSection>
       </div>
       <div className={styles.buttonContainer}>

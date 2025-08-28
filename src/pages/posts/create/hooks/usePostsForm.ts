@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePostsCreateMutations } from './usePostsCreateMutation';
 import type { PostsCreateRequest } from '../types/PostsCreate';
+import { useState } from 'react';
 
 export const postsFormSchema = z.object({
   title: z.string().min(1, '제목을 입력해주세요.'),
@@ -27,7 +28,7 @@ export function usePostsForm() {
     defaultValues: {
       title: '',
       content: '',
-      imageUrls: ['img1', 'img2'],
+      imageUrls: [],
       grade: '',
       topic: '',
       part: '',
@@ -35,7 +36,7 @@ export function usePostsForm() {
     },
     mode: 'onChange',
   });
-
+  const [preview, setPreview] = useState<string[]>([]);
   const formData = watch();
   const opts = { shouldValidate: true, shouldDirty: true } as const;
 
@@ -49,10 +50,25 @@ export function usePostsForm() {
       setValue(field, value, opts);
     };
   };
-  const { createPostsMutation } = usePostsCreateMutations();
+
+  const { createPostsMutation, postPresignedUrl } = usePostsCreateMutations();
   const requestBody = {
     ...formData,
   } as PostsCreateRequest;
+
+  const handleImageUrlsChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files ? Array.from(e.target.files) : [];
+    const mediaType = files.map(f => f.type);
+    const urls = files.map(f => URL.createObjectURL(f));
+    setPreview(urls);
+    try {
+      const mediaUrl = await postPresignedUrl.mutateAsync(mediaType);
+      console.log('mediaUrl', mediaUrl);
+      setValue('imageUrls', mediaUrl.mediaUrl, opts);
+    } catch (error) {
+      console.error('Error uploading images:', error);
+    }
+  };
 
   const onSubmit = () => {
     console.log('formData', formData);
@@ -63,6 +79,8 @@ export function usePostsForm() {
     formData,
     handleStringChange,
     handleDropdownChange,
+    handleImageUrlsChange,
+    preview,
     errors,
     handleSubmit,
     onSubmit,
