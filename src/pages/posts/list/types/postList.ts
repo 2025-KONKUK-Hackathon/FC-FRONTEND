@@ -12,6 +12,7 @@ export interface PostListContent {
   part: string; // todo: 드롭다운 필터 PR 머지 후 유니온 타입 지정
   topic: string; // todo: 드롭다운 필터 PR 머지 후 유니온 타입 지정
   cursor: number;
+  isAnnouncement: boolean;
 }
 
 export interface PostListData {

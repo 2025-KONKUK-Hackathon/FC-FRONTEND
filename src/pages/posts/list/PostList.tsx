@@ -98,17 +98,57 @@ function PostListPage({
 
   // 필터링된 게시글 목록
   const filteredPosts = posts.filter(post => {
-    const matchesAffiliation = affiliationFilter === 'ALL' || post.affiliation === affiliationFilter;
+    const matchesAffiliation =
+      affiliationFilter === 'ALL' || post.affiliation === affiliationFilter;
     const matchesPart = partFilter === 'ALL' || post.part === partFilter;
     const matchesGrade = gradeFilter === 'ALL' || post.grade === gradeFilter;
     const matchesTopic = topicFilter === 'ALL' || post.topic === topicFilter;
-    
+
     return matchesAffiliation && matchesPart && matchesGrade && matchesTopic;
   });
 
+  const studentCouncilPosts = posts.filter(post => post.isAnnouncement);
+
   return (
     <div className={styles.container}>
-      {/* 필터 섹션 */}
+      <div className={styles.studentCouncilSection}>
+        <div className={styles.sectionTitle}>
+          <span>📢</span>
+          <span>공지사항</span>
+        </div>
+        <div className={styles.studentCouncilContainer} ref={containerRef}>
+          {studentCouncilPosts.map(post => (
+            <StudentCouncilListItem
+              key={post.postId}
+              postId={post.postId}
+              title={post.title}
+              content={post.content}
+              imageUrl={post.imageUrl}
+              grade={post.grade as Grade}
+              affiliation={post.affiliation as AffiliationCategoryKey}
+              part={post.part as Part}
+              topic={post.topic as Subject}
+              createdAt={post.createdAt}
+              commentCount={post.commentCount}
+              writerName={post.writerName}
+              writerId={post.writerId}
+              onClick={id => console.log(`Student Council Post ${id} clicked`)}
+            />
+          ))}
+        </div>
+
+        <div className={styles.slideIndicatorContainer}>
+          {Array.from({ length: totalSlides }, (_, index) => (
+            <button
+              key={index}
+              className={`${styles.slideIndicator} ${
+                index === currentSlide ? styles.slideIndicatorActive : ''
+              }`}
+              onClick={() => handleIndicatorClick(index)}
+            />
+          ))}
+        </div>
+      </div>
       <div className={styles.filterSection}>
         <div className={styles.filterContainer}>
           <div className={styles.filterDropdownWrapper}>
@@ -147,41 +187,6 @@ function PostListPage({
               size="small"
             />
           </div>
-        </div>
-      </div>
-
-      <div className={styles.studentCouncilSection}>
-        <div className={styles.sectionTitle}>
-          <span>📢</span>
-          <span>공지사항</span>
-        </div>
-        <div className={styles.studentCouncilContainer} ref={containerRef}>
-          {studentCouncilPostsDummy.map(post => (
-            <StudentCouncilListItem
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              content={post.content}
-              imageUrl={post.imageUrl}
-              categories={post.categories}
-              createdAt={post.createdAt}
-              commentCount={post.commentCount}
-              authorName={post.authorName}
-              onClick={id => console.log(`Student Council Post ${id} clicked`)}
-            />
-          ))}
-        </div>
-
-        <div className={styles.slideIndicatorContainer}>
-          {Array.from({ length: totalSlides }, (_, index) => (
-            <button
-              key={index}
-              className={`${styles.slideIndicator} ${
-                index === currentSlide ? styles.slideIndicatorActive : ''
-              }`}
-              onClick={() => handleIndicatorClick(index)}
-            />
-          ))}
         </div>
       </div>
 

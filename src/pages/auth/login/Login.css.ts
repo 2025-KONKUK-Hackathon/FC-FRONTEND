@@ -96,3 +96,8 @@ export const dividerText = style({
   fontSize: '1.4rem',
   color: vars.color.grey500,
 });
+
+export const logo = style({
+  width: '100rem',
+  height: '10rem',
+});

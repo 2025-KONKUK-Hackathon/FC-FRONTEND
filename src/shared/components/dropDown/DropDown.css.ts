@@ -52,6 +52,8 @@ export const dropdownTrigger = recipe({
 export const toggleIcon = style({
   marginLeft: '1rem',
   flexShrink: 0, // 아이콘이 줄어들지 않도록
+  display: 'flex',
+  alignItems: 'center',
 });
 
 export const dropdownText = style({
@@ -138,6 +140,21 @@ export const dropdownOption = recipe({
       large: {
         padding: '1.6rem 2rem',
         fontSize: '1.6rem',
+      },
+    },
+  },
+});
+
+export const dropdownIcon = recipe({
+  base: {
+    width: '1.2rem',
+    height: '1.2rem',
+    color: vars.color.grey200,
+  },
+  variants: {
+    isSelected: {
+      true: {
+        color: '#059212',
       },
     },
   },

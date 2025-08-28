@@ -95,7 +95,7 @@ export default function PostCard({
         <div className={styles.metaInfo}>
           <span className={styles.createdAt}>{getTimeAgo(createdAt)}</span>
           <span className={styles.commentCount}>댓글 {commentCount}</span>
-          <span className={styles.authorName}>{styles.authorName}</span>
+          <span className={styles.authorName}>{writerName}</span>
         </div>
       </div>
     </div>

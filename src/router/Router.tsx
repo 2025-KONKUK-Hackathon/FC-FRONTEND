@@ -1,29 +1,24 @@
-import { createBrowserRouter } from "react-router-dom";
-import { lazy } from "react";
-import { ROUTES } from "@router/constant/Routes";
-import Layout from "@router/Layout";
-import MainLayout from "@pages/mainLayout/MainLayout";
+import { createBrowserRouter } from 'react-router-dom';
+import { lazy } from 'react';
+import { ROUTES } from '@router/constant/Routes';
+import Layout from '@router/Layout';
+import MainLayout from '@pages/mainLayout/MainLayout';
+import ProtectedRoute from '@router/ProtectedRoute';
 
-const Login = lazy(() => import("@pages/auth/login/Login"));
-const SignUp = lazy(() => import("@pages/auth/signup/Signup"));
+const Login = lazy(() => import('@pages/auth/login/Login'));
+const SignUp = lazy(() => import('@pages/auth/signup/Signup'));
 
-const GatheringCreate = lazy(
-  () => import("@pages/gathering/create/CreateGathering")
-);
-const GatheringDetail = lazy(
-  () => import("@pages/gathering/detail/GatheringDetail")
-);
-const GatheringList = lazy(() => import("@pages/gathering/list/GatheringList"));
-const GatheringMembers = lazy(
-  () => import("@pages/gathering/members/ApplicantList")
-);
+const GatheringCreate = lazy(() => import('@pages/gathering/create/CreateGathering'));
+const GatheringDetail = lazy(() => import('@pages/gathering/detail/GatheringDetail'));
+const GatheringList = lazy(() => import('@pages/gathering/list/GatheringList'));
+const GatheringMembers = lazy(() => import('@pages/gathering/members/ApplicantList'));
 
-const PostCreate = lazy(() => import("@pages/posts/create/CreatePost"));
-const PostDetail = lazy(() => import("@pages/posts/detail/PostDetail"));
-const PostList = lazy(() => import("@pages/posts/list/PostList"));
+const PostCreate = lazy(() => import('@pages/posts/create/CreatePost'));
+const PostDetail = lazy(() => import('@pages/posts/detail/PostDetail'));
+const PostList = lazy(() => import('@pages/posts/list/PostList'));
 
-const User = lazy(() => import("@pages/user/User"));
-const NotFound = lazy(() => import("@shared/components/notFound/NotFound"));
+const User = lazy(() => import('@pages/user/User'));
+const NotFound = lazy(() => import('@shared/components/notFound/NotFound'));
 
 const router = createBrowserRouter([
   {
@@ -42,7 +37,11 @@ const router = createBrowserRouter([
       // 메인 화면
       {
         path: ROUTES.HOME,
-        element: <MainLayout />,
+        element: (
+          <ProtectedRoute>
+            <MainLayout />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,
@@ -63,28 +62,48 @@ const router = createBrowserRouter([
       // 상세, 생성 페이지
       {
         path: ROUTES.GATHERING.CREATE,
-        element: <GatheringCreate />,
+        element: (
+          <ProtectedRoute>
+            <GatheringCreate />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.GATHERING.DETAIL,
-        element: <GatheringDetail />,
+        element: (
+          <ProtectedRoute>
+            <GatheringDetail />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.GATHERING.MEMBERS,
-        element: <GatheringMembers />,
+        element: (
+          <ProtectedRoute>
+            <GatheringMembers />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.POSTS.CREATE,
-        element: <PostCreate />,
+        element: (
+          <ProtectedRoute>
+            <PostCreate />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ROUTES.POSTS.DETAIL,
-        element: <PostDetail />,
+        element: (
+          <ProtectedRoute>
+            <PostDetail />
+          </ProtectedRoute>
+        ),
       },
 
       // 404 페이지
       {
-        path: "*",
+        path: '*',
         element: <NotFound />,
       },
     ],
