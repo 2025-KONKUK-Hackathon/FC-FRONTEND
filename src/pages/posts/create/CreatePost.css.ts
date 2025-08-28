@@ -1,45 +1,50 @@
 import { vars } from '@shared/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
-export const container = style({
+export const createPostContainer = style({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column',
-  gap: '3rem',
-  padding: '5rem 0',
-  borderRadius: '12px',
-  maxWidth: '600px',
-  margin: '0 auto',
+  gap: '2rem',
   width: '100%',
+  height: '100vh',
+  overflow: 'hidden',
+  backgroundColor: vars.color.grey900,
+});
+
+export const scrollableContent = style({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: '6rem',
+  padding: '2rem',
+  gap: '2rem',
+  backgroundColor: vars.color.grey900,
 });
 
 export const titleContainer = style({
   display: 'flex',
-  alignItems: 'center',
-  gap: '1rem',
-  padding: '2rem',
-});
-
-export const icon = style({
-  width: '3.5rem',
-  height: '3.5rem',
+  flexDirection: 'column',
+  gap: '0.5rem',
 });
 
 export const title = style({
-  fontSize: '3rem',
+  fontSize: '2rem',
   fontWeight: 'bold',
   color: vars.color.White,
 });
 
 export const description = style({
   fontSize: '1.5rem',
-  color: vars.color.grey300,
-  padding: '0 2rem',
+  color: vars.color.grey500,
 });
 
-export const row = style({
+export const buttonContainer = style({
   width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: '1rem',
+  backgroundColor: vars.color.grey900,
+  position: 'absolute',
+  bottom: '0',
+  left: '0',
+  right: '0',
+  padding: '2rem',
+  zIndex: 1000,
 });

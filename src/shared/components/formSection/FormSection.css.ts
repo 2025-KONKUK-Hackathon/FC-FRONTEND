@@ -4,20 +4,17 @@ import { style } from '@vanilla-extract/css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-
-  padding: '2rem',
   gap: '1rem',
 });
 
 export const title = style({
-  fontSize: '2rem',
+  fontSize: '1.5rem',
 
   color: vars.color.White,
 });
 
 export const description = style({
-  fontSize: '1.4rem',
-
+  fontSize: '1rem',
   color: vars.color.grey300,
 });
 
