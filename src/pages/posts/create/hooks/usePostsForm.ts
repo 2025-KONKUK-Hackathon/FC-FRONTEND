@@ -1,14 +1,17 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { usePostsCreateMutations } from './usePostsCreateMutation';
+import type { PostsCreateRequest } from '../types/PostsCreate';
 
 export const postsFormSchema = z.object({
-  title: z.string().min(1, "제목을 입력해주세요."),
-  description: z.string().min(1, "설명을 입력해주세요."),
-  img: z.array(z.string().min(1, "이미지를 입력해주세요.")),
-  grade: z.string().min(1, "학년을 선택해주세요."),
-  subject: z.string().min(1, "과목을 선택해주세요."),
-  part: z.string().min(1, "파트를 선택해주세요."),
+  title: z.string().min(1, '제목을 입력해주세요.'),
+  content: z.string().min(1, '설명을 입력해주세요.'),
+  imageUrls: z.array(z.string().min(1, '이미지를 입력해주세요.')),
+  grade: z.string().min(1, '학년을 선택해주세요.'),
+  topic: z.string().min(1, '과목을 선택해주세요.'),
+  part: z.string().min(1, '파트를 선택해주세요.'),
+  affiliation: z.string().min(1, '소속을 선택해주세요.'),
 });
 
 export type PostsFormValues = z.infer<typeof postsFormSchema>;
@@ -22,14 +25,15 @@ export function usePostsForm() {
   } = useForm<PostsFormValues>({
     resolver: zodResolver(postsFormSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      img: [],
-      grade: undefined,
-      subject: undefined,
-      part: undefined,
+      title: '',
+      content: '',
+      imageUrls: ['img1', 'img2'],
+      grade: '',
+      topic: '',
+      part: '',
+      affiliation: '',
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   const formData = watch();
@@ -45,6 +49,15 @@ export function usePostsForm() {
       setValue(field, value, opts);
     };
   };
+  const { createPostsMutation } = usePostsCreateMutations();
+  const requestBody = {
+    ...formData,
+  } as PostsCreateRequest;
+
+  const onSubmit = () => {
+    console.log('formData', formData);
+    createPostsMutation.mutate(requestBody);
+  };
 
   return {
     formData,
@@ -52,5 +65,6 @@ export function usePostsForm() {
     handleDropdownChange,
     errors,
     handleSubmit,
+    onSubmit,
   };
 }

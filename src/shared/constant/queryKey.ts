@@ -15,3 +15,10 @@ export const USER_KEY = {
   USER_MEETING: () => [...USER_KEY.ALL, 'meeting'],
   USER_SCRAP: () => [...USER_KEY.ALL, 'scrap'],
 } as const;
+
+export const POSTS_KEY = {
+  ALL: ['posts'],
+  POSTS_LIST: () => [...POSTS_KEY.ALL, 'list'],
+  POSTS_DETAIL: (postId: string) => [...POSTS_KEY.ALL, postId],
+  POSTS_COMMENTS: (postId: string) => [...POSTS_KEY.POSTS_DETAIL(postId), 'comments'],
+} as const;
