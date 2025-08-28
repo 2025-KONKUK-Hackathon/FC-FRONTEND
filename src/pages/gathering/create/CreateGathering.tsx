@@ -55,7 +55,7 @@ export default function CreateGathering() {
             <Input type="date" value={formData.actualEndDate ?? ""} onChange={handleStringChange("actualEndDate")} />
           </div>
         </FormSection>
-          <FormSection title="사진을 올려주세요" description="사진 업로드는 선택입니다" errorMessage={errors.imageUrls?.message} >
+          <FormSection title="사진을 올려주세요" errorMessage={errors.imageUrls?.message} >
             <ImageBtn onChange={handleImageUrlsChange} images={preview}/>
           </FormSection>
           <div className={styles.buttonContainer}>
