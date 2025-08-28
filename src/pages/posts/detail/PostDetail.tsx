@@ -32,7 +32,7 @@ export default function PostDetail() {
   };
 
   const { id } = useParams();
-  const postId = Number(id);
+
 
   const { 
     postDetail,
@@ -41,31 +41,31 @@ export default function PostDetail() {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage
-  } = usePostDetail(postId);
+  } = usePostDetail(id || "");
   const {
     addCommentMutation,
     deleteCommentMutation,
     scrapPostMutation,
     deletePostMutation
-  } = usePostMutations(postId);
+  } = usePostMutations(id || "");
 
   const handleAddCommentClick = () => {
     // 댓글 작성
     const content = commentContent.trim();
-    if (!postId || !content) return;
+    if (!id || !content) return;
     addCommentMutation.mutate(
-      { postId, content },
+      { postId:id, content },
       { onSuccess: () => setCommentContent('') }
     );
   };
 
   const handleScrapClick = () => {
     // 게시글 스크랩
-    if (!postId || postDetail?.isScrapped) return;
-    scrapPostMutation.mutate(postId);
+    if (!id || postDetail?.isScrapped) return;
+    scrapPostMutation.mutate(id);
   };
 
-  const handleCommentDeleteClick = (commentId: number) => {
+  const handleCommentDeleteClick = (commentId: string) => {
     // 댓글 삭제
     deleteCommentMutation.mutate(commentId);
   };
@@ -83,7 +83,6 @@ export default function PostDetail() {
 
   const handleCancelDelete = () => {
     setIsDeleteModalOpen(false);
-  };
 
   const handleScrollLeft = () => {
     if (imageContainerRef) {
