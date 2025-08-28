@@ -27,7 +27,7 @@ export const gatheringFormSchema = z
     actualStartDate: z.string().min(1, '활동 시작일을 입력해 주세요.'),
     actualEndDate: z.string().min(1, '활동 종료일을 입력해 주세요.'),
   })
-  .refine(data => !data.recruitStartDate || new Date(data.recruitStartDate) > today, {
+  .refine(data => !data.recruitStartDate || new Date(data.recruitStartDate) >= today, {
     message: '신청 시작일은 오늘 이후여야 합니다.',
     path: ['recruitStartDate'],
   })
