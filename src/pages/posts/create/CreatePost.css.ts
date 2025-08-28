@@ -16,6 +16,7 @@ export const scrollableContent = style({
   display: 'flex',
   flexDirection: 'column',
   marginTop: '6rem',
+  marginBottom: '10rem',
   padding: '2rem',
   gap: '2rem',
   backgroundColor: vars.color.grey900,

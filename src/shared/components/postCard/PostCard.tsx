@@ -36,13 +36,8 @@ export default function PostCard({
   writerName,
   onClick,
 }: PostCardProps) {
-  const handleClick = () => {
-    onClick?.(postId.toString());
-    console.log(writerName);
-  };
-
   return (
-    <div className={styles.container} onClick={handleClick}>
+    <div className={styles.container} onClick={() => onClick?.(postId.toString())}>
       <div className={styles.topSection}>
         <div className={styles.textSection}>
           {/* todo: 제목 앞에 '학생회'나 'LINK' 칩 추가하기 */}

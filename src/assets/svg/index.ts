@@ -19,3 +19,4 @@ export { default as Ic_bookmark_solid } from '@svg/ic_bookmark_solid.svg?react';
 export { default as Ic_logo } from '@svg/ic_logo.svg?react';
 export { default as Ic_chevron_down } from '@svg/ic_chevron_down.svg?react';
 export { default as Ic_chevron_up } from '@svg/ic_chevron_up.svg?react';
+export { default as Ic_link } from '@svg/ic_link.svg?react';

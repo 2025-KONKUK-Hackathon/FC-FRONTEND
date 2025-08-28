@@ -22,9 +22,8 @@ export const imageContainer = style({
 
 export const image = style({
   width: '100%',
-  height: 'auto',
+  height: '100%',
   borderRadius: '0.8rem',
-
   objectFit: 'cover',
   backgroundColor: vars.color.grey900,
 });

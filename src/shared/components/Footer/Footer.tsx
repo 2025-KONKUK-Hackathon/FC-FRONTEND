@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import * as styles from '@shared/components/Footer/Footer.css';
 import { ROUTES } from '@router/constant/Routes';
-import { Ic_signs_post, Ic_users_solid, Ic_user_solid } from '@svg/index';
+import { Ic_signs_post, Ic_users_solid, Ic_user_solid, Ic_link } from '@svg/index';
 
 const Footer = () => {
   const location = useLocation();
@@ -55,6 +55,21 @@ const Footer = () => {
           })}
         >
           마이페이지
+        </span>
+      </Link>
+      <Link
+        to={ROUTES.INFO}
+        className={styles.navItem({
+          isActive: location.pathname === ROUTES.INFO,
+        })}
+      >
+        <Ic_link className={styles.icon({ isActive: location.pathname === ROUTES.INFO })} />
+        <span
+          className={styles.navText({
+            isActive: location.pathname === ROUTES.INFO,
+          })}
+        >
+          링크
         </span>
       </Link>
     </div>

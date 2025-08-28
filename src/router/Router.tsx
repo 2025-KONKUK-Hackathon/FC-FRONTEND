@@ -57,6 +57,10 @@ const router = createBrowserRouter([
             path: ROUTES.USER.DETAIL,
             element: <User />,
           },
+          {
+            path: ROUTES.INFO,
+            element: <Info />,
+          },
         ],
       },
 
@@ -70,7 +74,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: ROUTES.GATHERING.DETAIL,
+        path: "/gather/detail/:id",
         element: (
           <ProtectedRoute>
             <GatheringDetail />
@@ -100,10 +104,6 @@ const router = createBrowserRouter([
             <PostDetail />
           </ProtectedRoute>
         ),
-      },
-      {
-        path: ROUTES.INFO.DETAIL,
-        element: <Info />,
       },
 
       // 404 페이지

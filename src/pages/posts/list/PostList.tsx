@@ -9,7 +9,6 @@ import {
   TOPIC_FILTER_OPTIONS,
   AFFILIATION_FILTER_OPTIONS,
 } from './constant/FilterOptions';
-import { studentCouncilPostsDummy } from './constant/StudentCouncilPostsDummy';
 import { ROUTES } from '@router/constant/Routes';
 import { usePostList } from './hooks/usePostList';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +17,7 @@ import type { PostListContent } from './types/postList';
 import { useSlideIndicator } from './hooks/useSlideIndicator';
 import { useIntersectionObserver } from '@shared/hooks/useIntersectionObserver';
 import PostCard from '@shared/components/postCard/PostCard';
+import EmptyState from '@shared/components/emptyState/EmptyState';
 import type { Grade } from '@shared/constant/grade';
 import type { AffiliationCategoryKey } from '@shared/constant/affiliation';
 import type { Part } from '@shared/constant/part';
@@ -78,7 +78,7 @@ function PostListPage({
 
   const navigator = useNavigate();
 
-  const totalSlides = studentCouncilPostsDummy.length;
+  const totalSlides = posts.filter(post => post.isAnnouncement).length;
   const { currentSlide, containerRef, handleIndicatorClick } = useSlideIndicator({
     totalSlides,
     itemWidth: 29,
@@ -193,34 +193,44 @@ function PostListPage({
       {/* todo: 게시글 없을 시 띄울 기본 UI 컴포넌트 구현 */}
 
       <div className={styles.generalPostsSection}>
-        {filteredPosts.map(post => (
-          <PostCard
-            key={post.postId}
-            postId={post.postId}
-            title={post.title}
-            content={post.content}
-            imageUrl={post.imageUrl}
-            grade={post.grade as Grade}
-            affiliation={post.affiliation as AffiliationCategoryKey}
-            part={post.part as Part}
-            topic={post.topic as Subject}
-            createdAt={post.createdAt} // todo: 게시글 생성시간 처리 로직 구현
-            commentCount={post.commentCount}
-            writerName={post.writerName}
-            writerId={post.writerId}
-            onClick={id => navigator(`/posts/detail/${id}`)}
+        {filteredPosts.length === 0 ? (
+          <EmptyState 
+            type="posts" 
+            message="필터링 결과가 없습니다"
+            subMessage="다른 필터 조건을 선택해보세요"
           />
-        ))}
+        ) : (
+          <>
+            {filteredPosts.map(post => (
+              <PostCard
+                key={post.postId}
+                postId={post.postId}
+                title={post.title}
+                content={post.content}
+                imageUrl={post.imageUrl}
+                grade={post.grade as Grade}
+                affiliation={post.affiliation as AffiliationCategoryKey}
+                part={post.part as Part}
+                topic={post.topic as Subject}
+                createdAt={post.createdAt} // todo: 게시글 생성시간 처리 로직 구현
+                commentCount={post.commentCount}
+                writerName={post.writerName}
+                writerId={post.writerId}
+                onClick={id => navigator(`/posts/detail/${id}`)}
+              />
+            ))}
 
-        {/* 무한스크롤 트리거 */}
-        <div ref={targetRef} style={{ height: '20px' }} />
+            {/* 무한스크롤 트리거 */}
+            <div ref={targetRef} style={{ height: '20px' }} />
 
-        {/* 로딩 인디케이터 */}
-        {/* todo: 무한스크롤용 로딩 인디케이터 추가하기 */}
-        {isFetchingNextPage && (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-            <LoadingSvg />
-          </div>
+            {/* 로딩 인디케이터 */}
+            {/* todo: 무한스크롤용 로딩 인디케이터 추가하기 */}
+            {isFetchingNextPage && (
+              <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+                <LoadingSvg />
+              </div>
+            )}
+          </>
         )}
       </div>
 

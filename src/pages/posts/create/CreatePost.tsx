@@ -10,9 +10,10 @@ import DropDown from '@shared/components/dropDown/DropDown';
 import ImageBtn from '@shared/components/imageBtn/ImageBtn';
 import Button from '@shared/components/button/Button';
 import TextArea from '@shared/components/textArea/TextArea';
+import { AFFILIATION_CATEGORY_OPTIONS } from '@shared/constant/affiliation';
 
 export default function CreatePost() {
-  const { formData, handleStringChange, handleDropdownChange, errors } = usePostsForm();
+  const { formData, handleStringChange, handleDropdownChange, handleImageUrlsChange, errors, onSubmit, handleSubmit, preview } = usePostsForm();
   return (
     <div className={styles.createPostContainer}>
       <Header showBackButton={true} showLogo={false} />
@@ -28,10 +29,10 @@ export default function CreatePost() {
             placeholder="제목을 입력하세요."
           />
         </FormSection>
-        <FormSection title="게시물 내용" errorMessage={errors.description?.message}>
+        <FormSection title="게시물 내용" errorMessage={errors.content?.message}>
           <TextArea
-            value={formData.description ?? ''}
-            onChange={handleStringChange('description')}
+            value={formData.content ?? ''}
+            onChange={handleStringChange('content')}
             placeholder="게시물의 내용을 입력하세요."
           />
         </FormSection>
@@ -42,11 +43,11 @@ export default function CreatePost() {
             setSelectedValue={handleDropdownChange('grade')}
           />
         </FormSection>
-        <FormSection title="주제를 선택해주세요" errorMessage={errors.subject?.message}>
+        <FormSection title="주제를 선택해주세요" errorMessage={errors.topic?.message}>
           <DropDown
             options={SUBJECT_CATEGORY_OPTIONS}
-            selectedValue={formData.subject ?? ''}
-            setSelectedValue={handleDropdownChange('subject')}
+            selectedValue={formData.topic ?? ''}
+            setSelectedValue={handleDropdownChange('topic')}
           />
         </FormSection>
         <FormSection title="파트를 선택해주세요" errorMessage={errors.part?.message}>
@@ -56,12 +57,19 @@ export default function CreatePost() {
             setSelectedValue={handleDropdownChange('part')}
           />
         </FormSection>
-        <FormSection title="이미지" description="게시물의 이미지는 선택사항입니다.">
-          <ImageBtn />
+        <FormSection title="소속을 선택해주세요" errorMessage={errors.affiliation?.message}>
+          <DropDown
+            options={AFFILIATION_CATEGORY_OPTIONS}
+            selectedValue={formData.affiliation ?? ''}
+            setSelectedValue={handleDropdownChange('affiliation')}
+          />
+        </FormSection>
+        <FormSection title="이미지" description="게시물의 이미지는 선택사항입니다." errorMessage={errors.imageUrls?.message}>
+          <ImageBtn onChange={handleImageUrlsChange} images={preview} />
         </FormSection>
       </div>
       <div className={styles.buttonContainer}>
-        <Button text="게시물 작성" />
+        <Button text="게시물 작성" onClick={handleSubmit(onSubmit)} />
       </div>
     </div>
   );

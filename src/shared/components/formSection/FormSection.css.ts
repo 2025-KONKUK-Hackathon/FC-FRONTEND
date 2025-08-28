@@ -14,7 +14,7 @@ export const title = style({
 });
 
 export const description = style({
-  fontSize: '1rem',
+  fontSize: '1.2rem',
   color: vars.color.grey300,
 });
 

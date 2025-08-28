@@ -8,8 +8,6 @@ export const userContainer = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  gap: '5rem',
-  padding: '2rem',
 });
 
 export const userInfoContainer = style({
@@ -19,19 +17,39 @@ export const userInfoContainer = style({
   justifyContent: 'flex-start',
   gap: '2rem',
   color: vars.color.grey300,
+  padding: '2rem 2rem 0 2rem',
 });
 export const userInfoImageContainer = style({
-  width: '4rem',
-  height: '4rem',
+  width: '5rem',
+  height: '5rem',
   borderRadius: '50%',
   border: `1px solid ${vars.color.grey500}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 });
+
+export const userInfoTextDetailContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  gap: '0.2rem',
+  fontSize: '1.2rem',
+});
 export const userInfoImage = style({
-  width: '3rem',
-  height: '3rem',
+  width: '3.5rem',
+  height: '3.5rem',
+});
+
+export const userInfoTextDetail = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '0.2rem',
+});
+export const userInfoTextDetailKey = style({
+  fontWeight: 'bold',
 });
 
 export const userInfoTextContainer = style({
@@ -56,6 +74,8 @@ export const userStampContainer = style({
   justifyContent: 'center',
   gap: '1rem',
   width: '100%',
+  margin: '5rem 0 3rem 0',
+  padding: '0 2rem',
 });
 
 export const userStampCirclesContainer = style({
@@ -136,6 +156,7 @@ export const userMenuContainer = style({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
+  padding: '0 2rem',
 });
 export const userMenu = recipe({
   base: {
@@ -143,6 +164,7 @@ export const userMenu = recipe({
     alignItems: 'center',
     justifyContent: 'center',
     padding: '1rem 0',
+    marginBottom: '2rem',
     width: '100%',
     fontSize: '1.5rem',
     cursor: 'pointer',
@@ -166,8 +188,13 @@ export const userMenu = recipe({
 export const userPostContainer = style({
   width: '100%',
   height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
 });
 export const userGatheringContainer = style({
   width: '100%',
   height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
 });

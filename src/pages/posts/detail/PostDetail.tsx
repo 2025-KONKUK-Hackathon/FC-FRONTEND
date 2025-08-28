@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as styles from './PostDetail.css';
 import Category from '@shared/components/category/Category';
@@ -18,8 +18,10 @@ import { GRADE_CATEGORY } from '@shared/constant/grade';
 import { PART_CATEGORY } from '@shared/constant/part';
 import { SUBJECT_CATEGORY } from '@shared/constant/subject';
 import { AFFILIATION } from './constant/PostKeyword';
-import type { PostDetailData } from './types/postTypes';
-import { postDetailMock, postCommentMock } from './constant/PostDetailDummy';
+import { usePostDetail } from './hooks/usePostDetail';
+import { usePostMutations } from './hooks/usePostMutations';
+import { useIntersectionObserver } from '@shared/hooks/useIntersectionObserver';
+import LoadingSvg from '@shared/components/loading/Loading';
 
 export default function PostDetail() {
   const navigator = useNavigate();
@@ -28,19 +30,51 @@ export default function PostDetail() {
     navigator(-1);
   };
 
-  const handleDeleteClick = () => {
-    // 게시글 삭제
-    alert('게시글을 삭제합니다.');
-    navigator(-1);
+  const { id } = useParams();
+
+
+  const { 
+    postDetail,
+    // commentsData,
+    commentsResult,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage
+  } = usePostDetail(id || "");
+  const {
+    addCommentMutation,
+    deleteCommentMutation,
+    scrapPostMutation,
+    deletePostMutation
+  } = usePostMutations(id || "");
+
+  const handleAddCommentClick = () => {
+    // 댓글 작성
+    const content = commentContent.trim();
+    if (!id || !content) return;
+    addCommentMutation.mutate(
+      { postId:id, content },
+      { onSuccess: () => setCommentContent('') }
+    );
   };
 
   const handleScrapClick = () => {
     // 게시글 스크랩
-    setScrapped(!scrapped);
+    if (!id || postDetail?.isScrapped) return;
+    scrapPostMutation.mutate(id);
   };
 
-  const handleAddCommentClick = () => {
-    // 댓글 추가
+  const handleCommentDeleteClick = (commentId: string) => {
+    // 댓글 삭제
+    deleteCommentMutation.mutate(commentId);
+  };
+
+  const handleDeletePostClick = () => {
+    // 게시글 삭제
+    if (!isAuthor || !postDetail) return;
+    if (window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+      deletePostMutation.mutate(id || "", { onSuccess: () => navigator(-1) });
+    }
   };
 
   const handleScrollLeft = () => {
@@ -55,35 +89,21 @@ export default function PostDetail() {
     }
   };
 
-  const checkScrollPosition = () => {
+  const [imageContainerRef, setImageContainerRef] = useState<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [commentContent, setCommentContent] = useState<string>('');
+
+  const checkScrollPosition = useCallback(() => {
     if (imageContainerRef) {
       const { scrollLeft, scrollWidth, clientWidth } = imageContainerRef;
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
     }
-  };
+  }, [imageContainerRef]);
 
-  const { id } = useParams<{ id: string }>();
-  const [post, setPost] = useState<PostDetailData | null>(null);
-  const [scrapped, setScrapped] = useState<boolean>(false);
-  const [imageContainerRef, setImageContainerRef] = useState<HTMLDivElement | null>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  // 예시: 현재 로그인한 사용자의 ID
-  const currentUserId = 123;
-  const isAuthor = post ? currentUserId === post.writerId : false;
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setPost(postDetailMock);
-      } catch {
-        console.error('게시글 불러오기 실패');
-      }
-    };
-    fetchPost();
-  }, [id]);
+  const currentUserId = Number(localStorage.getItem('userId'));
+  const isAuthor = postDetail ? currentUserId === postDetail.writerId : false;
 
   useEffect(() => {
     if (imageContainerRef) {
@@ -93,7 +113,18 @@ export default function PostDetail() {
         imageContainerRef.removeEventListener('scroll', checkScrollPosition);
       };
     }
-  }, [imageContainerRef]);
+  }, [imageContainerRef, checkScrollPosition]);
+
+  // 무한스크롤 trigger
+  const { targetRef } = useIntersectionObserver({
+    threshold: 0.1,
+    rootMargin: '100px',
+    onIntersect: () => {
+      if (hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    },
+  });
 
   return (
     <div className={styles.postDetailWrapper}>
@@ -102,56 +133,55 @@ export default function PostDetail() {
       </div>
       <div className={styles.postContentWrapper}>
         <div className={styles.postTitleContainer}>
-          <span className={styles.postTitle}>{post?.title}</span>
+          <span className={styles.postTitle}>{postDetail?.title}</span>
           {isAuthor ? (
-            <Ic_trash_white className={styles.headerButton} onClick={handleDeleteClick} />
+            <Ic_trash_white className={styles.headerButton} onClick={handleDeletePostClick} />
           ) : (
-            <button type="button" onClick={handleScrapClick}>
-              {scrapped ? (
-                <Ic_bookmark_solid className={styles.headerButton} />
-              ) : (
-                <Ic_bookmark className={styles.headerButton} />
-              )}
+            <button type="button" onClick={handleScrapClick} disabled={postDetail?.isScrapped}>
+              {postDetail?.isScrapped
+                ? <Ic_bookmark_solid className={styles.headerButton} />
+                : <Ic_bookmark className={styles.headerButton} />
+              }
             </button>
           )}
         </div>
 
         <div className={styles.postMeta}>
-          <span className={styles.writerName}>{post?.writerName}</span>
-          <span className={styles.createdAt}>{post?.createdAt && formatDate(post.createdAt)}</span>
+          <span className={styles.writerName}>{postDetail?.writerName}</span>
+          <span className={styles.createdAt}>{postDetail?.createdAt && formatDate(postDetail.createdAt)}</span>
         </div>
 
         <div className={styles.keywordsContainer}>
-          {post?.grade && (
+          {postDetail && postDetail.grade !== undefined && (
             <Category
-              text={GRADE_CATEGORY[post.grade].text}
-              icon={GRADE_CATEGORY[post.grade].icon}
-              color={GRADE_CATEGORY[post.grade].color}
+              text={GRADE_CATEGORY[postDetail.grade].text}
+              icon={GRADE_CATEGORY[postDetail.grade].icon}
+              color={GRADE_CATEGORY[postDetail.grade].color}
               size="medium"
             />
           )}
-          {post?.affiliation && (
-            <Category text={AFFILIATION[post.affiliation]} icon="💻" color="Yellow" size="medium" />
+          {postDetail?.affiliation && (
+            <Category text={AFFILIATION[postDetail.affiliation]} icon="💻" color="Yellow" size="medium" />
           )}
-          {post?.part && (
+          {postDetail && postDetail.part !== undefined && (
             <Category
-              text={PART_CATEGORY[post.part].text}
-              icon={PART_CATEGORY[post.part].icon}
-              color={PART_CATEGORY[post.part].color}
+              text={PART_CATEGORY[postDetail.part].text}
+              icon={PART_CATEGORY[postDetail.part].icon}
+              color={PART_CATEGORY[postDetail.part].color}
               size="medium"
             />
           )}
-          {post?.topic && (
+          {postDetail && postDetail.topic !== undefined && (
             <Category
-              text={SUBJECT_CATEGORY[post.topic].text}
-              icon={SUBJECT_CATEGORY[post.topic].icon}
-              color={SUBJECT_CATEGORY[post.topic].color}
+              text={SUBJECT_CATEGORY[postDetail.topic].text}
+              icon={SUBJECT_CATEGORY[postDetail.topic].icon}
+              color={SUBJECT_CATEGORY[postDetail.topic].color}
               size="medium"
             />
           )}
         </div>
 
-        {post?.imageUrls && post.imageUrls.length > 1 && (
+        {postDetail?.imageUrls && postDetail?.imageUrls.length > 1 && (
           <div className={styles.imageWrapper}>
             {canScrollLeft && (
               <button
@@ -163,16 +193,17 @@ export default function PostDetail() {
                 <Ic_chevron_left className={styles.scrollButtonIcon} />
               </button>
             )}
+          {postDetail.imageUrls && postDetail.imageUrls.length > 0 && 
             <div className={styles.imageContainer} ref={setImageContainerRef}>
-              {post.imageUrls.map((imageUrl, index) => (
+              {postDetail.imageUrls.map((imageUrl, index) => (
                 <img
                   key={index}
                   src={imageUrl}
-                  alt={`${post.title} 이미지 ${index + 1}`}
+                  alt={`${postDetail.title} 이미지 ${index + 1}`}
                   className={styles.postImage}
                 />
               ))}
-            </div>
+            </div>}
             {canScrollRight && (
               <button
                 type="button"
@@ -186,50 +217,68 @@ export default function PostDetail() {
           </div>
         )}
 
-        {post?.imageUrls && post.imageUrls.length === 1 && (
+        {postDetail?.imageUrls && postDetail.imageUrls.length === 1 && (
           <div className={styles.imageContainer}>
-            {post.imageUrls.map((imageUrl, index) => (
+            {postDetail.imageUrls.map((imageUrl, index) => (
               <img
                 key={index}
                 src={imageUrl}
-                alt={`${post.title} 이미지 ${index + 1}`}
+                alt={`${postDetail.title} 이미지 ${index + 1}`}
                 className={styles.postImage}
               />
             ))}
           </div>
         )}
 
-        <div className={styles.postContent}>{post?.content}</div>
+        <div className={styles.postContent}>{postDetail?.content}</div>
       </div>
 
       <div className={styles.commentsWrapper}>
-        <span className={styles.commentsCount}>댓글 {post?.commentCount || 0}개</span>
-
+        <span className={styles.commentsCount}>댓글 {postDetail?.commentCount || 0}개</span>
         <div className={styles.commentList}>
-          {postCommentMock.map(commentData =>
-            commentData.content.map(comment => (
-              <Comment
-                key={comment.commentId}
-                currentUserId={currentUserId || 0}
-                comment={{
-                  id: comment.commentId,
+          {commentsResult?.content.map((commentItem) => (
+            <Comment
+              key={commentItem.commentId}
+              currentUserId={currentUserId || 0}
+              comment={{
+                  id: commentItem.commentId,
                   author: {
-                    userName: comment.writerName,
-                    userId: comment.writerId,
+                    userName: commentItem.writerName,
+                    userId: commentItem.writerId,
                   },
-                  content: comment.content,
-                  createdAt: new Date(comment.createdAt),
+                  content: commentItem.content,
+                  createdAt: new Date(commentItem.createdAt),
                 }}
+                onDelete={handleCommentDeleteClick}
               />
-            ))
+            ))}
+          
+          {/* 무한스크롤 트리거 */}
+          <div ref={targetRef} style={{ height: '20px' }} />
+
+          {/* 로딩 인디케이터 */}
+          {/* todo: 무한스크롤용 로딩 인디케이터 추가하기 */}
+          {isFetchingNextPage && (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+              <LoadingSvg />
+            </div>
           )}
         </div>
 
         <div className={styles.commentInputWrapper}>
           <div className={styles.commentInputContainer}>
-            <Input placeholder="댓글을 입력하세요." />
+            <Input 
+              placeholder="댓글을 입력하세요." 
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.target.value)}
+            />
           </div>
-          <Button text="등록" size="medium" onClick={handleAddCommentClick} />
+          <Button 
+            text="등록" 
+            size="medium" 
+            onClick={handleAddCommentClick}
+            disabled={addCommentMutation.isPending || commentContent.trim().length === 0}
+          />
         </div>
       </div>
     </div>

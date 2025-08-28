@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import LoadingSvg from '@shared/components/loading/Loading';
 import GatheringCard from '@shared/components/gatheringCard/GatheringCard';
 import PostCard from '@shared/components/postCard/PostCard';
+import EmptyState from '@shared/components/emptyState/EmptyState';
 import type { ClassCategoryKey } from '@shared/constant/class';
 
 export default function User() {
@@ -80,8 +81,16 @@ export default function User() {
         </div>
         <div className={styles.userInfoTextContainer}>
           <p className={styles.userInfoName}>{userInfo?.name}</p>
-          <p>{userInfo?.phoneNumber}</p>
-          <p>{userInfo?.studentNumber}</p>
+          <div className={styles.userInfoTextDetailContainer}>
+            <div className={styles.userInfoTextDetail}>
+              <span className={styles.userInfoTextDetailKey}>PHONE:</span>
+              <span>{userInfo?.phone}</span>
+            </div>
+            <div className={styles.userInfoTextDetail}>
+              <span className={styles.userInfoTextDetailKey}>STUDENT NUMBER:</span>
+              <span>{userInfo?.studentNumber}</span>
+            </div>
+          </div>
         </div>
       </div>
       <div className={styles.userStampContainer}>
@@ -105,41 +114,57 @@ export default function User() {
       <div>
         {menu === 'post' ? (
           <div className={styles.userPostContainer}>
-            {userScrap?.content.map(item => (
-              <PostCard
-                writerId={item.writerId}
-                key={item.postId}
-                postId={item.postId}
-                title={item.title}
-                content={item.content}
-                imageUrl={item.imageUrl}
-                grade={item.grade}
-                affiliation={item.affiliation}
-                part={item.part}
-                topic={item.topic}
-                createdAt={item.createdAt}
-                commentCount={item.commentCount}
-                writerName={item.writerName}
+            {userScrap?.content && userScrap.content.length > 0 ? (
+              userScrap.content.map(item => (
+                <PostCard
+                  writerId={item.writerId}
+                  key={item.postId}
+                  postId={item.postId}
+                  title={item.title}
+                  content={item.content}
+                  imageUrl={item.imageUrl}
+                  grade={item.grade}
+                  affiliation={item.affiliation}
+                  part={item.part}
+                  topic={item.topic}
+                  createdAt={item.createdAt}
+                  commentCount={item.commentCount}
+                  writerName={item.writerName}
+                  onClick={id => navigate(`/posts/detail/${id}`)}
+                />
+              ))
+            ) : (
+              <EmptyState 
+                type="scrapped-posts"
+                message="스크랩한 게시물이 없습니다"
+                subMessage="마음에 드는 게시물을 스크랩해보세요"
               />
-            ))}
-            <p>게시물 스크랩</p>
+            )}
           </div>
         ) : (
           <div className={styles.userGatheringContainer}>
-            {userMeeting?.content.map(item => (
-              <GatheringCard
-                key={item.meetingId}
-                meetingId={item.meetingId}
-                hostName={item.hostName}
-                meetingName={item.meetingName}
-                content={item.content || "모임에 대한 설명이 없습니다."}
-                recruitNumber={item.recruitNumber}
-                currentRecruitCount={item.currentRecruitCount}
-                category={item.category as ClassCategoryKey}
-                status={item.status}
-                imageUrl={item.imageUrl}
+            {userMeeting?.content && userMeeting.content.length > 0 ? (
+              userMeeting.content.map(item => (
+                <GatheringCard
+                  key={item.meetingId}
+                  meetingId={item.meetingId}
+                  hostName={item.hostName}
+                  meetingName={item.meetingName}
+                  content={item.content || '모임에 대한 설명이 없습니다.'}
+                  recruitNumber={item.recruitNumber}
+                  currentRecruitCount={item.currentRecruitCount}
+                  category={item.category as ClassCategoryKey}
+                  status={item.status}
+                  imageUrl={item.imageUrl}
+                />
+              ))
+            ) : (
+              <EmptyState 
+                type="my-gatherings"
+                message="생성한 모임이 없습니다"
+                subMessage="첫 번째 모임을 만들어보세요"
               />
-            ))}
+            )}
           </div>
         )}
       </div>
