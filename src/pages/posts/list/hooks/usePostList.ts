@@ -16,7 +16,7 @@ export const usePostList = (size = 5) => {
     queryFn: ({ pageParam = null }: { pageParam: number | null }) =>
       request<PostListData>({
         method: HTTPMethod.GET,
-        url: `/posts?${pageParam ? `cursorId=${pageParam}&` : ''}size=${size}`,
+        url: `/posts?${pageParam ? `cursorId=${pageParam}&` : ''}size=${20}`,
       }),
     getNextPageParam: (lastPage) => {
       // lastPage: 서버에서 내려온 응답(PostListData 타입)
