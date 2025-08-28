@@ -5,6 +5,7 @@ import Category from '@shared/components/category/Category';
 import Comment from '@shared/components/comment/Comment';
 import Input from '@shared/components/input/Input';
 import Button from '@shared/components/button/Button';
+import ConfirmModal from '@shared/components/confirmModal/ConfirmModal';
 import {
   Ic_chevron_left_white,
   Ic_trash_white,
@@ -72,9 +73,16 @@ export default function PostDetail() {
   const handleDeletePostClick = () => {
     // 게시글 삭제
     if (!isAuthor || !postDetail) return;
-    if (window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
-      deletePostMutation.mutate(postId, { onSuccess: () => navigator(-1) });
-    }
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    deletePostMutation.mutate(postId, { onSuccess: () => navigator(-1) });
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
   };
 
   const handleScrollLeft = () => {
@@ -93,6 +101,7 @@ export default function PostDetail() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
   const [commentContent, setCommentContent] = useState<string>('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const checkScrollPosition = useCallback(() => {
     if (imageContainerRef) {
@@ -281,6 +290,15 @@ export default function PostDetail() {
           />
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        title="게시글을 삭제하시겠어요?"
+        confirmText="삭제"
+        cancelText="취소"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
     </div>
   );
 }
