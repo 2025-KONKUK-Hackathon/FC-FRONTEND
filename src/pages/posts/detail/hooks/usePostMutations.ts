@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { InfiniteData } from '@tanstack/react-query';
 import { request } from '@api/request';
-import { POST_KEY } from '@shared/constant/queryKey';
+import { POSTS_KEY } from '@shared/constant/queryKey';
 import { HTTPMethod } from '@api/request';
-import type { 
+import type {
   AddCommentRequest,
   PostCommentResponse,
-  PostDetailResponse
+  PostDetailResponse,
 } from '../types/postTypes';
 
-export const usePostMutations = (postId: number | undefined) => {
+export const usePostMutations = (postId: string) => {
   const queryClient = useQueryClient();
 
   // 댓글 작성
@@ -23,33 +23,32 @@ export const usePostMutations = (postId: number | undefined) => {
           content: data.content,
         },
       }),
-      onMutate: async (variables) => {
-        await queryClient.cancelQueries({
-          queryKey: POST_KEY.POST_COMMENTS(variables.postId),
-        });
+    onMutate: async variables => {
+      await queryClient.cancelQueries({
+        queryKey: POSTS_KEY.POSTS_COMMENTS(variables.postId),
+      });
 
-        queryClient.setQueryData(
-          POST_KEY.POST_DETAIL(variables.postId),
-          (old: PostDetailResponse | undefined) => {
-            if (!old) return old;
-            return {
-              ...old,
-              commentCount: old.commentCount + 1,
-            };
-          }
-        );
-      },
-      onSuccess: (_data, variables) => {
-        queryClient.invalidateQueries({
-          queryKey: POST_KEY.POST_COMMENTS(variables.postId),
-        });
-      },
-    }
-  );
+      queryClient.setQueryData(
+        POSTS_KEY.POSTS_DETAIL(variables.postId),
+        (old: PostDetailResponse | undefined) => {
+          if (!old) return old;
+          return {
+            ...old,
+            commentCount: old.commentCount + 1,
+          };
+        }
+      );
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: POSTS_KEY.POSTS_COMMENTS(variables.postId),
+      });
+    },
+  });
 
   // 게시글 스크랩
   const scrapPostMutation = useMutation({
-    mutationFn: (postId: number) =>
+    mutationFn: (postId: string) =>
       request<void>({
         method: HTTPMethod.POST,
         url: '/posts/scraps',
@@ -57,99 +56,114 @@ export const usePostMutations = (postId: number | undefined) => {
           postId,
         },
       }),
-    onMutate: async (variables) => {
+    onMutate: async variables => {
       await queryClient.cancelQueries({
-        queryKey: POST_KEY.POST_DETAIL(variables),
+        queryKey: POSTS_KEY.POSTS_DETAIL(variables),
       });
-      const previousPostDetail = queryClient.getQueryData<PostDetailResponse>(POST_KEY.POST_DETAIL(variables));
-      queryClient.setQueryData(POST_KEY.POST_DETAIL(variables), (old: PostDetailResponse | undefined) => {
-        if (!old) return old;
-        return {
-          ...old,
-          isScrapped: true,
-        };
-      });
+      const previousPostDetail = queryClient.getQueryData<PostDetailResponse>(
+        POSTS_KEY.POSTS_DETAIL(variables)
+      );
+      queryClient.setQueryData(
+        POSTS_KEY.POSTS_DETAIL(variables),
+        (old: PostDetailResponse | undefined) => {
+          if (!old) return old;
+          return {
+            ...old,
+            isScrapped: true,
+          };
+        }
+      );
       return { previousPostDetail };
     },
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: POST_KEY.POST_DETAIL(variables),
+        queryKey: POSTS_KEY.POSTS_DETAIL(variables),
       });
     },
     onError: (_err, variables, context) => {
       if (context?.previousPostDetail) {
-        queryClient.setQueryData(POST_KEY.POST_DETAIL(variables), context.previousPostDetail);
+        queryClient.setQueryData(POSTS_KEY.POSTS_DETAIL(variables), context.previousPostDetail);
       }
     },
   });
 
   // 댓글 삭제
   const deleteCommentMutation = useMutation({
-    mutationFn: (commentId: number) =>
+    mutationFn: (commentId: string) =>
       request<void>({
         method: HTTPMethod.DELETE,
         url: `/posts/comments/${commentId}`,
       }),
-    onMutate: async (variables) => {
+    onMutate: async variables => {
       await queryClient.cancelQueries({
-        queryKey: POST_KEY.POST_COMMENTS(postId || 0),
+        queryKey: POSTS_KEY.POSTS_COMMENTS(postId),
       });
-      const previousComments = queryClient.getQueryData<InfiniteData<PostCommentResponse>>(POST_KEY.POST_COMMENTS(postId || 0));
-      queryClient.setQueryData(POST_KEY.POST_COMMENTS(postId || 0), (old: InfiniteData<PostCommentResponse> | undefined) => {
-        if (!old) return old;
-        return {
-          ...old,
-          pages: old.pages.map((page) => ({
-            ...page,
-            content: page.content.filter(comment => comment.commentId !== variables),
-          }))
-        };
-      });
+      const previousComments = queryClient.getQueryData<InfiniteData<PostCommentResponse>>(
+        POSTS_KEY.POSTS_COMMENTS(postId)
+      );
+      queryClient.setQueryData(
+        POSTS_KEY.POSTS_COMMENTS(postId),
+        (old: InfiniteData<PostCommentResponse> | undefined) => {
+          if (!old) return old;
+          return {
+            ...old,
+            pages: old.pages.map(page => ({
+              ...page,
+              content: page.content.filter(comment => String(comment.commentId) !== variables),
+            })),
+          };
+        }
+      );
 
-      queryClient.setQueryData(POST_KEY.POST_DETAIL(postId || 0), (old: PostDetailResponse | undefined) => {
-        if (!old) return old;
-        return {
-          ...old,
-          commentCount: Math.max(old.commentCount - 1, 0)
-        };
-      });
+      queryClient.setQueryData(
+        POSTS_KEY.POSTS_DETAIL(postId),
+        (old: PostDetailResponse | undefined) => {
+          if (!old) return old;
+          return {
+            ...old,
+            commentCount: Math.max(old.commentCount - 1, 0),
+          };
+        }
+      );
 
       return { previousComments };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: POST_KEY.POST_COMMENTS(postId || 0),
+        queryKey: POSTS_KEY.POSTS_COMMENTS(postId),
       });
     },
     onError: (_err, _variables, context) => {
       if (context?.previousComments) {
-        queryClient.setQueryData(POST_KEY.POST_COMMENTS(postId || 0), context.previousComments);
+        queryClient.setQueryData(POSTS_KEY.POSTS_COMMENTS(postId), context.previousComments);
       }
     },
   });
 
   // 게시글 삭제
   const deletePostMutation = useMutation({
-    mutationFn: (postId: number) =>
+    mutationFn: (postId: string) =>
       request<void>({
         method: HTTPMethod.DELETE,
         url: `/posts/${postId}`,
       }),
-    onMutate: async (variables) => {
+    onMutate: async variables => {
       await queryClient.cancelQueries({
-        queryKey: POST_KEY.POST_DETAIL(variables),
+        queryKey: POSTS_KEY.POSTS_DETAIL(variables),
       });
-      const previousPostDetail = queryClient.getQueryData<PostDetailResponse>(POST_KEY.POST_DETAIL(variables));
+      const previousPostDetail = queryClient.getQueryData<PostDetailResponse>(
+        POSTS_KEY.POSTS_DETAIL(variables)
+      );
       return { previousPostDetail };
     },
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: POST_KEY.POST_DETAIL(variables),
+        queryKey: POSTS_KEY.POSTS_DETAIL(variables),
       });
     },
     onError: (_err, variables, context) => {
       if (context?.previousPostDetail) {
-        queryClient.setQueryData(POST_KEY.POST_DETAIL(variables), context.previousPostDetail);
+        queryClient.setQueryData(POSTS_KEY.POSTS_DETAIL(variables), context.previousPostDetail);
       }
     },
   });
