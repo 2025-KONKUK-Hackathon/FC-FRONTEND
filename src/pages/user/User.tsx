@@ -130,6 +130,7 @@ export default function User() {
                   createdAt={item.createdAt}
                   commentCount={item.commentCount}
                   writerName={item.writerName}
+                  onClick={id => navigate(`/posts/detail/${id}`)}
                 />
               ))
             ) : (
@@ -155,6 +156,7 @@ export default function User() {
                   category={item.category as ClassCategoryKey}
                   status={item.status}
                   imageUrl={item.imageUrl}
+                  onClick={id => navigate(`/gathering/detail/${id}`)}
                 />
               ))
             ) : (
