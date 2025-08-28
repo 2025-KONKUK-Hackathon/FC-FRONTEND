@@ -18,13 +18,14 @@ export const overlay = style({
 export const modal = style({
   // backgroundColor: vars.color.black,
   borderRadius: '16px',
-  padding: '2.4rem 2rem 2rem',
+  padding: '3rem 2rem 2.4rem',
   maxWidth: '280px',
   width: '80%',
   display: 'flex',
   flexDirection: 'column',
   gap: '2rem',
-  border: 'none',
+  border: `1px solid ${vars.color.grey200}`,
+  backgroundColor: vars.color.grey800,
 });
 
 export const content = style({
@@ -35,8 +36,8 @@ export const content = style({
 });
 
 export const title = style({
-  fontSize: '1.8rem',
-  fontWeight: '600',
+  fontSize: '1.7rem',
+  fontWeight: '500',
   color: vars.color.grey100,
   margin: 0,
   letterSpacing: '-0.02em',
@@ -56,8 +57,10 @@ export const buttonContainer = style({
 });
 
 export const cancelButton = style({
-  padding: '1.2rem 2.4rem',
-  border: `1px solid ${vars.color.grey500}`,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '0.6rem 2rem',
   backgroundColor: vars.color.White,
   color: vars.color.grey900,
   borderRadius: '12px',
@@ -71,7 +74,7 @@ export const cancelButton = style({
 export const confirmButton = style({
   padding: '1.2rem 2.4rem',
   border: 'none',
-  backgroundColor: '#DC2626',
+  backgroundColor: vars.color.KU_Darkgreen,
   color: vars.color.White,
   borderRadius: '12px',
   fontSize: '1.5rem',

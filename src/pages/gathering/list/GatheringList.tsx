@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { ROUTES } from '@router/constant/Routes';
 import { useGatheringList } from './hooks/useGatheringList';
-import { CLASS_FILTER_OPTIONS } from './constant/FilterOptions';
+import { CLASS_FILTER_OPTIONS, STATUS_FILTER_OPTIONS } from './constant/FilterOptions';
 import type { GatheringListContent } from './types/gatheringList';
 import type { StatusType } from '@shared/constant/status';
 import type { ClassCategoryKey } from '@shared/constant/class';
@@ -63,6 +63,7 @@ function GatheringListPage({
 }: GatheringListPageProps) {
   // 필터 상태
   const [classFilter, setClassFilter] = useState('ALL');
+  const [statusFilter, setStatusFilter] = useState('ALL');
 
   // 무한스크롤 trigger
   const { targetRef } = useIntersectionObserver({
@@ -78,7 +79,8 @@ function GatheringListPage({
   // 필터링된 모임 목록
   const filteredGatherings = gatherings.filter(gathering => {
     const matchesClass = classFilter === 'ALL' || gathering.category === classFilter;
-    return matchesClass;
+    const matchesStatus = statusFilter === 'ALL' || gathering.recruitStatus === statusFilter;
+    return matchesClass && matchesStatus;
   });
 
   return (
@@ -100,6 +102,15 @@ function GatheringListPage({
               selectedValue={classFilter}
               setSelectedValue={setClassFilter}
               placeholder="카테고리"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={STATUS_FILTER_OPTIONS}
+              selectedValue={statusFilter}
+              setSelectedValue={setStatusFilter}
+              placeholder="모집상태"
               size="small"
             />
           </div>
@@ -133,7 +144,7 @@ function GatheringListPage({
             {/* 무한스크롤 트리거 */}
             <div ref={targetRef} style={{ height: '20px' }} />
 
-            {/* 로딩 인디케이터 */}
+            {/* 로딩 인디케이터(로딩 속도 빨라서 사실상 안뜸) */}
             {isFetchingNextPage && (
               <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
                 <LoadingSvg />
