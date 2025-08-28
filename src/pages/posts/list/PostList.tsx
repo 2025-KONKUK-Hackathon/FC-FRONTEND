@@ -132,7 +132,7 @@ function PostListPage({
               commentCount={post.commentCount}
               writerName={post.writerName}
               writerId={post.writerId}
-              onClick={id => console.log(`Student Council Post ${id} clicked`)}
+              onClick={id => navigate(`/posts/detail/${id}`)}
             />
           ))}
         </div>
