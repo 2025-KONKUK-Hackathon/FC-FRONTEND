@@ -7,7 +7,7 @@ export const postDetailWrapper = style({
   width: '100%',
   padding: '0 2.4rem',
   color: vars.color.White,
-  gap: '1rem',
+  gap: '1.2rem',
 });
 
 export const postHeader = style({
@@ -17,6 +17,7 @@ export const postHeader = style({
   justifyContent: 'flex-start',
   padding: '1.8rem 0',
   backgroundColor: vars.color.grey900,
+  zIndex: 2,
 });
 
 export const headerButton = style({
@@ -40,12 +41,14 @@ export const postTitleContainer = style({
 export const keywordsContainer = style({
   display: 'flex',
   gap: '0.8rem',
+  margin: '1rem 0',
 });
 
 export const postTitle = style({
   margin: '1rem 0',
   fontSize: '2rem',
   fontWeight: 'bold',
+  overflow: 'hidden',
 });
 
 export const postMeta = style({

@@ -21,13 +21,13 @@ export const gatheringFormSchema = z
     ),
     meetingName: z.string().min(1, '제목을 입력해 주세요.'),
     content: z.string().min(1, '설명을 입력해 주세요.'),
-    imageUrls: z.array(z.string()).optional(),
+    imageUrls: z.array(z.string()).nonempty('이미지를 업로드 해주세요.'),
     recruitStartDate: z.string().min(1, '신청 시작일을 입력해 주세요.'),
     recruitEndDate: z.string().min(1, '신청 종료일을 입력해 주세요.'),
     actualStartDate: z.string().min(1, '활동 시작일을 입력해 주세요.'),
     actualEndDate: z.string().min(1, '활동 종료일을 입력해 주세요.'),
   })
-  .refine(data => !data.recruitStartDate || new Date(data.recruitStartDate) > today, {
+  .refine(data => !data.recruitStartDate || new Date(data.recruitStartDate) >= today, {
     message: '신청 시작일은 오늘 이후여야 합니다.',
     path: ['recruitStartDate'],
   })
@@ -83,7 +83,7 @@ export function useGatheringForm() {
       recruitNumber: '',
       meetingName: '',
       content: '',
-      imageUrls: ['img1', 'img2'],
+      imageUrls: [],
       recruitStartDate: '',
       recruitEndDate: '',
       actualStartDate: '',
