@@ -12,9 +12,9 @@ import type { PostListContent } from './types/postList';
 import { useIntersectionObserver } from '@shared/hooks/useIntersectionObserver';
 
 export default function PostList() {
-  const { 
-    postListResult, 
-    isPostListPending, 
+  const {
+    postListResult,
+    isPostListPending,
     postListError,
     fetchNextPage,
     hasNextPage,
@@ -33,6 +33,15 @@ export default function PostList() {
 
   if (!postListResult?.content) {
     return <LoadingSvg />;
+  }
+
+  // 임시 디자인
+  if (postListResult?.content.length === 0) {
+    return (
+      <div style={{ marginTop: '10rem', color: 'white' }}>
+        게시물 0개인 상태, 게시물 없을 때 보여줄 UI 구현하기
+      </div>
+    );
   }
 
   return (
@@ -123,18 +132,21 @@ function PostListPage({
             title={post.title}
             content={post.content}
             imageUrl={post.imageUrl}
-            categories={[post.topic, post.grade, post.affiliation, post.part].filter(Boolean)}
-            createdAt={post.createdAt}
+            categories={[post.topic, post.grade, post.affiliation, post.part]
+              .filter(Boolean)
+              .map(text => ({ text }))}
+            createdAt={post.createdAt} // todo: 게시글 생성시간 처리 로직 구현
             commentCount={post.commentCount}
             authorName={post.writerName}
             onClick={id => navigator(`/posts/detail/${id}`)}
           />
         ))}
-        
+
         {/* 무한스크롤 트리거 */}
         <div ref={targetRef} style={{ height: '20px' }} />
-        
+
         {/* 로딩 인디케이터 */}
+        {/* todo: 무한스크롤용 로딩 인디케이터 추가하기 */}
         {isFetchingNextPage && (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
             <LoadingSvg />
