@@ -18,6 +18,7 @@ export const dropdownTrigger = recipe({
     backgroundColor: vars.color.grey800,
     color: vars.color.White,
     cursor: 'pointer',
+    transition: 'all 0.2s ease',
     ':disabled': {
       backgroundColor: vars.color.grey600,
       color: vars.color.grey400,
@@ -39,7 +40,32 @@ export const dropdownTrigger = recipe({
         fontSize: '1.6rem',
       }
     },
+    isSelected: {
+      true: {
+        backgroundColor: vars.color.KU_Darkgreen,
+        borderColor: vars.color.KU_Darkgreen,
+      },
+      false: {}
+    }
   }
+});
+
+export const toggleIcon = style({
+  marginLeft: '1rem',
+  flexShrink: 0, // 아이콘이 줄어들지 않도록
+});
+
+export const dropdownText = style({
+  flex: 1,
+  minWidth: 0, // 텍스트가 줄어들 수 있도록
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
+
+export const dropdownTriggerSelected = style({
+  backgroundColor: vars.color.KU_Darkgreen,
+  borderColor: vars.color.KU_Darkgreen,
 });
 
 export const placeholder = style({

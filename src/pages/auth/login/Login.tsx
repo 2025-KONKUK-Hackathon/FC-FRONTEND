@@ -6,7 +6,7 @@ import { useLoginForm, type LoginFormData } from './hooks/useLoginForm';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { form, isLoading, login } = useLoginForm();
+  const { form, isLoading, loginError, login } = useLoginForm();
 
   const { handleSubmit, formState: { errors, isValid }, watch, setValue } = form;
 
@@ -79,6 +79,9 @@ export default function Login() {
               disabled={!isValid || isLoading}
               onClick={handleSubmit(onSubmit)}
             />
+            {loginError && (
+              <span className={styles.errorMessage}>{loginError}</span>
+            )}
             
             <div className={styles.divider}>
               <span className={styles.dividerText}>또는</span>
