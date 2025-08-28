@@ -6,7 +6,7 @@ export const ROUTES = {
   },
   GATHERING: {
     CREATE: '/gather/create',
-    DETAIL: '/gather/detail/:id',
+    DETAIL: '/gather/detail',
     LIST: '/gather/list',
     MEMBERS: '/gather/members',
   },

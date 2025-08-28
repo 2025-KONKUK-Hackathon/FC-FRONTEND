@@ -74,7 +74,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: ROUTES.GATHERING.DETAIL,
+        path: "/gather/detail/:id",
         element: (
           <ProtectedRoute>
             <GatheringDetail />
