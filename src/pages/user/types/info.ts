@@ -6,7 +6,7 @@ import type { StatusType } from '@shared/constant/status';
 
 export interface UserInfoResponse {
   name: string;
-  phoneNumber: string;
+  phone: string;
   studentNumber: string;
 }
 
@@ -16,6 +16,7 @@ export interface UserMeetingResponse {
       meetingId: number;
       hostName: string;
       meetingName: string;
+      content: string;
       recruitNumber: number;
       currentRecruitCount: number;
       category: Subject;

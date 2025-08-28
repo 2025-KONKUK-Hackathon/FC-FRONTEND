@@ -4,17 +4,18 @@ import { recipe } from '@vanilla-extract/recipes';
 export const container = recipe({
   base: {
     position: 'absolute',
-    top: '0.2rem',
-    left: '0.2rem',
+    top: '0.5rem',
+    left: '0.5rem',
 
     width: 'auto',
     height: 'auto',
-    padding: '0.3rem',
-    borderRadius: '0.3rem',
+    padding: '0.4rem 0.6rem',
+    borderRadius: '0.4rem',
 
     backgroundColor: vars.color.Black,
 
-    fontSize: '0.75rem',
+    fontSize: '1rem',
+    fontWeight: '500',
   },
   variants: {
     status: {

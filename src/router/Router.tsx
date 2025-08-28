@@ -4,6 +4,7 @@ import { ROUTES } from '@router/constant/Routes';
 import Layout from '@router/Layout';
 import MainLayout from '@pages/mainLayout/MainLayout';
 import ProtectedRoute from '@router/ProtectedRoute';
+import Info from '@pages/info/Info';
 
 const Login = lazy(() => import('@pages/auth/login/Login'));
 const SignUp = lazy(() => import('@pages/auth/signup/Signup'));
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
           {
             path: ROUTES.USER.DETAIL,
             element: <User />,
+          },
+          {
+            path: ROUTES.INFO,
+            element: <Info />,
           },
         ],
       },
