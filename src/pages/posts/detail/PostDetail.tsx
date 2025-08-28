@@ -18,10 +18,8 @@ import { GRADE_CATEGORY } from '@shared/constant/grade';
 import { PART_CATEGORY } from '@shared/constant/part';
 import { SUBJECT_CATEGORY } from '@shared/constant/subject';
 import { AFFILIATION } from './constant/PostKeyword';
-import type { PostDetailResponse } from './types/postTypes';
-import { postDetailMock } from './constant/PostDetailDummy';
-import { usePostDetail, useCommentsDetail } from './hooks/usePostDetail';
-import usePostMutations from './hooks/usePostMutations';
+import { usePostDetail } from './hooks/usePostDetail';
+import { usePostMutations } from './hooks/usePostMutations';
 
 export default function PostDetail() {
   const navigator = useNavigate();
@@ -30,47 +28,37 @@ export default function PostDetail() {
     navigator(-1);
   };
 
-  const handleDeleteClick = () => {
-    // 게시글 삭제
-    if (window.confirm('정말로 게시글을 삭제하시겠습니까?')) {
-      deletePostMutation.mutate(undefined, {
-        onSuccess: () => {
-          alert('게시글이 삭제되었습니다.');
-          navigator(-1);
-        },
-      });
-    }
+  const { id } = useParams();
+  const postId = Number(id);
+  
+  const {
+    addCommentMutation,
+    deleteCommentMutation,
+    scrapPostMutation,
+    deletePostMutation
+  } = usePostMutations(postId);
+
+  const handleAddCommentClick = () => {
+    // 댓글 작성
+    addCommentMutation.mutate({ postId, content: commentContent });
+    setCommentContent('');
   };
 
   const handleScrapClick = () => {
     // 게시글 스크랩
-    scrapPostMutation.mutate(undefined, {
-      onSuccess: () => {
-        setScrapped(!scrapped);
-        alert('게시글이 스크랩되었습니다.');
-      },
-    });
+    scrapPostMutation.mutate(postId);
   };
 
-  const handleAddCommentClick = () => {
-    // 댓글 추가
-    if (!commentContent.trim()) {
-      alert('댓글 내용을 입력해주세요.');
-      return;
-    }
+  const handleCommentDeleteClick = (commentId: number) => {
+    // 댓글 삭제
+    deleteCommentMutation.mutate(commentId);
+  };
 
-    addCommentMutation.mutate(
-      {
-        postId,
-        content: commentContent,
-      },
-      {
-        onSuccess: () => {
-          setCommentContent('');
-          alert('댓글이 작성되었습니다.');
-        },
-      }
-    );
+  const handleDeletePostClick = () => {
+    // 게시글 삭제
+    if (isAuthor && postDetail) {
+      deletePostMutation.mutate(postId);
+    }
   };
 
   const handleScrollLeft = () => {
@@ -85,8 +73,7 @@ export default function PostDetail() {
     }
   };
 
-  const { id } = useParams<{ id: string }>();
-  const [post, setPost] = useState<PostDetailResponse | null>(null);
+  const { postDetail, commentsData } = usePostDetail(Number(id));
   const [scrapped, setScrapped] = useState<boolean>(false);
   const [imageContainerRef, setImageContainerRef] = useState<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -101,40 +88,8 @@ export default function PostDetail() {
     }
   }, [imageContainerRef]);
 
-  // 예시: 현재 로그인한 사용자의 ID
-  const currentUserId = 123;
-  const isAuthor = post ? currentUserId === post.writerId : false;
-
-  const postId = id ? Number(id) : 0;
-  
-  const {
-    data: postDetailData,
-    // isLoading: isPostLoading,
-    // error: postError,
-  } = usePostDetail(postId);
-  const {
-    data: postCommentsData,
-    // isLoading: isCommentsLoading,
-    // error: commentsError,
-  } = useCommentsDetail(postId, 0, 10);
-
-  // 뮤테이션 훅 사용
-  const {
-    addCommentMutation,
-    scrapPostMutation,
-    deletePostMutation,
-  } = usePostMutations(postId);
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setPost(postDetailData || postDetailMock);
-      } catch {
-        console.error('게시글 불러오기 실패');
-      }
-    };
-    fetchPost();
-  }, [id, postDetailData]);
+  const currentUserId = Number(localStorage.getItem('userId'));
+  const isAuthor = postDetail ? currentUserId === postDetail.writerId : false;
 
   useEffect(() => {
     if (imageContainerRef) {
@@ -153,9 +108,9 @@ export default function PostDetail() {
       </div>
       <div className={styles.postContentWrapper}>
         <div className={styles.postTitleContainer}>
-          <span className={styles.postTitle}>{post?.title}</span>
+          <span className={styles.postTitle}>{postDetail?.title}</span>
           {isAuthor ? (
-            <Ic_trash_white className={styles.headerButton} onClick={handleDeleteClick} />
+            <Ic_trash_white className={styles.headerButton} onClick={handleDeletePostClick} />
           ) : (
             <button type="button" onClick={handleScrapClick}>
               {scrapped 
@@ -167,41 +122,41 @@ export default function PostDetail() {
         </div>
 
         <div className={styles.postMeta}>
-          <span className={styles.writerName}>{post?.writerName}</span>
-          <span className={styles.createdAt}>{post?.createdAt && formatDate(post.createdAt)}</span>
+          <span className={styles.writerName}>{postDetail?.writerName}</span>
+          <span className={styles.createdAt}>{postDetail?.createdAt && formatDate(postDetail.createdAt)}</span>
         </div>
 
         <div className={styles.keywordsContainer}>
-          {post?.grade && (
+          {postDetail?.grade && (
             <Category
-              text={GRADE_CATEGORY[post.grade].text}
-              icon={GRADE_CATEGORY[post.grade].icon}
-              color={GRADE_CATEGORY[post.grade].color}
+              text={GRADE_CATEGORY[postDetail?.grade].text}
+              icon={GRADE_CATEGORY[postDetail?.grade].icon}
+              color={GRADE_CATEGORY[postDetail?.grade].color}
               size="medium"
             />
           )}
-          {post?.affiliation && (
-            <Category text={AFFILIATION[post.affiliation]} icon="💻" color="Yellow" size="medium" />
+          {postDetail?.affiliation && (
+            <Category text={AFFILIATION[postDetail?.affiliation]} icon="💻" color="Yellow" size="medium" />
           )}
-          {post?.part && (
+          {postDetail?.part && (
             <Category
-              text={PART_CATEGORY[post.part].text}
-              icon={PART_CATEGORY[post.part].icon}
-              color={PART_CATEGORY[post.part].color}
+              text={PART_CATEGORY[postDetail?.part].text}
+              icon={PART_CATEGORY[postDetail?.part].icon}
+              color={PART_CATEGORY[postDetail.part].color}
               size="medium"
             />
           )}
-          {post?.topic && (
+          {postDetail?.topic && (
             <Category
-              text={SUBJECT_CATEGORY[post.topic].text}
-              icon={SUBJECT_CATEGORY[post.topic].icon}
-              color={SUBJECT_CATEGORY[post.topic].color}
+              text={SUBJECT_CATEGORY[postDetail.topic].text}
+              icon={SUBJECT_CATEGORY[postDetail.topic].icon}
+              color={SUBJECT_CATEGORY[postDetail.topic].color}
               size="medium"
             />
           )}
         </div>
 
-        {post?.imageUrls && post.imageUrls.length > 1 && (
+        {postDetail?.imageUrls && postDetail?.imageUrls.length > 1 && (
           <div className={styles.imageWrapper}>
             {canScrollLeft && (
               <button
@@ -214,11 +169,11 @@ export default function PostDetail() {
               </button>
             )}
             <div className={styles.imageContainer} ref={setImageContainerRef}>
-              {post.imageUrls.map((imageUrl, index) => (
+              {postDetail.imageUrls.map((imageUrl, index) => (
                 <img
                   key={index}
                   src={imageUrl}
-                  alt={`${post.title} 이미지 ${index + 1}`}
+                  alt={`${postDetail.title} 이미지 ${index + 1}`}
                   className={styles.postImage}
                 />
               ))}
@@ -236,27 +191,27 @@ export default function PostDetail() {
           </div>
         )}
 
-        {post?.imageUrls && post.imageUrls.length === 1 && (
+        {postDetail?.imageUrls && postDetail.imageUrls.length === 1 && (
           <div className={styles.imageContainer}>
-            {post.imageUrls.map((imageUrl, index) => (
+            {postDetail.imageUrls.map((imageUrl, index) => (
               <img
                 key={index}
                 src={imageUrl}
-                alt={`${post.title} 이미지 ${index + 1}`}
+                alt={`${postDetail.title} 이미지 ${index + 1}`}
                 className={styles.postImage}
               />
             ))}
           </div>
         )}
 
-        <div className={styles.postContent}>{post?.content}</div>
+        <div className={styles.postContent}>{postDetail?.content}</div>
       </div>
 
       <div className={styles.commentsWrapper}>
-        <span className={styles.commentsCount}>댓글 {post?.commentCount || 0}개</span>
+        <span className={styles.commentsCount}>댓글 {postDetail?.commentCount || 0}개</span>
 
         <div className={styles.commentList}>
-          {postCommentsData?.content?.map((comment) => (
+          {commentsData?.content?.map((comment) => (
             <Comment
               key={comment.commentId}
               currentUserId={currentUserId || 0}
@@ -269,6 +224,7 @@ export default function PostDetail() {
                 content: comment.content,
                 createdAt: new Date(comment.createdAt),
               }}
+              onDelete={handleCommentDeleteClick}
             />
           ))}
         </div>

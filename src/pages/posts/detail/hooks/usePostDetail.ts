@@ -1,54 +1,35 @@
 import { useQuery } from '@tanstack/react-query';
 import { request } from '@api/request';
 import { POST_KEY } from '@shared/constant/queryKey';
+import { HTTPMethod } from '@api/request';
 import type { PostDetailResponse, PostCommentResponse } from '../types/postTypes';
 
-const fetchPostDetail = async (
-  postId: number
-): Promise<PostDetailResponse> => {
-  return request<PostDetailResponse>({
-    method: 'GET',
-    url: `/posts/${postId}`,
-  });
-};
-
-const fetchPostComments = async (
-  postId: number, 
-  cursor: number, 
-  size: number = 10
-): Promise<PostCommentResponse> => {
-  return request<PostCommentResponse>({
-    method: 'GET',
-    url: `/posts/${postId}/comments`,
-    query: {
-      cursor,
-      size,
-    },
-  });
-};
-
-// 게시글 상세 조회
-export const usePostDetail = (
-  postId: number
-) => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: POST_KEY.POST_DETAIL(postId),
-    queryFn: () => fetchPostDetail(postId),
+export const usePostDetail = (postId: number | undefined) => {
+  // 겟시판 상세 조회
+  const {
+    data: postDetail,
+  } = useQuery({
+    queryKey: POST_KEY.POST_DETAIL(postId || 0),
+    queryFn: () => 
+      request<PostDetailResponse>({
+        method: HTTPMethod.GET,
+        url: `/posts/${postId}`,
+      }),
     enabled: !!postId,
   });
 
-  return { data, isLoading, error };
-};
-
-// 게시글의 댓글 조회
-export const useCommentsDetail = (
-  postId: number, 
-  cursor: number,
-  size: number
-) => {
-  return useQuery({
-    queryKey: [...POST_KEY.POST_COMMENTS(postId), cursor, size],
-    queryFn: () => fetchPostComments(postId, cursor, size),
+  // 게시글 댓글 조회
+  const {
+    data: commentsData,
+  } = useQuery({
+    queryKey: POST_KEY.POST_COMMENTS(postId || 0),
+    queryFn: () =>
+      request<PostCommentResponse>({
+        method: HTTPMethod.GET,
+        url: `/posts/${postId}/comments`,
+      }),
     enabled: !!postId,
   });
+
+  return { postDetail, commentsData };
 };
