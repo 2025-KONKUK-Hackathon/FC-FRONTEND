@@ -5,7 +5,8 @@ export const container = style({
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
-  padding: "1rem 0 1rem 1.6rem",
+  padding: "1rem 0 0 1.6rem",
+  position: "relative",
 });
 
 export const sectionTitle = style({
@@ -63,7 +64,38 @@ export const slideIndicatorActive = style({
   opacity: 1,
 });
 
+export const filterSection = style({
+  paddingRight: "1.6rem",
+});
+
+export const filterContainer = style({
+  display: "flex",
+  gap: "1rem",
+  paddingBottom: "0.5rem",
+  // todo: 카테고리 추가 시 가로 스크롤 지원
+});
+
+export const filterDropdownWrapper = style({
+  flex: "1",
+  minWidth: "0", // flex item이 텍스트 길이보다 작아질 수 있도록
+});
+
 export const generalPostsSection = style({
   display: "flex",
   flexDirection: "column",
 });
+
+export const createButtonWrapper = style({
+  position: "fixed",
+  bottom: "7rem",
+  // 웹 환경 대응 위치 조정
+  right: "50%",
+  transform: "translateX(calc(215px - 1.3rem))",
+  // 모바일 환경 대응 위치 조정
+  "@media": {
+    "screen and (max-width: 430px)": {
+      right: "1.3rem",
+      transform: "none",
+    },
+  },
+})

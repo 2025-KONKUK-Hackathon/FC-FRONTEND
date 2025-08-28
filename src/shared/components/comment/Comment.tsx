@@ -1,7 +1,7 @@
-import * as styles from "./Comment.css";
+import * as styles from './Comment.css';
 import type { CommentData } from './types/comment';
 import { getRelativeTime } from './utils/dateUtils';
-import { Ic_user_solid } from '@svg/index';
+import { Ic_user } from '@svg/index';
 
 interface CommentProps {
   currentUserId?: number;
@@ -9,11 +9,7 @@ interface CommentProps {
   onDelete?: (commentId: number) => void;
 }
 
-export default function Comment({
-  currentUserId,
-  comment,
-  onDelete,
-}: CommentProps) {
+export default function Comment({ currentUserId, comment, onDelete }: CommentProps) {
   const isAuthor = currentUserId === comment.author.userId;
 
   const handleDelete = () => {
@@ -26,31 +22,19 @@ export default function Comment({
     <div className={styles.commentWrapper}>
       <div className={styles.commentHeader}>
         <div className={styles.authorInfo}>
-          <div className={styles.authorAvatar}>
-            <img src={Ic_user_solid} alt='user icon' width={26} />
-          </div>
+          <Ic_user className={styles.authorAvatarIcon} />
           <div className={styles.authorDetails}>
-            <div className={styles.authorName}>
-              {comment.author.userName}
-            </div>
-            <div className={styles.commentDate}>
-              {getRelativeTime(comment.createdAt)}
-            </div>
+            <div className={styles.authorName}>{comment.author.userName}</div>
+            <div className={styles.commentDate}>{getRelativeTime(comment.createdAt)}</div>
           </div>
         </div>
         {isAuthor && (
-          <button
-            type='button'
-            className={styles.actionButton}
-            onClick={handleDelete}
-          >
+          <button type="button" className={styles.actionButton} onClick={handleDelete}>
             🗑️
           </button>
         )}
       </div>
-      <div className={styles.commentContent}>
-        {comment.content}
-      </div>
+      <div className={styles.commentContent}>{comment.content}</div>
     </div>
   );
 }
