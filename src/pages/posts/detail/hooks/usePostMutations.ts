@@ -157,8 +157,13 @@ export const usePostMutations = (postId: string) => {
       return { previousPostDetail };
     },
     onSuccess: (_data, variables) => {
+      // 상세 페이지 무효화
       queryClient.invalidateQueries({
         queryKey: POSTS_KEY.POSTS_DETAIL(variables),
+      });
+      // 게시글 목록 무효화 (중요!)
+      queryClient.invalidateQueries({
+        queryKey: POSTS_KEY.POSTS_LIST(),
       });
     },
     onError: (_err, variables, context) => {

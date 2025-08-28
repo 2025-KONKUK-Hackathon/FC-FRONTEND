@@ -41,6 +41,21 @@ const Footer = () => {
         </span>
       </Link>
       <Link
+        to={ROUTES.INFO}
+        className={styles.navItem({
+          isActive: location.pathname === ROUTES.INFO,
+        })}
+      >
+        <Ic_link className={styles.icon({ isActive: location.pathname === ROUTES.INFO })} />
+        <span
+          className={styles.navText({
+            isActive: location.pathname === ROUTES.INFO,
+          })}
+        >
+          링크
+        </span>
+      </Link>
+      <Link
         to={ROUTES.USER.DETAIL}
         className={styles.navItem({
           isActive: location.pathname === ROUTES.USER.DETAIL,
@@ -55,21 +70,6 @@ const Footer = () => {
           })}
         >
           마이페이지
-        </span>
-      </Link>
-      <Link
-        to={ROUTES.INFO}
-        className={styles.navItem({
-          isActive: location.pathname === ROUTES.INFO,
-        })}
-      >
-        <Ic_link className={styles.icon({ isActive: location.pathname === ROUTES.INFO })} />
-        <span
-          className={styles.navText({
-            isActive: location.pathname === ROUTES.INFO,
-          })}
-        >
-          링크
         </span>
       </Link>
     </div>

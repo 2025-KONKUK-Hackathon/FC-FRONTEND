@@ -5,7 +5,7 @@ export const container = style({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  gap: '2rem',
+  gap: '0.8rem',
   padding: '1rem 1.6rem 0 1.6rem',
   position: 'relative',
 });
@@ -67,7 +67,8 @@ export const slideIndicatorActive = style({
 });
 
 export const filterSection = style({
-  paddingRight: '1.6rem',
+  // paddingRight: '1.6rem',
+  marginTop: '1.2rem',
 });
 
 export const filterContainer = style({

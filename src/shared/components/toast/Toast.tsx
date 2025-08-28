@@ -1,0 +1,24 @@
+import type { JSX } from 'react';
+import * as styles from './Toast.css';
+import { TOAST_TYPE, type ToastType } from '@/shared/types/toast';
+
+interface ToastProps {
+  text: string;
+  type: ToastType;
+}
+
+const ICON_MAP: Record<ToastType, JSX.Element> = {
+  [TOAST_TYPE.SUCCESS]: <></>,
+  [TOAST_TYPE.WARNING]: <span>⚠️</span>,
+};
+
+const Toast = ({ text, type }: ToastProps) => {
+  return (
+    <div className={styles.container}>
+      {ICON_MAP[type]}
+      <span className={styles.text}>{text}</span>
+    </div>
+  );
+};
+
+export default Toast;

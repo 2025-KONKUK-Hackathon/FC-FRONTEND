@@ -96,6 +96,8 @@ function PostListPage({
     },
   });
 
+  const navigate = useNavigate();
+
   // 필터링된 게시글 목록
   const filteredPosts = posts.filter(post => {
     const matchesAffiliation =
@@ -132,7 +134,7 @@ function PostListPage({
               commentCount={post.commentCount}
               writerName={post.writerName}
               writerId={post.writerId}
-              onClick={id => console.log(`Student Council Post ${id} clicked`)}
+              onClick={id => navigate(`/posts/detail/${id}`)}
             />
           ))}
         </div>

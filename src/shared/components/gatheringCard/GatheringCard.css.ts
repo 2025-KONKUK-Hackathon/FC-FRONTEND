@@ -42,12 +42,14 @@ export const content = style({
   gap: '0.8rem',
   flex: 1,
   padding: '0.2rem 0',
+  minWidth: 0,
 });
 
 export const headerSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.3rem',
+  minWidth: 0,
 });
 
 export const title = style({
@@ -58,6 +60,8 @@ export const title = style({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   lineHeight: '1.3',
+  width: '100%',
+  minWidth: 0,
 });
 
 export const contentText = style({

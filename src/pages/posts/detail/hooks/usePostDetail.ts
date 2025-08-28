@@ -27,7 +27,7 @@ export const usePostDetail = (postId: string) => {
     queryFn: ({ pageParam = null }: { pageParam: number | null }) =>
       request<PostCommentResponse>({
         method: HTTPMethod.GET,
-        url: `/posts/${postId}/comments?${pageParam ? `cursorId=${pageParam}&` : ''}size=10`,
+        url: `/posts/${postId}/comments?${pageParam ? `cursorId=${pageParam}&` : ''}size=30`,
       }),
     getNextPageParam: lastPage => {
       // 1. 마지막으로 불러온 페이지가 비어있거나, 서버에서 마지막 페이지라고 알려주면 중단

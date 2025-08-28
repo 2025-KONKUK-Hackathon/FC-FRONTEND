@@ -7,10 +7,10 @@ export interface PostsCreateRequest extends Record<string, unknown> {
   title: string;
   content: string;
   imageUrls: string[];
-  part: Part;
-  grade: Grade;
-  topic: Subject;
-  affiliation: AffiliationCategoryKey;
+  part?: Part;
+  grade?: Grade;
+  topic?: Subject;
+  affiliation?: AffiliationCategoryKey;
 }
 
 export interface MediaUrl extends Record<string, unknown> {

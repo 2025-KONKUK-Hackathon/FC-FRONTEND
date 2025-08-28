@@ -151,6 +151,11 @@ export const userStampText = style({
   lineHeight: '1.5',
 });
 
+export const userSavedDataContainer = style({
+  width: "calc(100% - 3.2rem)",
+  margin: "0 1rem",
+})
+
 export const userMenuContainer = style({
   display: 'flex',
   alignItems: 'center',

@@ -111,7 +111,7 @@ export default function User() {
           내가 만든 모임
         </p>
       </div>
-      <div>
+      <div className={styles.userSavedDataContainer}>
         {menu === 'post' ? (
           <div className={styles.userPostContainer}>
             {userScrap?.content && userScrap.content.length > 0 ? (

@@ -5,6 +5,7 @@ import Category from '@shared/components/category/Category';
 import Comment from '@shared/components/comment/Comment';
 import Input from '@shared/components/input/Input';
 import Button from '@shared/components/button/Button';
+import ConfirmModal from '@shared/components/confirmModal/ConfirmModal';
 import {
   Ic_chevron_left_white,
   Ic_trash_white,
@@ -31,7 +32,6 @@ export default function PostDetail() {
   };
 
   const { id } = useParams();
-
 
   const { 
     postDetail,
@@ -72,9 +72,16 @@ export default function PostDetail() {
   const handleDeletePostClick = () => {
     // 게시글 삭제
     if (!isAuthor || !postDetail) return;
-    if (window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
-      deletePostMutation.mutate(id || "", { onSuccess: () => navigator(-1) });
-    }
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    deletePostMutation.mutate(id || "", { onSuccess: () => navigator(-1) });
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
   };
 
   const handleScrollLeft = () => {
@@ -93,6 +100,7 @@ export default function PostDetail() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
   const [commentContent, setCommentContent] = useState<string>('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const checkScrollPosition = useCallback(() => {
     if (imageContainerRef) {
@@ -152,7 +160,7 @@ export default function PostDetail() {
         </div>
 
         <div className={styles.keywordsContainer}>
-          {postDetail && postDetail.grade !== undefined && (
+          {postDetail && postDetail.grade !== undefined && postDetail.grade !== null && GRADE_CATEGORY[postDetail.grade] && (
             <Category
               text={GRADE_CATEGORY[postDetail.grade].text}
               icon={GRADE_CATEGORY[postDetail.grade].icon}
@@ -160,10 +168,10 @@ export default function PostDetail() {
               size="medium"
             />
           )}
-          {postDetail?.affiliation && (
+          {postDetail?.affiliation && AFFILIATION[postDetail.affiliation] && (
             <Category text={AFFILIATION[postDetail.affiliation]} icon="💻" color="Yellow" size="medium" />
           )}
-          {postDetail && postDetail.part !== undefined && (
+          {postDetail && postDetail.part !== undefined && postDetail.part !== null && PART_CATEGORY[postDetail.part] && (
             <Category
               text={PART_CATEGORY[postDetail.part].text}
               icon={PART_CATEGORY[postDetail.part].icon}
@@ -171,7 +179,7 @@ export default function PostDetail() {
               size="medium"
             />
           )}
-          {postDetail && postDetail.topic !== undefined && (
+          {postDetail && postDetail.topic !== undefined && postDetail.topic !== null && SUBJECT_CATEGORY[postDetail.topic] && (
             <Category
               text={SUBJECT_CATEGORY[postDetail.topic].text}
               icon={SUBJECT_CATEGORY[postDetail.topic].icon}
@@ -281,6 +289,15 @@ export default function PostDetail() {
           />
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        title="게시글을 삭제하시겠어요?"
+        confirmText="삭제"
+        cancelText="취소"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
     </div>
   );
 }
