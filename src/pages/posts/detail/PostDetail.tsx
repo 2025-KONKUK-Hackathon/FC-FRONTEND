@@ -33,7 +33,6 @@ export default function PostDetail() {
 
   const { id } = useParams();
 
-
   const { 
     postDetail,
     // commentsData,
@@ -77,12 +76,13 @@ export default function PostDetail() {
   };
 
   const handleConfirmDelete = () => {
-    deletePostMutation.mutate(postId, { onSuccess: () => navigator(-1) });
+    deletePostMutation.mutate(id || "", { onSuccess: () => navigator(-1) });
     setIsDeleteModalOpen(false);
   };
 
   const handleCancelDelete = () => {
     setIsDeleteModalOpen(false);
+  };
 
   const handleScrollLeft = () => {
     if (imageContainerRef) {
