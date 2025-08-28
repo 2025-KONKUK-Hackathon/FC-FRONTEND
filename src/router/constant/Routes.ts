@@ -17,7 +17,5 @@ export const ROUTES = {
   USER: {
     DETAIL: '/user/:id',
   },
-  INFO: {
-    DETAIL: '/info',
-  },
+  INFO: '/info',
 } as const;

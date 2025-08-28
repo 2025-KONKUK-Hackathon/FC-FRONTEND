@@ -21,17 +21,36 @@ export const userInfoContainer = style({
   color: vars.color.grey300,
 });
 export const userInfoImageContainer = style({
-  width: '4rem',
-  height: '4rem',
+  width: '5rem',
+  height: '5rem',
   borderRadius: '50%',
   border: `1px solid ${vars.color.grey500}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 });
+
+export const userInfoTextDetailContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  gap: '0.2rem',
+  fontSize: '1.2rem',
+});
 export const userInfoImage = style({
-  width: '3rem',
-  height: '3rem',
+  width: '3.5rem',
+  height: '3.5rem',
+});
+
+export const userInfoTextDetail = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '0.2rem',
+});
+export const userInfoTextDetailKey = style({
+  fontWeight: 'bold',
 });
 
 export const userInfoTextContainer = style({

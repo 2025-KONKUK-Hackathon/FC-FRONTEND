@@ -80,8 +80,16 @@ export default function User() {
         </div>
         <div className={styles.userInfoTextContainer}>
           <p className={styles.userInfoName}>{userInfo?.name}</p>
-          <p>{userInfo?.phoneNumber}</p>
-          <p>{userInfo?.studentNumber}</p>
+          <div className={styles.userInfoTextDetailContainer}>
+            <div className={styles.userInfoTextDetail}>
+              <span className={styles.userInfoTextDetailKey}>PHONE:</span>
+              <span>{userInfo?.phone}</span>
+            </div>
+            <div className={styles.userInfoTextDetail}>
+              <span className={styles.userInfoTextDetailKey}>STUDENT NUMBER:</span>
+              <span>{userInfo?.studentNumber}</span>
+            </div>
+          </div>
         </div>
       </div>
       <div className={styles.userStampContainer}>
@@ -132,7 +140,7 @@ export default function User() {
                 meetingId={item.meetingId}
                 hostName={item.hostName}
                 meetingName={item.meetingName}
-                content={item.content || "모임에 대한 설명이 없습니다."}
+                content={item.content || '모임에 대한 설명이 없습니다.'}
                 recruitNumber={item.recruitNumber}
                 currentRecruitCount={item.currentRecruitCount}
                 category={item.category as ClassCategoryKey}
