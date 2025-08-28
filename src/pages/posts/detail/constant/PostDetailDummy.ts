@@ -1,4 +1,4 @@
-import type { PostDetailData, PostCommentData } from "../types/postTypes";
+import type { PostDetailData, PostCommentData } from '../types/postTypes';
 
 export const postDetailMock: PostDetailData = {
   writerName: '황규운',
@@ -23,7 +23,8 @@ export const postCommentMock: PostCommentData[] = [
         commentId: 1,
         writerId: 123,
         writerName: '이정연',
-        content: '정말 좋은 동아리네요! 지원하고 싶습니다.',
+        content:
+          '정말 좋은 동아리네요! 지원하고 싶습니다.정말 좋은 동아리네요! 지원하고 싶습니다.정말 좋은 동아리네요! 지원하고 싶습니다.정말 좋은 동아리네요! 지원하고 싶습니다.정말 좋은 동아리네요! 지원하고 싶습니다.정말 좋은 동아리네요! 지원하고 싶습니다.',
         createdAt: '2025-08-26T16:46:47.493Z',
         cursor: 1,
       },
@@ -87,4 +88,4 @@ export const postCommentMock: PostCommentData[] = [
     nextCursor: 6,
     isLast: true,
   },
-]
+];

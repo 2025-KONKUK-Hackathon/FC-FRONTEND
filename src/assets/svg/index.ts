@@ -4,6 +4,7 @@ export { default as Ic_camera } from '@svg/ic_camera.svg?react';
 export { default as Ic_user_solid } from '@svg/ic_user_solid.svg?react';
 export { default as Ic_users_solid } from '@svg/ic_users_solid.svg?react';
 export { default as Ic_chevron_left } from '@svg/ic_chevron_left.svg?react';
+export { default as Ic_chevron_right } from '@svg/ic_chevron_right.svg?react';
 export { default as Ic_chevron_left_white } from '@svg/ic_chevron_left_white.svg?react';
 export { default as Ic_bars } from '@svg/ic_bars.svg?react';
 export { default as Ic_signs_post } from '@svg/ic_signs_post.svg?react';
