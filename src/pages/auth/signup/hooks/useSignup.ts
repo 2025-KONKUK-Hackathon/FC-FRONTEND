@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { request } from '@/api/request';
+import { useNavigate } from 'react-router-dom';
 
 export interface SignupRequest {
   email: string;
@@ -12,6 +13,8 @@ export interface SignupRequest {
 export type SignupResponse = Record<string, never>;
 
 export const useSignup = () => {
+  const navigation = useNavigate();
+
   return useMutation({
     mutationFn: (signupData: SignupRequest): Promise<SignupResponse> =>
       request<SignupResponse>({
@@ -27,6 +30,7 @@ export const useSignup = () => {
       }),
     onSuccess: () => {
       console.info('회원가입 성공');
+      navigation('/login');
     },
     onError: (error) => {
       console.error('회원가입 실패:', error);

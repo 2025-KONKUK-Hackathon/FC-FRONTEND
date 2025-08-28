@@ -1,12 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 import * as styles from './Signup.css';
 import Button from '@shared/components/button/Button';
 import SignupForm from './components/SignupForm';
 import { useSignupForm, type SignupFormData } from './hooks/useSignupForm';
 
 export default function Signup() {
-  const navigation = useNavigate();
-
   const {
     form,
     isEmailSent,
@@ -81,7 +78,6 @@ export default function Signup() {
     const result = await submitSignup(data);
     if (result.success) {
       console.log('회원가입 성공');
-      navigation('/login');
     } else {
       console.error(result.error);
     }
