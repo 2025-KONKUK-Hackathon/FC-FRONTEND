@@ -35,15 +35,6 @@ export default function PostList() {
     return <LoadingSvg />;
   }
 
-  // 임시 디자인
-  if (postListResult?.content.length === 0) {
-    return (
-      <div style={{ marginTop: '10rem', color: 'white' }}>
-        게시물 0개인 상태, 게시물 없을 때 보여줄 UI 구현하기
-      </div>
-    );
-  }
-
   return (
     <PostListPage
       posts={postListResult.content}
@@ -87,6 +78,7 @@ function PostListPage({
     },
   });
 
+
   return (
     <div className={styles.container}>
       <div className={styles.studentCouncilSection}>
@@ -123,6 +115,8 @@ function PostListPage({
           ))}
         </div>
       </div>
+
+      {/* todo: 게시글 없을 시 띄울 기본 UI 컴포넌트 구현 */}
 
       <div className={styles.generalPostsSection}>
         {posts.map(post => (
