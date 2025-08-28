@@ -17,9 +17,9 @@ export default function Info() {
             text="건국대학교 이캠퍼스"
             href="https://ecampus.konkuk.ac.kr/ilos/main/main_form.acl"
           />
-          <Link text="건국대학교 수갈신청" href="https://sugang.konkuk.ac.kr" />
+          <Link text="건국대학교 수강신청" href="https://sugang.konkuk.ac.kr" />
           <Link
-            text="건국대학교 인턴십의무이수제"
+            text="건국대학교 인턴십 의무이수제"
             href="https://www.konkuk.ac.kr/bulletins25/27675/subview.do"
           />
           <Link

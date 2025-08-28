@@ -66,12 +66,12 @@ export const icon = recipe({
   base: {
     width: '2.5rem',
     height: '2.5rem',
-    color: vars.color.grey500,
+    fill: vars.color.grey500,
   },
   variants: {
     isActive: {
       true: {
-        color: vars.color.KU_Darkgreen,
+        fill: vars.color.KU_Darkgreen,
       },
     },
   },
