@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRequestVerification } from '../utils/useRequestVerification';
-import { useEmailVerification } from '../utils/useEmailVerification';
-import { useSignup } from '../utils/useSignup';
+import { useRequestVerification } from './useRequestVerification';
+import { useEmailVerification } from './useEmailVerification';
+import { useSignup } from './useSignup';
 
 export const signupSchema = z.object({
   email: z
