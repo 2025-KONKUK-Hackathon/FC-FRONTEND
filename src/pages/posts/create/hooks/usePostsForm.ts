@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { usePostsCreateMutations } from './usePostsCreateMutation';
 import type { PostsCreateRequest } from '../types/PostsCreate';
 import { useState } from 'react';
+import { removeQueryString } from '@shared/utils/removeQueryString';
 
 export const postsFormSchema = z.object({
   title: z.string().min(1, '제목을 입력해주세요.'),
@@ -51,7 +52,7 @@ export function usePostsForm() {
     };
   };
 
-  const { createPostsMutation, postPresignedUrl } = usePostsCreateMutations();
+  const { createPostsMutation, postPresignedUrl, uploadFiles } = usePostsCreateMutations();
   const requestBody = {
     ...formData,
   } as PostsCreateRequest;
@@ -64,7 +65,11 @@ export function usePostsForm() {
     try {
       const mediaUrl = await postPresignedUrl.mutateAsync(mediaType);
       console.log('mediaUrl', mediaUrl);
-      setValue('imageUrls', mediaUrl.mediaUrl, opts);
+      const cleanedUrls = removeQueryString(mediaUrl.mediaUrl);
+      setValue('imageUrls', cleanedUrls, opts);
+      uploadFiles(mediaUrl.mediaUrl, files);
+      console.log('mediaUrl', mediaUrl);
+      console.log('cleanedUrls', cleanedUrls);
     } catch (error) {
       console.error('Error uploading images:', error);
     }

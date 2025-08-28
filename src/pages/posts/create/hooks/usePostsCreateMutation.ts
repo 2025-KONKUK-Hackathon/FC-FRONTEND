@@ -43,24 +43,38 @@ export const usePostsCreateMutations = () => {
       alert('Presigned URL 생성에 실패했습니다.');
     },
   });
-  const putPresignedUrl = useMutation({
-    mutationFn: (mediaUrl: MediaUrl): Promise<BaseResponse<Record<string, never>>> =>
-      request<BaseResponse<Record<string, never>>>({
-        method: HTTPMethod.PUT,
-        url: '/images/upload',
-        body: mediaUrl,
-      }),
-    onSuccess: () => {
-      console.log('Presigned URL 생성 성공');
-    },
-    onError: () => {
-      alert('Presigned URL 생성에 실패했습니다.');
-    },
-  });
+
+  const uploadFiles = async (presignedUrls: string[], files: File[]) => {
+    console.log(presignedUrls, files);
+    const uploadPromises = presignedUrls.map(async (presignedUrl, index) => {
+      const file = files[index];
+      if (!presignedUrl || !file) return;
+
+      try {
+        const response = await fetch(presignedUrl, {
+          method: 'PUT',
+          body: file,
+          headers: {
+            'Content-Type': file.type,
+          },
+        });
+
+        if (response.ok) {
+          console.log(`${file.type} 파일 ${index + 1} 업로드 완료`);
+        } else {
+          console.error(`${file.type} 파일 ${index + 1} 업로드 실패:`, response.status);
+        }
+      } catch (error) {
+        console.error(`${file.type} 파일 ${index + 1} 업로드 에러:`, error);
+      }
+    });
+
+    await Promise.all(uploadPromises);
+  };
 
   return {
     createPostsMutation,
     postPresignedUrl,
-    putPresignedUrl,
+    uploadFiles,
   };
 };
