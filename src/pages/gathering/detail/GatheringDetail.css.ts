@@ -59,6 +59,7 @@ export const gatheringDetailStudyLeader = style({
   alignItems: 'center',
   gap: '0.5rem',
   color: vars.color.grey200,
+  fontSize: '1.2rem',
 });
 
 export const gatheringDetailTitle = style({
