@@ -10,7 +10,7 @@ import ImageBtn from '@shared/components/imageBtn/ImageBtn';
 import Button from '@shared/components/button/Button';
 
 export default function CreateGathering() {
-  const { formData, handleStringChange, handleDropdownChange, errors, onSubmit, handleSubmit } = useGatheringForm();
+  const { formData, handleStringChange, handleDropdownChange, errors, onSubmit, handleSubmit, preview, handleImageUrlsChange } = useGatheringForm();
   return (
       <div className={styles.container}>
         <Header showBackButton={true} />
@@ -56,7 +56,7 @@ export default function CreateGathering() {
           </div>
         </FormSection>
           <FormSection title="사진을 올려주세요" description="사진 업로드는 선택입니다" >
-            <ImageBtn />
+            <ImageBtn onChange={handleImageUrlsChange} images={preview}/>
           </FormSection>
           <div className={styles.buttonContainer}>
           <Button text="모임 만들기" onClick={handleSubmit(onSubmit)} />
