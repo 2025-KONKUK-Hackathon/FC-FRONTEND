@@ -52,8 +52,8 @@ export const usePostMutations = (postId: number | undefined) => {
     mutationFn: (postId: number) =>
       request<BaseResponse<object>>({
         method: HTTPMethod.POST,
-        url: '/posts/scrap',
-        body: {
+        url: '/posts/scraps',
+        query: {
           postId,
         },
       }),

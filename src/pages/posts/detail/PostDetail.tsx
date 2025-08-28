@@ -20,6 +20,8 @@ import { SUBJECT_CATEGORY } from '@shared/constant/subject';
 import { AFFILIATION } from './constant/PostKeyword';
 import { usePostDetail } from './hooks/usePostDetail';
 import { usePostMutations } from './hooks/usePostMutations';
+import { useIntersectionObserver } from '@shared/hooks/useIntersectionObserver';
+import LoadingSvg from '@shared/components/loading/Loading';
 
 export default function PostDetail() {
   const navigator = useNavigate();
@@ -30,7 +32,15 @@ export default function PostDetail() {
 
   const { id } = useParams();
   const postId = Number(id);
-  
+
+  const { 
+    postDetail,
+    // commentsData,
+    commentsResult,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage
+  } = usePostDetail(postId);
   const {
     addCommentMutation,
     deleteCommentMutation,
@@ -73,8 +83,6 @@ export default function PostDetail() {
     }
   };
 
-  const { postDetail, commentsData } = usePostDetail(Number(id));
-  const [scrapped, setScrapped] = useState<boolean>(false);
   const [imageContainerRef, setImageContainerRef] = useState<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -101,6 +109,17 @@ export default function PostDetail() {
     }
   }, [imageContainerRef, checkScrollPosition]);
 
+  // 무한스크롤 trigger
+  const { targetRef } = useIntersectionObserver({
+    threshold: 0.1,
+    rootMargin: '100px',
+    onIntersect: () => {
+      if (hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    },
+  });
+
   return (
     <div className={styles.postDetailWrapper}>
       <div className={styles.postHeader}>
@@ -112,8 +131,8 @@ export default function PostDetail() {
           {isAuthor ? (
             <Ic_trash_white className={styles.headerButton} onClick={handleDeletePostClick} />
           ) : (
-            <button type="button" onClick={handleScrapClick}>
-              {scrapped 
+            <button type="button" onClick={handleScrapClick} disabled={postDetail?.isScrapped}>
+              {postDetail?.isScrapped
                 ? <Ic_bookmark_solid className={styles.headerButton} />
                 : <Ic_bookmark className={styles.headerButton} />
               }
@@ -209,24 +228,34 @@ export default function PostDetail() {
 
       <div className={styles.commentsWrapper}>
         <span className={styles.commentsCount}>댓글 {postDetail?.commentCount || 0}개</span>
-
         <div className={styles.commentList}>
-          {commentsData?.content?.map((comment) => (
+          {commentsResult?.content.map((commentItem) => (
             <Comment
-              key={comment.commentId}
+              key={commentItem.commentId}
               currentUserId={currentUserId || 0}
               comment={{
-                id: comment.commentId,
-                author: {
-                  userName: comment.writerName,
-                  userId: comment.writerId,
-                },
-                content: comment.content,
-                createdAt: new Date(comment.createdAt),
-              }}
-              onDelete={handleCommentDeleteClick}
-            />
-          ))}
+                  id: commentItem.commentId,
+                  author: {
+                    userName: commentItem.writerName,
+                    userId: commentItem.writerId,
+                  },
+                  content: commentItem.content,
+                  createdAt: new Date(commentItem.createdAt),
+                }}
+                onDelete={handleCommentDeleteClick}
+              />
+            ))}
+          
+          {/* 무한스크롤 트리거 */}
+          <div ref={targetRef} style={{ height: '20px' }} />
+
+          {/* 로딩 인디케이터 */}
+          {/* todo: 무한스크롤용 로딩 인디케이터 추가하기 */}
+          {isFetchingNextPage && (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+              <LoadingSvg />
+            </div>
+          )}
         </div>
 
         <div className={styles.commentInputWrapper}>

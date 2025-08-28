@@ -12,19 +12,21 @@ export interface PostDetailResponse {
   affiliation: keyof typeof AFFILIATION;
   part: keyof typeof PART;
   topic: keyof typeof TOPIC;
+  isAnnouncement: boolean;
+  isScrapped: boolean;
 }
 
-interface CommnetItem {
-    commentId: number;
-    writerId: number;
-    writerName: string;
-    content: string;
-    createdAt: string;
-    cursor: number;
+interface CommentItem {
+  commentId: number;
+  writerId: number;
+  writerName: string;
+  content: string;
+  createdAt: string;
+  cursor: number;
 }
 
 export interface PostCommentResponse {
-  content: CommnetItem[],
+  content: CommentItem[],
   nextCursor: number;
   isLast: boolean;
 }

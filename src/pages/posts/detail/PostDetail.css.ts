@@ -47,6 +47,7 @@ export const postTitle = style({
   margin: '1rem 0',
   fontSize: '2rem',
   fontWeight: 'bold',
+  overflow: 'hidden',
 });
 
 export const postMeta = style({
