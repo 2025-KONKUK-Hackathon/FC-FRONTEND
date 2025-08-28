@@ -1,29 +1,29 @@
-import { style } from "@vanilla-extract/css";
-import { vars } from "@styles/theme.css";
-import { recipe } from "@vanilla-extract/recipes";
+import { style } from '@vanilla-extract/css';
+import { vars } from '@styles/theme.css';
+import { recipe } from '@vanilla-extract/recipes';
 
 export const container = style({
-  width: "100%",
-  maxWidth: "430px",
-  display: "flex",
-  height: "6rem",
+  width: '100%',
+  maxWidth: '430px',
+  display: 'flex',
+  height: '6rem',
   backgroundColor: vars.color.grey900,
-  position: "fixed",
+  position: 'fixed',
   bottom: 0,
   zIndex: 1000,
 });
 
 export const navItem = recipe({
   base: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
-    flexDirection: "column",
-    gap: "0.6rem",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "1.4rem",
-    textDecoration: "none",
-    transition: "color 0.3s ease",
+    flexDirection: 'column',
+    gap: '0.6rem',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1.4rem',
+    textDecoration: 'none',
+    transition: 'color 0.3s ease',
   },
   variants: {
     isActive: {
@@ -42,15 +42,15 @@ export const navItem = recipe({
 
 export const navText = recipe({
   base: {
-    fontSize: "1.2rem",
-    fontWeight: "500",
-    transition: "color 0.2s ease",
+    fontSize: '1.2rem',
+    fontWeight: '500',
+    transition: 'color 0.2s ease',
   },
   variants: {
     isActive: {
       true: {
         color: vars.color.KU_Darkgreen,
-        fontWeight: "600",
+        fontWeight: '600',
       },
       false: {
         color: vars.color.grey400,
@@ -64,8 +64,8 @@ export const navText = recipe({
 
 export const icon = recipe({
   base: {
-    width: "4rem",
-    height: "4rem",
+    width: '2.5rem',
+    height: '2.5rem',
     color: vars.color.grey500,
   },
   variants: {

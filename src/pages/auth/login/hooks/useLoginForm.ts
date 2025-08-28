@@ -16,7 +16,7 @@ export const loginSchema = z.object({
   
   password: z
     .string()
-    .min(8, '비밀번호는 최소 8자 이상이어야 합니다')
+    .min(3, '비밀번호는 최소 8자 이상이어야 합니다')
     .max(20, '비밀번호는 최대 20자까지 가능합니다'),
 });
 

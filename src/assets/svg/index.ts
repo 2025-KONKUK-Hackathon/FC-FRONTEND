@@ -16,3 +16,4 @@ export { default as Ic_personGrey300 } from '@svg/ic_person_grey300.svg?react';
 export { default as IC_pencil_solid_full } from '@svg/ic_pencil_solid_full.svg?react';
 export { default as Ic_bookmark } from '@svg/ic_bookmark.svg?react';
 export { default as Ic_bookmark_solid } from '@svg/ic_bookmark_solid.svg?react';
+export { default as Ic_logo } from '@svg/ic_logo.svg?react';

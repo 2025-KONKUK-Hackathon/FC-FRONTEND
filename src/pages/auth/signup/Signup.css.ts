@@ -14,5 +14,4 @@ export const signupWrapper = style({
 
 export const buttonContainer = style({
   width: '100%',
-  marginTop: '3.2rem',
 });
