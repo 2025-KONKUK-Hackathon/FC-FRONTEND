@@ -76,7 +76,6 @@ function PostListPage({
   const [topicFilter, setTopicFilter] = useState('ALL');
   const [affiliationFilter, setAffiliationFilter] = useState('ALL');
 
-
   const navigator = useNavigate();
 
   const totalSlides = studentCouncilPostsDummy.length;
@@ -97,6 +96,15 @@ function PostListPage({
     },
   });
 
+  // 필터링된 게시글 목록
+  const filteredPosts = posts.filter(post => {
+    const matchesAffiliation = affiliationFilter === 'ALL' || post.affiliation === affiliationFilter;
+    const matchesPart = partFilter === 'ALL' || post.part === partFilter;
+    const matchesGrade = gradeFilter === 'ALL' || post.grade === gradeFilter;
+    const matchesTopic = topicFilter === 'ALL' || post.topic === topicFilter;
+    
+    return matchesAffiliation && matchesPart && matchesGrade && matchesTopic;
+  });
 
   return (
     <div className={styles.container}>
@@ -180,7 +188,7 @@ function PostListPage({
       {/* todo: 게시글 없을 시 띄울 기본 UI 컴포넌트 구현 */}
 
       <div className={styles.generalPostsSection}>
-        {posts.map(post => (
+        {filteredPosts.map(post => (
           <PostCard
             key={post.postId}
             postId={post.postId}
