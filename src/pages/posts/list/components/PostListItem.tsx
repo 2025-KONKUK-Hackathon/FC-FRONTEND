@@ -54,8 +54,10 @@ export default function PostListItem({
           {categories.map((category, index) => (
             <Category
               key={`${category.text}-${index}`}
+              // todo: 드롭다운 PR 머지 후 text를 key-value값 가져와서 변환
               text={category.text}
               icon={category.icon}
+              // todo: 카테고리 별 적절한 색상값 매칭
               color={category.color}
               size="medium"
             />

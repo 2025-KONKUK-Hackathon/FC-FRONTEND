@@ -3,7 +3,7 @@ import { request } from '@api/request';
 import { HTTPMethod } from '@api/request';
 import { type PostListData } from '../types/postList';
 
-export const usePostList = (size = 4) => {
+export const usePostList = (size = 5) => {
   const {
     data,
     isPending: isPostListPending,
