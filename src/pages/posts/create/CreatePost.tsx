@@ -16,7 +16,6 @@ export default function CreatePost() {
   return (
     <div className={styles.createPostContainer}>
       <Header showBackButton={true} showLogo={false} />
-
       <div className={styles.scrollableContent}>
         <div className={styles.titleContainer}>
           <p className={styles.title}>게시글 작성</p>

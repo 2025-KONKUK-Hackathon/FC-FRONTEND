@@ -7,22 +7,18 @@ import TextArea from "@shared/components/textArea/TextArea";
 import { CLASS_CATEGORY_OPTIONS } from "@shared/constant/class";
 import DropDown from "@shared/components/dropDown/DropDown";
 import ImageBtn from "@shared/components/imageBtn/ImageBtn";
-import { Ic_user_solid } from "@svg/index";
 import Button from "@shared/components/button/Button";
 
 export default function CreateGathering() {
   const { formData, handleStringChange, handleDropdownChange, errors } = useGatheringForm();
   return (
-    <>
-      <Header showBackButton={true} />
       <div className={styles.container}>
-        <div>
+        <Header showBackButton={true} />
+        <div className={styles.scrollableContent}>
           <div className={styles.titleContainer}>
-            <Ic_user_solid className={styles.icon} />
             <h1 className={styles.title}>모임 만들기</h1>
+            <h2 className={styles.description}>모임을 만들어보세요</h2>
           </div>
-          <h2 className={styles.description}>모임을 만들어보세요</h2>
-        </div>
         <FormSection title="모임 이름" description="모임의 이름을 입력해 주세요." errorMessage={errors.title?.message} >
           <Input
             value={formData.title ?? ""}
@@ -59,11 +55,14 @@ export default function CreateGathering() {
             <Input type="date" value={formData.activityEnd ?? ""} onChange={handleStringChange("activityEnd")} />
           </div>
         </FormSection>
-        <FormSection title="사진을 올려주세요" description="사진 업로드는 선택입니다" >
-          <ImageBtn />
-        </FormSection>
-        <Button text="모임 만들기" />
+          <FormSection title="사진을 올려주세요" description="사진 업로드는 선택입니다" >
+            <ImageBtn />
+          </FormSection>
+          <div className={styles.buttonContainer}>
+          <Button text="모임 만들기" />
+          </div>
+        </div>
+
       </div>
-    </>
   );
 }
