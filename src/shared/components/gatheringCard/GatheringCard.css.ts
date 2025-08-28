@@ -3,9 +3,10 @@ import { vars } from '@shared/styles/theme.css';
 
 export const container = style({
   display: 'flex',
-  gap: '1rem',
+  gap: '1.3rem',
 
-  padding: '1rem 0',
+  padding: '1rem 0.5rem 1rem 0.5rem',
+  height: '11.3rem',
   border: `1px solid ${vars.color.grey700}`,
   borderRadius: '0.8rem',
 
@@ -28,59 +29,104 @@ export const image = style({
   backgroundColor: vars.color.grey900,
 });
 
+export const temp = style({
+  width: '100%',
+  height: '100%',
+  borderRadius: '0.8rem',
+  backgroundColor: 'white',
+});
+
 export const content = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  gap: '0.8rem',
+  flex: 1,
+  padding: '0.2rem 0',
+});
+
+export const headerSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.3rem',
 });
 
 export const title = style({
-  width: '22rem',
-
-  fontSize: '1.5rem',
+  fontSize: '1.6rem',
+  fontWeight: '600',
   color: vars.color.White,
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  lineHeight: '1.3',
 });
 
-export const description = style({
-  width: '22rem',
-
-  fontSize: '1rem',
+export const contentText = style({
+  fontSize: '1.1rem',
   color: vars.color.grey300,
-  whiteSpace: 'nowrap',
+  lineHeight: '1.4',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  // marginTop: '0.4rem',
+  marginBottom: 'auto',
+  alignSelf: 'flex-start',
 });
 
-export const row = style({
+export const infoSection = style({
   display: 'flex',
-  justifyContent: 'flex-start',
+  flexDirection: 'column',
+  gap: '0.6rem',
+});
+
+export const bottomRow = style({
+  display: 'flex',
+  // justifyContent: 'space-between',
   alignItems: 'center',
-  gap: '3rem',
+  gap: '1rem',
+  marginTop: 'auto',
+});
+
+export const leftInfo = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '1rem',
+});
+
+export const categoryText = style({
+  fontSize: '1rem',
+  color: vars.color.grey400,
+  fontWeight: '500',
 });
 
 export const countContainer = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '0.5rem',
+  gap: '0.4rem',
+  backgroundColor: vars.color.grey700,
+  padding: '0.3rem 0.6rem',
+  borderRadius: '0.4rem',
 });
 
 export const count = style({
-  color: vars.color.grey300,
-  fontSize: '1.3rem'
+  color: vars.color.White,
+  fontSize: '1.1rem',
+  fontWeight: '500',
 });
 
 export const icon = style({
-  width: '1.3rem',
-  height: '1.3rem',
+  width: '1.2rem',
+  height: '1.2rem',
 });
 
 export const footer = style({
-  color: vars.color.grey300,
-  fontSize: '0.875rem',
+  color: vars.color.grey400,
+  fontSize: '1.2rem',
+  fontWeight: '500',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  marginTop: '0.2rem',
 });

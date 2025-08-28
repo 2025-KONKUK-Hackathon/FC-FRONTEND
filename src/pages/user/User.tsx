@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import LoadingSvg from '@shared/components/loading/Loading';
 import GatheringCard from '@shared/components/gatheringCard/GatheringCard';
 import PostCard from '@shared/components/postCard/PostCard';
+import type { ClassCategoryKey } from '@shared/constant/class';
 
 export default function User() {
   const navigate = useNavigate();
@@ -128,9 +129,10 @@ export default function User() {
                 meetingId={item.meetingId}
                 hostName={item.hostName}
                 meetingName={item.meetingName}
+                content={item.content || "모임에 대한 설명이 없습니다."}
                 recruitNumber={item.recruitNumber}
                 currentRecruitCount={item.currentRecruitCount}
-                category={item.category}
+                category={item.category as ClassCategoryKey}
                 status={item.status}
                 imageUrl={item.imageUrl}
               />

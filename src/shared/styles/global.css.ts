@@ -22,11 +22,26 @@ globalStyle('#root', {
   background: vars.color.grey800,
 });
 
-globalStyle("main", {
-  minHeight: "100vh",
-  maxWidth: "430px",
-  width: "100%",
-  margin: "0 auto",
+globalStyle('main', {
+  minHeight: '100vh',
+  maxWidth: '430px',
+  width: '100%',
+  margin: '0 auto',
   flexGrow: 1,
   background: vars.color.grey900,
+});
+
+globalStyle('@keyframes sparkle', {
+  '0%': {
+    transform: 'scale(1) rotate(0deg)',
+    opacity: '0.7',
+  },
+  '50%': {
+    transform: 'scale(1.2) rotate(180deg)',
+    opacity: '1',
+  },
+  '100%': {
+    transform: 'scale(1) rotate(0deg)',
+    opacity: '0.7',
+  },
 });
