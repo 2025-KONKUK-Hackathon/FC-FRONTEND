@@ -15,7 +15,6 @@ export const dropdownTrigger = recipe({
     width: '100%',
     border: `2px solid ${vars.color.grey700}`,
     borderRadius: '8px',
-    backgroundColor: vars.color.grey800,
     color: vars.color.White,
     cursor: 'pointer',
     transition: 'all 0.2s ease',
@@ -23,7 +22,7 @@ export const dropdownTrigger = recipe({
       backgroundColor: vars.color.grey600,
       color: vars.color.grey400,
       cursor: 'not-allowed',
-    }
+    },
   },
   variants: {
     size: {
@@ -38,16 +37,16 @@ export const dropdownTrigger = recipe({
       large: {
         padding: '1.6rem 2rem',
         fontSize: '1.6rem',
-      }
+      },
     },
     isSelected: {
       true: {
-        backgroundColor: vars.color.KU_Darkgreen,
-        borderColor: vars.color.KU_Darkgreen,
+        borderColor: '#059212',
+        color: '#059212',
       },
-      false: {}
-    }
-  }
+      false: {},
+    },
+  },
 });
 
 export const toggleIcon = style({
@@ -94,9 +93,9 @@ export const dropdownMenu = recipe({
         visibility: 'visible',
         transform: 'translateY(0)',
       },
-      false: {}
-    }
-  }
+      false: {},
+    },
+  },
 });
 
 export const dropdownOption = recipe({
@@ -123,8 +122,8 @@ export const dropdownOption = recipe({
     selectors: {
       '&:disabled:hover': {
         backgroundColor: 'transparent',
-      }
-    }
+      },
+    },
   },
   variants: {
     size: {
@@ -140,6 +139,6 @@ export const dropdownOption = recipe({
         padding: '1.6rem 2rem',
         fontSize: '1.6rem',
       },
-    }
+    },
   },
 });

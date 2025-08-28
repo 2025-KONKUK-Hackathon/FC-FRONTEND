@@ -1,7 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
-import * as styles from "@shared/components/Footer/Footer.css";
-import { ROUTES } from "@router/constant/Routes";
-import { Ic_signs_post, Ic_users_solid, Ic_user_solid } from "@svg/index";
+import { Link, useLocation } from 'react-router-dom';
+import * as styles from '@shared/components/Footer/Footer.css';
+import { ROUTES } from '@router/constant/Routes';
+import { Ic_signs_post, Ic_users_solid, Ic_user_solid } from '@svg/index';
 
 const Footer = () => {
   const location = useLocation();
@@ -14,7 +14,7 @@ const Footer = () => {
           isActive: location.pathname === ROUTES.HOME,
         })}
       >
-        <Ic_signs_post className={styles.icon} />
+        <Ic_signs_post className={styles.icon({ isActive: location.pathname === ROUTES.HOME })} />
         <span
           className={styles.navText({
             isActive: location.pathname === ROUTES.HOME,
@@ -29,7 +29,9 @@ const Footer = () => {
           isActive: location.pathname === ROUTES.GATHERING.LIST,
         })}
       >
-        <Ic_users_solid className={styles.icon} />
+        <Ic_users_solid
+          className={styles.icon({ isActive: location.pathname === ROUTES.GATHERING.LIST })}
+        />
         <span
           className={styles.navText({
             isActive: location.pathname === ROUTES.GATHERING.LIST,
@@ -44,7 +46,9 @@ const Footer = () => {
           isActive: location.pathname === ROUTES.USER.DETAIL,
         })}
       >
-        <Ic_user_solid className={styles.icon} />
+        <Ic_user_solid
+          className={styles.icon({ isActive: location.pathname === ROUTES.USER.DETAIL })}
+        />
         <span
           className={styles.navText({
             isActive: location.pathname === ROUTES.USER.DETAIL,
