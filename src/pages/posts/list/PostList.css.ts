@@ -64,6 +64,22 @@ export const slideIndicatorActive = style({
   opacity: 1,
 });
 
+export const filterSection = style({
+  paddingRight: "1.6rem",
+});
+
+export const filterContainer = style({
+  display: "flex",
+  gap: "1rem",
+  paddingBottom: "0.5rem",
+  // todo: 카테고리 추가 시 가로 스크롤 지원
+});
+
+export const filterDropdownWrapper = style({
+  flex: "1",
+  minWidth: "0", // flex item이 텍스트 길이보다 작아질 수 있도록
+});
+
 export const generalPostsSection = style({
   display: "flex",
   flexDirection: "column",

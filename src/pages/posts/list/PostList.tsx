@@ -1,18 +1,31 @@
+import PostListItem from './components/PostListItem';
+import StudentCouncilListItem from './components/StudentCouncilListItem';
 import CreatePostButton from "@shared/components/button/createPost/CreatePostButton";
-import PostListItem from "./components/PostListItem";
-import StudentCouncilListItem from "./components/StudentCouncilListItem";
-import { generalPostsDummy } from "./constant/GeneralPostsDummy";
-import { studentCouncilPostsDummy } from "./constant/StudentCouncilPostsDummy";
-import * as styles from "./PostList.css";
-import { useState, useRef, useEffect } from "react";
+import DropDown from '@shared/components/dropDown/DropDown';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import * as styles from './PostList.css';
+import {
+  PART_FILTER_OPTIONS,
+  GRADE_FILTER_OPTIONS,
+  TOPIC_FILTER_OPTIONS,
+  AFFILIATION_FILTER_OPTIONS,
+} from './constant/FilterOptions';
 import { ROUTES } from "@router/constant/Routes";
+import { generalPostsDummy } from './constant/GeneralPostsDummy';
+import { studentCouncilPostsDummy } from './constant/StudentCouncilPostsDummy';
 
 export default function PostList() {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // 필터 상태
+  const [partFilter, setPartFilter] = useState('ALL');
+  const [gradeFilter, setGradeFilter] = useState('ALL');
+  const [topicFilter, setTopicFilter] = useState('ALL');
+  const [affiliationFilter, setAffiliationFilter] = useState('ALL');
 
   const totalSlides = studentCouncilPostsDummy.length;
 
@@ -24,7 +37,7 @@ export default function PostList() {
 
       containerRef.current.scrollTo({
         left: scrollAmount,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -43,19 +56,61 @@ export default function PostList() {
       setCurrentSlide(Math.max(0, Math.min(currentIndex, totalSlides - 1)));
     };
 
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
   }, [totalSlides]);
 
   return (
     <div className={styles.container}>
+      {/* 필터 섹션 */}
+      <div className={styles.filterSection}>
+        <div className={styles.filterContainer}>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={AFFILIATION_FILTER_OPTIONS}
+              selectedValue={affiliationFilter}
+              setSelectedValue={setAffiliationFilter}
+              placeholder="소속"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={PART_FILTER_OPTIONS}
+              selectedValue={partFilter}
+              setSelectedValue={setPartFilter}
+              placeholder="파트"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={GRADE_FILTER_OPTIONS}
+              selectedValue={gradeFilter}
+              setSelectedValue={setGradeFilter}
+              placeholder="학년"
+              size="small"
+            />
+          </div>
+          <div className={styles.filterDropdownWrapper}>
+            <DropDown
+              options={TOPIC_FILTER_OPTIONS}
+              selectedValue={topicFilter}
+              setSelectedValue={setTopicFilter}
+              placeholder="주제"
+              size="small"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className={styles.studentCouncilSection}>
         <div className={styles.sectionTitle}>
           <span>📢</span>
           <span>공지사항</span>
         </div>
         <div className={styles.studentCouncilContainer} ref={containerRef}>
-          {studentCouncilPostsDummy.map((post) => (
+          {studentCouncilPostsDummy.map(post => (
             <StudentCouncilListItem
               key={post.id}
               id={post.id}
@@ -66,9 +121,7 @@ export default function PostList() {
               createdAt={post.createdAt}
               commentCount={post.commentCount}
               authorName={post.authorName}
-              onClick={(id) =>
-                console.log(`Student Council Post ${id} clicked`)
-              }
+              onClick={id => console.log(`Student Council Post ${id} clicked`)}
             />
           ))}
         </div>
@@ -78,7 +131,7 @@ export default function PostList() {
             <button
               key={index}
               className={`${styles.slideIndicator} ${
-                index === currentSlide ? styles.slideIndicatorActive : ""
+                index === currentSlide ? styles.slideIndicatorActive : ''
               }`}
               onClick={() => handleIndicatorClick(index)}
             />
@@ -87,7 +140,7 @@ export default function PostList() {
       </div>
 
       <div className={styles.generalPostsSection}>
-        {generalPostsDummy.map((post) => (
+        {generalPostsDummy.map(post => (
           <PostListItem
             key={post.id}
             id={post.id}
@@ -98,7 +151,7 @@ export default function PostList() {
             createdAt={post.createdAt}
             commentCount={post.commentCount}
             authorName={post.authorName}
-            onClick={(id) => navigator(`/posts/detail/${id}`)}
+            onClick={(id) => navigate(`/posts/detail/${id}`)}
           />
         ))}
       </div>

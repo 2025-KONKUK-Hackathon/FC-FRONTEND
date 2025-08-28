@@ -29,6 +29,7 @@ export default function DropDown({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const selectedOption = options.find(option => option.value === selectedValue);
+  const isSelected = selectedOption && selectedValue !== 'ALL';
 
   // 외부 클릭 감지
   const handleClickOutside = useCallback((event: MouseEvent) => {
@@ -71,14 +72,14 @@ export default function DropDown({
     <div className={styles.dropdownContainer} ref={containerRef}>
       <button
         type='button'
-        className={styles.dropdownTrigger({ size })}
+        className={styles.dropdownTrigger({ size, isSelected: !!isSelected })}
         onClick={handleToggle}
         disabled={disabled}
       >
-        <div className={selectedOption ? '' : styles.placeholder}>
-          {selectedOption?.label || placeholder}
+        <div className={`${styles.dropdownText} ${selectedOption && selectedValue !== 'ALL' ? '' : styles.placeholder}`}>
+          {(selectedOption && selectedValue !== 'ALL') ? selectedOption.label : placeholder}
         </div>
-        <div>
+        <div className={styles.toggleIcon}>
           {/* 아이콘 추가 필요 */}
           {isOpen ? '▲' : '▼'}
         </div>
