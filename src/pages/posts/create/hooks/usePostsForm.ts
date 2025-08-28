@@ -10,10 +10,10 @@ export const postsFormSchema = z.object({
   title: z.string().min(1, '제목을 입력해주세요.'),
   content: z.string().min(1, '설명을 입력해주세요.'),
   imageUrls: z.array(z.string().min(1, '이미지를 입력해주세요.')),
-  grade: z.string().min(1, '학년을 선택해주세요.'),
-  topic: z.string().min(1, '과목을 선택해주세요.'),
-  part: z.string().min(1, '파트를 선택해주세요.'),
-  affiliation: z.string().min(1, '소속을 선택해주세요.'),
+  grade: z.string().optional(),
+  topic: z.string().optional(),
+  part: z.string().optional(),
+  affiliation: z.string().optional(),
 });
 
 export type PostsFormValues = z.infer<typeof postsFormSchema>;

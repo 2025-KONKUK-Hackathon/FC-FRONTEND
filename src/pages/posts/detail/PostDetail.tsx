@@ -161,7 +161,7 @@ export default function PostDetail() {
         </div>
 
         <div className={styles.keywordsContainer}>
-          {postDetail && postDetail.grade !== undefined && (
+          {postDetail && postDetail.grade !== undefined && postDetail.grade !== null && GRADE_CATEGORY[postDetail.grade] && (
             <Category
               text={GRADE_CATEGORY[postDetail.grade].text}
               icon={GRADE_CATEGORY[postDetail.grade].icon}
@@ -169,10 +169,10 @@ export default function PostDetail() {
               size="medium"
             />
           )}
-          {postDetail?.affiliation && (
+          {postDetail?.affiliation && AFFILIATION[postDetail.affiliation] && (
             <Category text={AFFILIATION[postDetail.affiliation]} icon="💻" color="Yellow" size="medium" />
           )}
-          {postDetail && postDetail.part !== undefined && (
+          {postDetail && postDetail.part !== undefined && postDetail.part !== null && PART_CATEGORY[postDetail.part] && (
             <Category
               text={PART_CATEGORY[postDetail.part].text}
               icon={PART_CATEGORY[postDetail.part].icon}
@@ -180,7 +180,7 @@ export default function PostDetail() {
               size="medium"
             />
           )}
-          {postDetail && postDetail.topic !== undefined && (
+          {postDetail && postDetail.topic !== undefined && postDetail.topic !== null && SUBJECT_CATEGORY[postDetail.topic] && (
             <Category
               text={SUBJECT_CATEGORY[postDetail.topic].text}
               icon={SUBJECT_CATEGORY[postDetail.topic].icon}

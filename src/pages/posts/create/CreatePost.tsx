@@ -36,28 +36,28 @@ export default function CreatePost() {
             placeholder="게시물의 내용을 입력하세요."
           />
         </FormSection>
-        <FormSection title="학년을 선택해주세요" errorMessage={errors.grade?.message}>
+        <FormSection title="학년 (선택사항)" errorMessage={errors.grade?.message}>
           <DropDown
             options={GRADE_CATEGORY_OPTIONS}
             selectedValue={formData.grade ?? ''}
             setSelectedValue={handleDropdownChange('grade')}
           />
         </FormSection>
-        <FormSection title="주제를 선택해주세요" errorMessage={errors.topic?.message}>
+        <FormSection title="주제 (선택사항)" errorMessage={errors.topic?.message}>
           <DropDown
             options={SUBJECT_CATEGORY_OPTIONS}
             selectedValue={formData.topic ?? ''}
             setSelectedValue={handleDropdownChange('topic')}
           />
         </FormSection>
-        <FormSection title="파트를 선택해주세요" errorMessage={errors.part?.message}>
+        <FormSection title="파트 (선택사항)" errorMessage={errors.part?.message}>
           <DropDown
             options={PART_CATEGORY_OPTIONS}
             selectedValue={formData.part ?? ''}
             setSelectedValue={handleDropdownChange('part')}
           />
         </FormSection>
-        <FormSection title="소속을 선택해주세요" errorMessage={errors.affiliation?.message}>
+        <FormSection title="소속 (선택사항)" errorMessage={errors.affiliation?.message}>
           <DropDown
             options={AFFILIATION_CATEGORY_OPTIONS}
             selectedValue={formData.affiliation ?? ''}
