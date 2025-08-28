@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useGatherCreateMutations } from './useGatherCreateMutations';
 import type { GatherCreateRequest } from '../types/GatherCreate';
+import { useState } from 'react';
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -89,7 +90,7 @@ export function useGatheringForm() {
     },
     mode: 'onChange',
   });
-
+  const [preview, setPreview] = useState<string[]>([]);
   const formData = watch();
   const opts = { shouldValidate: true, shouldDirty: true } as const;
   const handleStringChange = (field: keyof GatheringFormValues) => {
@@ -102,11 +103,26 @@ export function useGatheringForm() {
       setValue(field, value, opts);
     };
   };
-  const { createGatheringMutation } = useGatherCreateMutations();
+  const { createGatheringMutation, postPresignedUrl } = useGatherCreateMutations();
   const requestBody = {
     ...formData,
     recruitNumber: Number(formData.recruitNumber),
   } as GatherCreateRequest;
+
+  const handleImageUrlsChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files ? Array.from(e.target.files) : [];
+    const mediaType = files.map(f => f.type);
+    const urls = files.map(f => URL.createObjectURL(f));
+    setPreview(urls);
+    try {
+      const mediaUrl = await postPresignedUrl.mutateAsync(mediaType);
+      console.log('mediaUrl', mediaUrl);
+      setValue('imageUrls', mediaUrl.mediaUrl, opts);
+    } catch (error) {
+      console.error('Error uploading images:', error);
+    }
+  };
+
   const onSubmit = () => {
     console.log('requestBody : ', requestBody);
     createGatheringMutation.mutate(requestBody);
@@ -119,5 +135,7 @@ export function useGatheringForm() {
     handleSubmit,
     errors,
     onSubmit,
+    preview,
+    handleImageUrlsChange,
   };
 }
