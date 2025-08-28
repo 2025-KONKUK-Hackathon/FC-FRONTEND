@@ -1,26 +1,42 @@
 import { Ic_user_solid } from '@svg/index';
-import { userProfileMockup } from './mockup';
 import { useState } from 'react';
 import * as styles from './User.css';
 import { STAMP } from './constant/stamp';
+import { useGetUserInfo, useGetUserMeeting, useGetUserScrap } from './hooks/useGetUser';
+import { useNavigate } from 'react-router-dom';
+import LoadingSvg from '@shared/components/loading/Loading';
+import GatheringCard from '@shared/components/gatheringCard/GatheringCard';
+import PostCard from '@shared/components/postCard/PostCard';
 
 export default function User() {
+  const navigate = useNavigate();
   //게시물 스크랩, 내가 만든 모임
   const [menu, setMenu] = useState<'post' | 'gathering'>('post');
+  const { userScrap, isUserScrapPending, userScrapError } = useGetUserScrap();
+  const { userMeeting, isUserMeetingPending, userMeetingError } = useGetUserMeeting();
+  const { userInfo, isUserInfoPending, userInfoError } = useGetUserInfo();
 
+  if (isUserInfoPending || isUserMeetingPending || isUserScrapPending) {
+    return <LoadingSvg />;
+  }
+
+  if (userInfoError || userMeetingError || userScrapError) {
+    navigate('/not-found');
+    return null;
+  }
   // TODO: 실제 API에서 사용자의 gathering 수를 가져와야 함
-  const userGatheringCount: number = 3; // 임시로 3개로 설정
+  //const userGatheringCount: number = 3; // 임시로 3개로 설정
 
   const handleMenuClick = (menu: 'post' | 'gathering') => {
     setMenu(menu);
   };
 
   // gathering 수에 따른 스탬프 결정
-  const getCurrentStamp = () => {
-    if (userGatheringCount === 0) return STAMP[0];
-    if (userGatheringCount >= 5) return STAMP[5];
-    return STAMP[userGatheringCount as keyof typeof STAMP];
-  };
+  // const getCurrentStamp = () => {
+  //   if (userGatheringCount === 0) return STAMP[0];
+  //   if (userGatheringCount >= 5) return STAMP[5];
+  //   return STAMP[userGatheringCount as keyof typeof STAMP];
+  // };
 
   const currentStamp = STAMP[0];
 
@@ -60,8 +76,8 @@ export default function User() {
           <Ic_user_solid className={styles.userInfoImage} />
         </div>
         <div className={styles.userInfoTextContainer}>
-          <p className={styles.userInfoName}>{userProfileMockup.name}</p>
-          <p>{userProfileMockup.phoneNumber}</p>
+          <p className={styles.userInfoName}>{userInfo?.name}</p>
+          <p>{userInfo?.phoneNumber}</p>
         </div>
       </div>
       <div className={styles.userStampContainer}>
@@ -83,9 +99,44 @@ export default function User() {
         </p>
       </div>
       <div>
-        {
-          //todo: 게시물 스크랩 목록 or 내가 만든 모임 목록 출력
-        }
+        {menu === 'post' ? (
+          <div className={styles.userPostContainer}>
+            {userScrap?.content.map(item => (
+              <PostCard
+                writerId={item.writerId}
+                key={item.postId}
+                postId={item.postId}
+                title={item.title}
+                content={item.content}
+                imageUrl={item.imageUrl}
+                grade={item.grade}
+                affiliation={item.affiliation}
+                part={item.part}
+                topic={item.topic}
+                createdAt={item.createdAt}
+                commentCount={item.commentCount}
+                writerName={item.writerName}
+              />
+            ))}
+            <p>게시물 스크랩</p>
+          </div>
+        ) : (
+          <div className={styles.userGatheringContainer}>
+            {userMeeting?.content.map(item => (
+              <GatheringCard
+                key={item.meetingId}
+                meetingId={item.meetingId}
+                hostName={item.hostName}
+                meetingName={item.meetingName}
+                recruitNumber={item.recruitNumber}
+                currentRecruitCount={item.currentRecruitCount}
+                category={item.category}
+                status={item.status}
+                imageUrl={item.imageUrl}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

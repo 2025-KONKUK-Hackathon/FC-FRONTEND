@@ -162,3 +162,12 @@ export const userMenu = recipe({
     },
   },
 });
+
+export const userPostContainer = style({
+  width: '100%',
+  height: '100%',
+});
+export const userGatheringContainer = style({
+  width: '100%',
+  height: '100%',
+});

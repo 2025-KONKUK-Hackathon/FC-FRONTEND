@@ -1,9 +1,7 @@
-import PostListItem from './components/PostListItem';
 import StudentCouncilListItem from './components/StudentCouncilListItem';
-import CreatePostButton from "@shared/components/button/createPost/CreatePostButton";
+import CreatePostButton from '@shared/components/button/createPost/CreatePostButton';
 import DropDown from '@shared/components/dropDown/DropDown';
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
 import * as styles from './PostList.css';
 import {
   PART_FILTER_OPTIONS,
@@ -11,13 +9,10 @@ import {
   TOPIC_FILTER_OPTIONS,
   AFFILIATION_FILTER_OPTIONS,
 } from './constant/FilterOptions';
-import { ROUTES } from "@router/constant/Routes";
-import { generalPostsDummy } from './constant/GeneralPostsDummy';
 import { studentCouncilPostsDummy } from './constant/StudentCouncilPostsDummy';
+import { ROUTES } from '@router/constant/Routes';
 
 export default function PostList() {
-  const navigate = useNavigate();
-
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -139,22 +134,7 @@ export default function PostList() {
         </div>
       </div>
 
-      <div className={styles.generalPostsSection}>
-        {generalPostsDummy.map(post => (
-          <PostListItem
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            content={post.content}
-            imageUrl={post.imageUrl}
-            categories={post.categories}
-            createdAt={post.createdAt}
-            commentCount={post.commentCount}
-            authorName={post.authorName}
-            onClick={(id) => navigate(`/posts/detail/${id}`)}
-          />
-        ))}
-      </div>
+      <div className={styles.generalPostsSection}></div>
 
       <div className={styles.createButtonWrapper}>
         <CreatePostButton to={ROUTES.POSTS.CREATE} />
