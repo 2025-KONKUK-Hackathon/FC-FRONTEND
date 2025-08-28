@@ -16,6 +16,7 @@ export interface UserMeetingResponse {
       meetingId: number;
       hostName: string;
       meetingName: string;
+      content: string;
       recruitNumber: number;
       currentRecruitCount: number;
       category: Subject;
