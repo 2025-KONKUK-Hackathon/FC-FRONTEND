@@ -50,12 +50,17 @@ export default function PostDetail() {
 
   const handleAddCommentClick = () => {
     // 댓글 작성
-    addCommentMutation.mutate({ postId, content: commentContent });
-    setCommentContent('');
+    const content = commentContent.trim();
+    if (!postId || !content) return;
+    addCommentMutation.mutate(
+      { postId, content },
+      { onSuccess: () => setCommentContent('') }
+    );
   };
 
   const handleScrapClick = () => {
     // 게시글 스크랩
+    if (!postId || postDetail?.isScrapped) return;
     scrapPostMutation.mutate(postId);
   };
 
@@ -66,8 +71,9 @@ export default function PostDetail() {
 
   const handleDeletePostClick = () => {
     // 게시글 삭제
-    if (isAuthor && postDetail) {
-      deletePostMutation.mutate(postId);
+    if (!isAuthor || !postDetail) return;
+    if (window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+      deletePostMutation.mutate(postId, { onSuccess: () => navigator(-1) });
     }
   };
 
@@ -146,26 +152,26 @@ export default function PostDetail() {
         </div>
 
         <div className={styles.keywordsContainer}>
-          {postDetail?.grade && (
+          {postDetail && postDetail.grade !== undefined && (
             <Category
-              text={GRADE_CATEGORY[postDetail?.grade].text}
-              icon={GRADE_CATEGORY[postDetail?.grade].icon}
-              color={GRADE_CATEGORY[postDetail?.grade].color}
+              text={GRADE_CATEGORY[postDetail.grade].text}
+              icon={GRADE_CATEGORY[postDetail.grade].icon}
+              color={GRADE_CATEGORY[postDetail.grade].color}
               size="medium"
             />
           )}
           {postDetail?.affiliation && (
-            <Category text={AFFILIATION[postDetail?.affiliation]} icon="💻" color="Yellow" size="medium" />
+            <Category text={AFFILIATION[postDetail.affiliation]} icon="💻" color="Yellow" size="medium" />
           )}
-          {postDetail?.part && (
+          {postDetail && postDetail.part !== undefined && (
             <Category
-              text={PART_CATEGORY[postDetail?.part].text}
-              icon={PART_CATEGORY[postDetail?.part].icon}
+              text={PART_CATEGORY[postDetail.part].text}
+              icon={PART_CATEGORY[postDetail.part].icon}
               color={PART_CATEGORY[postDetail.part].color}
               size="medium"
             />
           )}
-          {postDetail?.topic && (
+          {postDetail && postDetail.topic !== undefined && (
             <Category
               text={SUBJECT_CATEGORY[postDetail.topic].text}
               icon={SUBJECT_CATEGORY[postDetail.topic].icon}
@@ -270,7 +276,7 @@ export default function PostDetail() {
             text="등록" 
             size="medium" 
             onClick={handleAddCommentClick}
-            disabled={addCommentMutation.isPending}
+            disabled={addCommentMutation.isPending || commentContent.trim().length === 0}
           />
         </div>
       </div>

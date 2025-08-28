@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
 import { request } from '@api/request';
 import { POST_KEY } from '@shared/constant/queryKey';
 import { HTTPMethod } from '@api/request';
@@ -7,7 +8,6 @@ import type {
   PostCommentResponse,
   PostDetailResponse
 } from '../types/postTypes';
-import type { BaseResponse } from '@api/types';
 
 export const usePostMutations = (postId: number | undefined) => {
   const queryClient = useQueryClient();
@@ -15,7 +15,7 @@ export const usePostMutations = (postId: number | undefined) => {
   // 댓글 작성
   const addCommentMutation = useMutation({
     mutationFn: (data: AddCommentRequest) =>
-      request<BaseResponse<PostCommentResponse>>({
+      request<PostCommentResponse>({
         method: HTTPMethod.POST,
         url: '/posts/comments',
         body: {
@@ -23,13 +23,13 @@ export const usePostMutations = (postId: number | undefined) => {
           content: data.content,
         },
       }),
-      onMutate: async () => {
+      onMutate: async (variables) => {
         await queryClient.cancelQueries({
-          queryKey: POST_KEY.POST_COMMENTS(postId || 0),
+          queryKey: POST_KEY.POST_COMMENTS(variables.postId),
         });
 
         queryClient.setQueryData(
-          POST_KEY.POST_DETAIL(postId || 0),
+          POST_KEY.POST_DETAIL(variables.postId),
           (old: PostDetailResponse | undefined) => {
             if (!old) return old;
             return {
@@ -39,9 +39,9 @@ export const usePostMutations = (postId: number | undefined) => {
           }
         );
       },
-      onSuccess: () => {
+      onSuccess: (_data, variables) => {
         queryClient.invalidateQueries({
-          queryKey: POST_KEY.POST_COMMENTS(postId || 0),
+          queryKey: POST_KEY.POST_COMMENTS(variables.postId),
         });
       },
     }
@@ -50,7 +50,7 @@ export const usePostMutations = (postId: number | undefined) => {
   // 게시글 스크랩
   const scrapPostMutation = useMutation({
     mutationFn: (postId: number) =>
-      request<BaseResponse<object>>({
+      request<void>({
         method: HTTPMethod.POST,
         url: '/posts/scraps',
         query: {
@@ -61,24 +61,24 @@ export const usePostMutations = (postId: number | undefined) => {
       await queryClient.cancelQueries({
         queryKey: POST_KEY.POST_DETAIL(variables),
       });
-      const previousPostDetail = queryClient.getQueryData(POST_KEY.POST_DETAIL(variables));
+      const previousPostDetail = queryClient.getQueryData<PostDetailResponse>(POST_KEY.POST_DETAIL(variables));
       queryClient.setQueryData(POST_KEY.POST_DETAIL(variables), (old: PostDetailResponse | undefined) => {
         if (!old) return old;
         return {
           ...old,
-          isScraped: true,
+          isScrapped: true,
         };
       });
       return { previousPostDetail };
     },
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: POST_KEY.POST_DETAIL(postId || 0),
+        queryKey: POST_KEY.POST_DETAIL(variables),
       });
     },
-    onError: (_err, _variables, context) => {
+    onError: (_err, variables, context) => {
       if (context?.previousPostDetail) {
-        queryClient.setQueryData(POST_KEY.POST_DETAIL(postId || 0), context.previousPostDetail);
+        queryClient.setQueryData(POST_KEY.POST_DETAIL(variables), context.previousPostDetail);
       }
     },
   });
@@ -86,7 +86,7 @@ export const usePostMutations = (postId: number | undefined) => {
   // 댓글 삭제
   const deleteCommentMutation = useMutation({
     mutationFn: (commentId: number) =>
-      request<BaseResponse<object>>({
+      request<void>({
         method: HTTPMethod.DELETE,
         url: `/posts/comments/${commentId}`,
       }),
@@ -94,14 +94,26 @@ export const usePostMutations = (postId: number | undefined) => {
       await queryClient.cancelQueries({
         queryKey: POST_KEY.POST_COMMENTS(postId || 0),
       });
-      const previousComments = queryClient.getQueryData(POST_KEY.POST_COMMENTS(postId || 0));
-      queryClient.setQueryData(POST_KEY.POST_COMMENTS(postId || 0), (old: PostCommentResponse | undefined) => {
+      const previousComments = queryClient.getQueryData<InfiniteData<PostCommentResponse>>(POST_KEY.POST_COMMENTS(postId || 0));
+      queryClient.setQueryData(POST_KEY.POST_COMMENTS(postId || 0), (old: InfiniteData<PostCommentResponse> | undefined) => {
         if (!old) return old;
         return {
           ...old,
-          content: old.content.filter(comment => comment.commentId !== variables),
+          pages: old.pages.map((page) => ({
+            ...page,
+            content: page.content.filter(comment => comment.commentId !== variables),
+          }))
         };
       });
+
+      queryClient.setQueryData(POST_KEY.POST_DETAIL(postId || 0), (old: PostDetailResponse | undefined) => {
+        if (!old) return old;
+        return {
+          ...old,
+          commentCount: Math.max(old.commentCount - 1, 0)
+        };
+      });
+
       return { previousComments };
     },
     onSuccess: () => {
@@ -119,7 +131,7 @@ export const usePostMutations = (postId: number | undefined) => {
   // 게시글 삭제
   const deletePostMutation = useMutation({
     mutationFn: (postId: number) =>
-      request<BaseResponse<object>>({
+      request<void>({
         method: HTTPMethod.DELETE,
         url: `/posts/${postId}`,
       }),
@@ -127,24 +139,17 @@ export const usePostMutations = (postId: number | undefined) => {
       await queryClient.cancelQueries({
         queryKey: POST_KEY.POST_DETAIL(variables),
       });
-      const previousPostDetail = queryClient.getQueryData(POST_KEY.POST_DETAIL(variables));
-      queryClient.setQueryData(POST_KEY.POST_DETAIL(variables), (old: PostDetailResponse | undefined) => {
-        if (!old) return old;
-        return {
-          ...old,
-          isDeleted: true,
-        };
-      });
+      const previousPostDetail = queryClient.getQueryData<PostDetailResponse>(POST_KEY.POST_DETAIL(variables));
       return { previousPostDetail };
     },
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: POST_KEY.POST_DETAIL(postId || 0),
+        queryKey: POST_KEY.POST_DETAIL(variables),
       });
     },
-    onError: (_err, _variables, context) => {
+    onError: (_err, variables, context) => {
       if (context?.previousPostDetail) {
-        queryClient.setQueryData(POST_KEY.POST_DETAIL(postId || 0), context.previousPostDetail);
+        queryClient.setQueryData(POST_KEY.POST_DETAIL(variables), context.previousPostDetail);
       }
     },
   });

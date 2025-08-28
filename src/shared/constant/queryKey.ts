@@ -17,11 +17,11 @@ export const USER_KEY = {
 } as const;
 
 export const POST_KEY = {
-  ALL: ["post"],
-  POST_LIST: () => [...POST_KEY.ALL, "list"],
-  POST_DETAIL: (id: number) => [...POST_KEY.ALL, id],
+  ALL: ['post'],
+  POST_LIST: () => [...POST_KEY.ALL, 'list'],
+  POST_DETAIL: (id: number) => [...POST_KEY.ALL, 'detail', id],
   POST_COMMENTS: (id: number) => [
     ...POST_KEY.POST_DETAIL(id),
-    "comments"
+    'comments'
   ],
 } as const;
