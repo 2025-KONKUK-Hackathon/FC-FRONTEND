@@ -1,14 +1,16 @@
-import CreatePostButton from "@shared/components/button/createPost/CreatePostButton";
-import PostListItem from "./components/PostListItem";
-import StudentCouncilListItem from "./components/StudentCouncilListItem";
-import { generalPostsDummy } from "./constant/GeneralPostsDummy";
-import { studentCouncilPostsDummy } from "./constant/StudentCouncilPostsDummy";
-import * as styles from "./PostList.css";
-import { useNavigate } from "react-router-dom";
-import { useSlideIndicator } from "./hooks/useSlideIndicator";
-import { ROUTES } from "@router/constant/Routes";
+import CreatePostButton from '@shared/components/button/createPost/CreatePostButton';
+import PostListItem from './components/PostListItem';
+import StudentCouncilListItem from './components/StudentCouncilListItem';
+import { generalPostsDummy } from './constant/GeneralPostsDummy';
+import { studentCouncilPostsDummy } from './constant/StudentCouncilPostsDummy';
+import * as styles from './PostList.css';
+import { useNavigate } from 'react-router-dom';
+import { useSlideIndicator } from './hooks/useSlideIndicator';
+import { ROUTES } from '@router/constant/Routes';
+import { usePostList } from './hooks/usePostList';
+import LoadingSvg from '@shared/components/loading/Loading';
 
-export default function PostList() {
+function PostListPage() {
   const navigator = useNavigate();
 
   const totalSlides = studentCouncilPostsDummy.length;
@@ -26,7 +28,7 @@ export default function PostList() {
           <span>공지사항</span>
         </div>
         <div className={styles.studentCouncilContainer} ref={containerRef}>
-          {studentCouncilPostsDummy.map((post) => (
+          {studentCouncilPostsDummy.map(post => (
             <StudentCouncilListItem
               key={post.id}
               id={post.id}
@@ -37,9 +39,7 @@ export default function PostList() {
               createdAt={post.createdAt}
               commentCount={post.commentCount}
               authorName={post.authorName}
-              onClick={(id) =>
-                console.log(`Student Council Post ${id} clicked`)
-              }
+              onClick={id => console.log(`Student Council Post ${id} clicked`)}
             />
           ))}
         </div>
@@ -49,7 +49,7 @@ export default function PostList() {
             <button
               key={index}
               className={`${styles.slideIndicator} ${
-                index === currentSlide ? styles.slideIndicatorActive : ""
+                index === currentSlide ? styles.slideIndicatorActive : ''
               }`}
               onClick={() => handleIndicatorClick(index)}
             />
@@ -58,7 +58,7 @@ export default function PostList() {
       </div>
 
       <div className={styles.generalPostsSection}>
-        {generalPostsDummy.map((post) => (
+        {generalPostsDummy.map(post => (
           <PostListItem
             key={post.id}
             id={post.id}
@@ -69,7 +69,7 @@ export default function PostList() {
             createdAt={post.createdAt}
             commentCount={post.commentCount}
             authorName={post.authorName}
-            onClick={(id) => navigator(`/posts/detail/${id}`)}
+            onClick={id => navigator(`/posts/detail/${id}`)}
           />
         ))}
       </div>
@@ -79,4 +79,20 @@ export default function PostList() {
       </div>
     </div>
   );
+}
+
+export default function PostList() {
+  const { postListResult, isPostListPending, postListError } = usePostList();
+  const navigate = useNavigate();
+
+  if (isPostListPending) {
+    return <LoadingSvg />;
+  }
+
+  if (postListError) {
+    navigate('/not-found');
+    return null;
+  }
+
+  return <PostListPage />;
 }

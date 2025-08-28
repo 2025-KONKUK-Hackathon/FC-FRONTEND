@@ -1,21 +1,42 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { request } from '@api/request';
 import { HTTPMethod } from '@api/request';
 import { type PostListData } from '../types/postList';
 
-export const usePostList = (cursorId: number, size = 10) => {
+export const usePostList = (size = 10) => {
   const {
-    data: postList,
+    data,
     isPending: isPostListPending,
     error: postListError,
-  } = useQuery({
-    queryKey: ['PostList'], // todo: types에 쿼리키 설정
-    queryFn: () =>
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['PostList', size], // todo: types에 쿼리키 설정
+    queryFn: ({ pageParam = 0 }) =>
       request<PostListData>({
         method: HTTPMethod.GET,
-        url: `/posts?cursorId=${cursorId}&size=${size}`,
+        url: `/posts?cursorId=${pageParam}&size=${size}`,
       }),
+    getNextPageParam: (lastPage) => {
+      // lastPage: 서버에서 내려온 응답(PostListData 타입)
+      return lastPage.isLast ? undefined : lastPage.nextCursor;
+    },
+    initialPageParam: 0,
   });
 
-  return { postList, isPostListPending, postListError };
+  // 모든 페이지의 content를 하나의 배열로 합침
+  const postListResult = data ? {
+    content: data.pages.flatMap(page => page.content),
+    isLast: data.pages[data.pages.length - 1]?.isLast ?? true,
+  } : undefined;
+
+  return {
+    postListResult, 
+    isPostListPending, 
+    postListError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  };
 };
