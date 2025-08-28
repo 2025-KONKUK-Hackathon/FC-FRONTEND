@@ -28,3 +28,8 @@ export interface PostCommentResponse {
   nextCursor: number;
   isLast: boolean;
 }
+
+export interface AddCommentRequest {
+  postId: number;
+  content: string;
+}

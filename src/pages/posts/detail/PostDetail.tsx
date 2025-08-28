@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as styles from './PostDetail.css';
 import Category from '@shared/components/category/Category';
@@ -21,6 +21,7 @@ import { AFFILIATION } from './constant/PostKeyword';
 import type { PostDetailResponse } from './types/postTypes';
 import { postDetailMock } from './constant/PostDetailDummy';
 import { usePostDetail, useCommentsDetail } from './hooks/usePostDetail';
+import usePostMutations from './hooks/usePostMutations';
 
 export default function PostDetail() {
   const navigator = useNavigate();
@@ -31,17 +32,45 @@ export default function PostDetail() {
 
   const handleDeleteClick = () => {
     // 게시글 삭제
-    alert('게시글을 삭제합니다.');
-    navigator(-1);
+    if (window.confirm('정말로 게시글을 삭제하시겠습니까?')) {
+      deletePostMutation.mutate(undefined, {
+        onSuccess: () => {
+          alert('게시글이 삭제되었습니다.');
+          navigator(-1);
+        },
+      });
+    }
   };
 
   const handleScrapClick = () => {
     // 게시글 스크랩
-    setScrapped(!scrapped);
+    scrapPostMutation.mutate(undefined, {
+      onSuccess: () => {
+        setScrapped(!scrapped);
+        alert('게시글이 스크랩되었습니다.');
+      },
+    });
   };
 
   const handleAddCommentClick = () => {
     // 댓글 추가
+    if (!commentContent.trim()) {
+      alert('댓글 내용을 입력해주세요.');
+      return;
+    }
+
+    addCommentMutation.mutate(
+      {
+        postId,
+        content: commentContent,
+      },
+      {
+        onSuccess: () => {
+          setCommentContent('');
+          alert('댓글이 작성되었습니다.');
+        },
+      }
+    );
   };
 
   const handleScrollLeft = () => {
@@ -56,35 +85,45 @@ export default function PostDetail() {
     }
   };
 
-  const checkScrollPosition = () => {
-    if (imageContainerRef) {
-      const { scrollLeft, scrollWidth, clientWidth } = imageContainerRef;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
-
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<PostDetailResponse | null>(null);
   const [scrapped, setScrapped] = useState<boolean>(false);
   const [imageContainerRef, setImageContainerRef] = useState<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [commentContent, setCommentContent] = useState<string>('');
+
+  const checkScrollPosition = useCallback(() => {
+    if (imageContainerRef) {
+      const { scrollLeft, scrollWidth, clientWidth } = imageContainerRef;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  }, [imageContainerRef]);
 
   // 예시: 현재 로그인한 사용자의 ID
   const currentUserId = 123;
   const isAuthor = post ? currentUserId === post.writerId : false;
 
+  const postId = id ? Number(id) : 0;
+  
   const {
     data: postDetailData,
-    isLoading: isPostLoading,
-    error: postError,
-  } = usePostDetail(id ? Number(id) : 0);
+    // isLoading: isPostLoading,
+    // error: postError,
+  } = usePostDetail(postId);
   const {
     data: postCommentsData,
-    isLoading: isCommentsLoading,
-    error: commentsError,
-  } = useCommentsDetail(id ? Number(id) : 0, 0, 10);
+    // isLoading: isCommentsLoading,
+    // error: commentsError,
+  } = useCommentsDetail(postId, 0, 10);
+
+  // 뮤테이션 훅 사용
+  const {
+    addCommentMutation,
+    scrapPostMutation,
+    deletePostMutation,
+  } = usePostMutations(postId);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -95,7 +134,7 @@ export default function PostDetail() {
       }
     };
     fetchPost();
-  }, [id]);
+  }, [id, postDetailData]);
 
   useEffect(() => {
     if (imageContainerRef) {
@@ -105,7 +144,7 @@ export default function PostDetail() {
         imageContainerRef.removeEventListener('scroll', checkScrollPosition);
       };
     }
-  }, [imageContainerRef]);
+  }, [imageContainerRef, checkScrollPosition]);
 
   return (
     <div className={styles.postDetailWrapper}>
@@ -119,11 +158,10 @@ export default function PostDetail() {
             <Ic_trash_white className={styles.headerButton} onClick={handleDeleteClick} />
           ) : (
             <button type="button" onClick={handleScrapClick}>
-              {scrapped ? (
-                <Ic_bookmark_solid className={styles.headerButton} />
-              ) : (
-                <Ic_bookmark className={styles.headerButton} />
-              )}
+              {scrapped 
+                ? <Ic_bookmark_solid className={styles.headerButton} />
+                : <Ic_bookmark className={styles.headerButton} />
+              }
             </button>
           )}
         </div>
@@ -237,9 +275,18 @@ export default function PostDetail() {
 
         <div className={styles.commentInputWrapper}>
           <div className={styles.commentInputContainer}>
-            <Input placeholder="댓글을 입력하세요." />
+            <Input 
+              placeholder="댓글을 입력하세요." 
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.target.value)}
+            />
           </div>
-          <Button text="등록" size="medium" onClick={handleAddCommentClick} />
+          <Button 
+            text="등록" 
+            size="medium" 
+            onClick={handleAddCommentClick}
+            disabled={addCommentMutation.isPending}
+          />
         </div>
       </div>
     </div>
