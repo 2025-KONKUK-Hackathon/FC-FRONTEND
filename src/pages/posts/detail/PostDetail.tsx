@@ -18,7 +18,7 @@ import { formatDate } from './utils/formatDate';
 import { GRADE_CATEGORY } from '@shared/constant/grade';
 import { PART_CATEGORY } from '@shared/constant/part';
 import { SUBJECT_CATEGORY } from '@shared/constant/subject';
-import { AFFILIATION } from './constant/PostKeyword';
+import { AFFILIATION_CATEGORY } from '@shared/constant/affiliation';
 import { usePostDetail } from './hooks/usePostDetail';
 import { usePostMutations } from './hooks/usePostMutations';
 import { useIntersectionObserver } from '@shared/hooks/useIntersectionObserver';
@@ -160,7 +160,7 @@ export default function PostDetail() {
         </div>
 
         <div className={styles.keywordsContainer}>
-          {postDetail && postDetail.grade !== undefined && postDetail.grade !== null && GRADE_CATEGORY[postDetail.grade] && (
+          {postDetail?.grade && GRADE_CATEGORY[postDetail.grade] && (
             <Category
               text={GRADE_CATEGORY[postDetail.grade].text}
               icon={GRADE_CATEGORY[postDetail.grade].icon}
@@ -168,10 +168,15 @@ export default function PostDetail() {
               size="medium"
             />
           )}
-          {postDetail?.affiliation && AFFILIATION[postDetail.affiliation] && (
-            <Category text={AFFILIATION[postDetail.affiliation]} icon="💻" color="Yellow" size="medium" />
+          {postDetail?.affiliation && AFFILIATION_CATEGORY[postDetail.affiliation] && (
+            <Category
+              text={AFFILIATION_CATEGORY[postDetail.affiliation].text}
+              icon={AFFILIATION_CATEGORY[postDetail.affiliation].icon}
+              color={AFFILIATION_CATEGORY[postDetail.affiliation].color}
+              size="medium"
+            />
           )}
-          {postDetail && postDetail.part !== undefined && postDetail.part !== null && PART_CATEGORY[postDetail.part] && (
+          {postDetail?.part && PART_CATEGORY[postDetail.part] && (
             <Category
               text={PART_CATEGORY[postDetail.part].text}
               icon={PART_CATEGORY[postDetail.part].icon}
@@ -179,7 +184,7 @@ export default function PostDetail() {
               size="medium"
             />
           )}
-          {postDetail && postDetail.topic !== undefined && postDetail.topic !== null && SUBJECT_CATEGORY[postDetail.topic] && (
+          {postDetail?.topic && SUBJECT_CATEGORY[postDetail.topic] && (
             <Category
               text={SUBJECT_CATEGORY[postDetail.topic].text}
               icon={SUBJECT_CATEGORY[postDetail.topic].icon}
