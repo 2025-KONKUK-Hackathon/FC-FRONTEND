@@ -110,7 +110,7 @@ export default function CreateGathering() {
             />
           </div>
         </FormSection>
-        <FormSection title="사진을 올려주세요" description="사진 업로드는 선택입니다">
+        <FormSection title="사진을 올려주세요">
           <ImageBtn onChange={handleImageUrlsChange} images={preview} />
         </FormSection>
         <div className={styles.buttonContainer}>
