@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { InfiniteData } from '@tanstack/react-query';
 import { request } from '@api/request';
-import { POSTS_KEY } from '@shared/constant/queryKey';
+import { POSTS_KEY, USER_KEY } from '@shared/constant/queryKey';
 import { HTTPMethod } from '@api/request';
 import type {
   AddCommentRequest,
@@ -78,6 +78,10 @@ export const usePostMutations = (postId: string) => {
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
         queryKey: POSTS_KEY.POSTS_DETAIL(variables),
+      });
+      // 스크랩한 게시글 목록도 invalidate
+      queryClient.invalidateQueries({
+        queryKey: USER_KEY.USER_SCRAP(),
       });
     },
     onError: (_err, variables, context) => {
