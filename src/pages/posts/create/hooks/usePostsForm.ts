@@ -9,7 +9,7 @@ import { removeQueryString } from '@shared/utils/removeQueryString';
 export const postsFormSchema = z.object({
   title: z.string().min(1, '제목을 입력해주세요.'),
   content: z.string().min(1, '설명을 입력해주세요.'),
-  imageUrls: z.array(z.string().min(1, '이미지를 입력해주세요.')),
+  imageUrls: z.array(z.string().min(1, '이미지를 입력해주세요.')).optional(),
   grade: z.string().optional(),
   topic: z.string().optional(),
   part: z.string().optional(),
