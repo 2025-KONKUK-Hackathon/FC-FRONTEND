@@ -1,69 +1,73 @@
-# React + TypeScript + Vite
+<img width="309" height="286" alt="스크린샷 2025-08-30 오후 2 35 52" src="https://github.com/user-attachments/assets/a83eaafd-96ec-49bb-aeb9-c6f70db0fbaa" />
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# feat connect
+건국대학교 컴퓨터공학부 학생들을 **행사 · 프로젝트 · 정보**로 연결하는 플랫폼
 
-Currently, two official plugins are available:
+> “흩어진 학우들을 하나로, 단절을 연결로.”
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 소개
+**feat connect**는 학사 구조 개편과 과 통합 이후 급격히 늘어난 컴퓨터공학부 학생들이 **적응 · 교류 · 참여**에서 겪는 어려움을 해결하기 위해 만든 서비스입니다.  
+과 행사/모임, 프로젝트/스터디, 학사정보/졸업요건 등 **흩어진 접점을 한 곳에 모아** 연결을 돕습니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 문제 인식
+- 새로 유입된 학생(편입/전과/다전공 등)은 **과 내 연결 경험이 부족**합니다.
+- “**같이 갈 사람이 없어서**” 개강·종강 파티 등 과 행사 참여가 **어려움**.
+- **졸업 프로젝트 팀원 모집**마저 힘들어 **학업적 기회**에서도 단절 경험.
+- 학사/졸업/로드맵 등 **필수 정보가 여러 사이트에 분산**되어 **탐색 비용**이 큼.  
+  - 특히 스융공 학생은 졸업요건 확인 경로가 불명확해 **추가 혼란**을 겪음.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+> 인터뷰 발췌  
+> - “컴퓨터공학부에 들어오고 나서 **단절감을 크게 느꼈다**.”  
+> - “학과 학생들과 **친해질 기회가 거의 없고**, 필요한 정보를 **얻기도 어렵다**.”
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 해결책
+**feat connect**는 축제/MT 같은 과 행사부터 프로젝트/스터디까지, 학우들이 **자연스럽게 참여하고 연결**될 수 있는 **하나의 플랫폼**입니다.
+- 게시판에서 **파트/학년/주제**로 정보 필터링
+- 모임·스터디·프로젝트를 **누구나 생성/참여**
+- 졸업요건/로드맵 등 **링크 허브**로 탐색 비용 절감
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+## 핵심 기능
+
+### 1) 게시판
+- **필터링 제공**: 파트(백엔드/프론트/AI 등), 학년, **취업·현장실습** 등 주제별 글을 한눈에.
+- **공지 상단 고정**: 학생회가 기존 **카카오톡방**에만 올리던 공지를 **게시판 최상단**에서 바로 확인.
+
+### 2) 모임
+- **모임/스터디/프로젝트**를 누구나 생성.
+- **선착순 참여**로 진입장벽 최소화.
+- **마이페이지**에서 내가 만든 모임 / 스크랩한 게시물 **한눈에 관리**.
+- 목표: “같이 갈 사람이 없어 포기”를 “같이 가자!”로 전환.
+
+### 3) 링크 허브
+- **졸업요건, 로드맵, 학사 공지** 등 **흩어진 학교 사이트를 한 곳**에.
+- 스융공—컴공 졸업요건 **참조 관계**를 안내하여 **혼란 최소화**.
+- 더 이상 “링크 타고타고” 가지 않아도 필요한 정보를 **즉시 도달**.
+
+---
+
+## 로그인 정책
+- **건국대학교 학생 전용** 서비스 지향.
+- **학교 이메일(도메인 화이트리스트)** 로만 로그인 가능하도록 설계.  
+  예) `@konkuk.ac.kr` (실제 도메인 확인 후 적용)
+
+---
+
+## 데모 / 스크린샷
+
+https://fc-frontend-zeta.vercel.app/login
+
+
+<img width="422" height="941" alt="스크린샷 2025-08-30 오후 2 36 18" src="https://github.com/user-attachments/assets/b03fb8b6-52bf-42cd-8b66-26b83754effd" />
+<img width="420" height="931" alt="스크린샷 2025-08-30 오후 2 36 40" src="https://github.com/user-attachments/assets/1f84c2da-edda-45ec-816b-d9d23d65c58b" />
+<img width="419" height="940" alt="스크린샷 2025-08-30 오후 2 37 02" src="https://github.com/user-attachments/assets/8cad2b34-5345-48ee-99b1-3b3389a1d050" />
+<img width="415" height="940" alt="스크린샷 2025-08-30 오후 2 37 15" src="https://github.com/user-attachments/assets/bbe8fe7b-a563-4caa-9c83-655352d7c463" />
+<img width="419" height="941" alt="스크린샷 2025-08-30 오후 2 37 51" src="https://github.com/user-attachments/assets/a2cb1d7f-45c6-4f3c-b880-99c3410bbd62" />
+<img width="415" height="939" alt="스크린샷 2025-08-30 오후 2 38 04" src="https://github.com/user-attachments/assets/27bbed8c-27c1-45e0-8861-86e41ee9974a" />
